@@ -14,7 +14,7 @@ class Zend extends InstanceInterface
      *
      * @param int $code The status code
      *
-     * @return ResponseInterface | void
+     * @return \Psr\Http\Message\ResponseInterface | void
      */
     public static function response($code = 200)
     {

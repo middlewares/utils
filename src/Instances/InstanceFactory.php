@@ -18,7 +18,7 @@ class InstanceFactory
      *
      * @param int $code The status code
      *
-     * @return \Psr\Http\Message\ResponseInterface
+     * @return \Psr\Http\Message\ResponseInterface | void
      */
     public static function response($code = 200)
     {
@@ -36,7 +36,7 @@ class InstanceFactory
      *
      * @param resource $resource A resource returned by fopen
      *
-     * @return \Psr\Http\Message\Stream
+     * @return \Psr\Http\Message\StreamInterface | void
      */
     public static function stream($resource)
     {

@@ -11,7 +11,7 @@ abstract class InstanceInterface
      *
      * @param int $code The status code
      *
-     * @return ResponseInterface | void
+     * @return \Psr\Http\Message\ResponseInterface | void
      */
     public static function response($code = 200)
     {
@@ -25,7 +25,7 @@ abstract class InstanceInterface
      *
      * @param resource $resource A resource returned by fopen
      *
-     * @return StreamInterface | void
+     * @return \Psr\Http\Message\StreamInterface | void
      */
     public static function stream($resource)
     {
