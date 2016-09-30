@@ -1,0 +1,44 @@
+{
+    "name": "middlewares/utils",
+    "type": "library",
+    "description": "Common utils to create PSR-15 middleware packages",
+    "license": "MIT",
+    "keywords": [
+        "psr-7",
+        "psr-15",
+        "middleware",
+        "http"
+    ],
+    "homepage": "https://github.com/middlewares/utils",
+    "support": {
+        "issues": "https://github.com/middlewares/utils/issues"
+    },
+    "require": {
+        "php": "^5.6 || ^7.0",
+        "psr/http-message": "~1.0",
+        "http-interop/http-factory": "^0.1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.5",
+        "zendframework/zend-diactoros": "^1.3",
+        "friendsofphp/php-cs-fixer": "^1.12",
+        "squizlabs/php_codesniffer": "^2.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Middlewares\\Utils\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Middlewares\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": [
+            "phpunit",
+            "phpcs"
+        ],
+        "cs-fix": "php-cs-fixer fix . --fixers=-psr0"
+    }
+}
