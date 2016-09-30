@@ -1,8 +1,6 @@
 <?php
-
 namespace Middlewares\Utils;
 
-use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Factory\ResponseFactoryInterface;
 use Psr\Http\Factory\StreamFactoryInterface;
 
@@ -46,7 +44,7 @@ abstract class Factory
      *
      * @param int $code The status code
      *
-     * @return ResponseInterface
+     * @return \Psr\Http\Message\ResponseInterface
      */
     public static function createResponse($code = 200)
     {

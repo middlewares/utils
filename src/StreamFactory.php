@@ -1,8 +1,7 @@
 <?php
-
 namespace Middlewares\Utils;
 
-use Psr\Http\Message\StreamInterface;
+use RuntimeException;
 use Psr\Http\Factory\StreamFactoryInterface;
 
 /**
@@ -15,22 +14,14 @@ class StreamFactory implements StreamFactoryInterface
      *
      * @param resource $resource A resource returned by fopen
      *
-     * @return StreamInterface
+     * @return \Psr\Http\Message\StreamInterface
      */
     public function createStream($resource)
     {
-        if (class_exists('Zend\\Diactoros\\Stream')) {
-            return new \Zend\Diactoros\Stream($resource);
+        if ($instance = Instances\InstanceFactory::stream($resource)) {
+            return $instance;
         }
 
-        if (class_exists('GuzzleHttp\\Psr7\\Stream')) {
-            return new \GuzzleHttp\Psr7\Stream($resource);
-        }
-
-        if (class_exists('Slim\\Http\\Stream')) {
-            return new \Slim\Http\Stream($resource);
-        }
-
-        throw new \RuntimeException('Unable to create a stream. No PSR-7 stream library detected');
+        throw new RuntimeException('Unable to create a stream. No PSR-7 stream library detected');
     }
 }
