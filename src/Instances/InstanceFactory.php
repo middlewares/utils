@@ -16,7 +16,7 @@ class InstanceFactory
     /**
      * Return the first available response instance
      *
-     * @param integer $code
+     * @param int $code The status code
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
@@ -34,7 +34,7 @@ class InstanceFactory
     /**
      * Return the first available stream instance
      *
-     * @param integer $code
+     * @param resource $resource A resource returned by fopen
      *
      * @return \Psr\Http\Message\Stream
      */
