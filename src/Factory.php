@@ -3,8 +3,11 @@
 namespace Middlewares\Utils;
 
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\StreamInterface;
+use Psr\Http\Message\UriInterface;
 use Psr\Http\Factory\ResponseFactoryInterface;
 use Psr\Http\Factory\StreamFactoryInterface;
+use Psr\Http\Factory\UriFactoryInterface;
 
 /**
  * Simple class to create instances of PSR-7 classes.
@@ -20,6 +23,11 @@ abstract class Factory
      * @var StreamFactoryInterface
      */
     private static $streamFactory;
+
+    /**
+     * @var UriFactoryInterface
+     */
+    private static $uriFactory;
 
     /**
      * Set a custom responseFactory.
@@ -39,6 +47,16 @@ abstract class Factory
     public static function setStreamFactory(StreamFactoryInterface $streamFactory)
     {
         self::$streamFactory = $streamFactory;
+    }
+
+    /**
+     * Set a custom uriFactory.
+     *
+     * @param UriFactoryInterface $uriFactory
+     */
+    public static function setUriFactory(UriFactoryInterface $uriFactory)
+    {
+        self::$uriFactory = $uriFactory;
     }
 
     /**
@@ -75,5 +93,21 @@ abstract class Factory
         }
 
         return self::$streamFactory->createStream($resource);
+    }
+
+    /**
+     * Creates an Uri instance.
+     *
+     * @param string $uri
+     *
+     * @return UriInterface
+     */
+    public static function createUri($uri = '')
+    {
+        if (self::$uriFactory === null) {
+            self::$uriFactory = new UriFactory();
+        }
+
+        return self::$uriFactory->createUri($uri);
     }
 }

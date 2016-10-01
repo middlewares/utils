@@ -21,4 +21,13 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Psr\\Http\\Message\\StreamInterface', $stream);
         $this->assertInstanceOf('Zend\\Diactoros\\Stream', $stream);
     }
+
+    public function testUri()
+    {
+        $uri = Factory::createUri('http://example.com/my-path');
+
+        $this->assertInstanceOf('Psr\\Http\\Message\\UriInterface', $uri);
+        $this->assertInstanceOf('Zend\\Diactoros\\Uri', $uri);
+        $this->assertEquals('/my-path', $uri->getPath());
+    }
 }
