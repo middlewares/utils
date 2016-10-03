@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.3.1 - 2016-10-03
+
+### Fixed
+* Bug in CallableHandler that resolve to the declaring class of a method instead the final class.
+
 ## 0.3.0 - 2016-10-03
 
 ### Added

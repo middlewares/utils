@@ -5,6 +5,7 @@ namespace Middlewares\Utils;
 use Psr\Http\Message\ResponseInterface;
 use RuntimeException;
 use ReflectionMethod;
+use ReflectionClass;
 
 /**
  * Simple class to execute callables and returns responses
@@ -32,7 +33,7 @@ abstract class CallableHandler
                 $refMethod = new ReflectionMethod($class, $method);
 
                 if (!$refMethod->isStatic()) {
-                    $refClass = $refMethod->getDeclaringClass();
+                    $refClass = new ReflectionClass($class);
 
                     if ($refClass->hasMethod('__construct')) {
                         $instance = $refClass->newInstanceArgs($args);
