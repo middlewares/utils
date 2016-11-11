@@ -3,7 +3,7 @@
 namespace Middlewares\Utils;
 
 use Psr\Http\Message\StreamInterface;
-use Psr\Http\Factory\StreamFactoryInterface;
+use Interop\Http\Factory\StreamFactoryInterface;
 
 /**
  * Simple class to create instances of PSR-7 streams.

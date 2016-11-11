@@ -3,7 +3,7 @@
 namespace Middlewares\Utils;
 
 use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Factory\ResponseFactoryInterface;
+use Interop\Http\Factory\ResponseFactoryInterface;
 
 /**
  * Simple class to create response instances of PSR-7 classes.

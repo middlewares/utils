@@ -3,7 +3,7 @@
 namespace Middlewares\Utils;
 
 use Psr\Http\Message\UriInterface;
-use Psr\Http\Factory\UriFactoryInterface;
+use Interop\Http\Factory\UriFactoryInterface;
 
 /**
  * Simple class to create instances of PSR-7 uri.
