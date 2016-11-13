@@ -18,7 +18,7 @@ use Middlewares\Utils\Factory;
 
 $response = Factory::createResponse();
 $stream = Factory::createStream();
-$uri = Factory::createStream('http://example.com');
+$uri = Factory::createUri('http://example.com');
 
 //Register other factory
 Factory::setResponseFactory(new FooResponseFactory());
