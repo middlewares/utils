@@ -8,7 +8,7 @@ use ReflectionMethod;
 use ReflectionClass;
 
 /**
- * Simple class to execute callables and returns responses
+ * Simple class to execute callables and returns responses.
  */
 abstract class CallableHandler
 {

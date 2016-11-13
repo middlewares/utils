@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.4.0 - 2016-11-13
+
+### Changed
+* Updated `http-interop/http-factory` to `0.2`
+
 ## 0.3.1 - 2016-10-03
 
 ### Fixed

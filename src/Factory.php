@@ -89,10 +89,10 @@ abstract class Factory
         }
 
         if ($resource === null) {
-            $resource = fopen('php://temp', 'r+');
+            return self::$streamFactory->createStream();
         }
 
-        return self::$streamFactory->createStream($resource);
+        return self::$streamFactory->createStreamFromResource($resource);
     }
 
     /**
