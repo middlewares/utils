@@ -7,7 +7,38 @@
 [![Total Downloads][ico-downloads]][link-downloads]
 [![SensioLabs Insight][ico-sensiolabs]][link-sensiolabs]
 
-Common utils used by the middlewares' packages
+Common utilities used by the middlewares' packages:
+
+## Factory
+
+Used to create psr-7 instances of `ResponseInterface`, `StreamInterface` and `UriInterface`. Detects automatically [Diactoros](https://github.com/zendframework/zend-diactoros), [Guzzle](https://github.com/guzzle/psr7) and [Slim](https://github.com/slimphp/Slim) but you can register a different factory using the [http-interop/http-factory](https://github.com/http-interop/http-factory) interface.
+
+```php
+use Middlewares\Utils\Factory;
+
+$response = Factory::createResponse();
+$stream = Factory::createStream();
+$uri = Factory::createStream('http://example.com');
+
+//Register other factory
+Factory::setResponseFactory(new FooResponseFactory());
+
+$fooResponse = Factory::createResponse();
+```
+
+## CallableHandler
+
+To execute a callable and returns a response with the output. Useful to handle routes, etc:
+
+```php
+use Middlewares\Utils\CallableHandler;
+
+$response = CallableHandler::execute(function () {
+    echo 'Hello world';
+});
+
+echo $response->getBody(); //Hello world
+```
 
 ---
 
