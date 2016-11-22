@@ -21,6 +21,11 @@ class Delegate implements DelegateInterface
         $this->callback = $callback;
     }
 
+    /**
+     * @param RequestInterface $request
+     *
+     * @return ResponseInterface
+     */
     public function process(RequestInterface $request)
     {
         return call_user_func($this->callback, $request);
