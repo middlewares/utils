@@ -28,7 +28,7 @@ $fooResponse = Factory::createResponse();
 
 ## CallableHandler
 
-To execute a callable and returns a response with the output. Useful to handle routes, etc:
+To execute a callable and return a response with the output. Useful to handle routes, etc:
 
 ```php
 use Middlewares\Utils\CallableHandler;
@@ -40,6 +40,43 @@ $response = CallableHandler::execute(function () {
 echo $response->getBody(); //Hello world
 ```
 
+## Dispatcher
+
+Minimalist PSR-15 compatible dispatcher.
+
+```php
+use Middlewares\Utils\Dispatcher;
+
+$dispatcher = new Dispatcher([
+    new Middleware1(),
+    new Middleware2(),
+    new Middleware3(),
+]);
+
+$response = $dispatcher->dispatch(new Request());
+```
+
+## CallableMiddleware
+
+A simple way to create middlewares using callables. Internally uses [CallableHandler](#callablehandler) so you can use `echo` or return `string` in the callables (the response is created automatically if it's not returned).
+
+```php
+use Middlewares\Utils\Dispatcher;
+use Middlewares\Utils\CallableMiddleware;
+
+$dispatcher = new Dispatcher([
+    new CallableMiddleware(function ($request, $delegate) {
+        $response = $delegate->process($request);
+
+        return $response->withHeader('Content-Type', 'text/html');
+    }),
+    new CallableMiddleware(function ($request, $delegate) {
+        echo '<h1>Hello world</h1>';
+    }),
+]);
+
+$response = $dispatcher->dispatch(new Request());
+```
 ---
 
 Please see [CHANGELOG](CHANGELOG.md) for more information about recent changes and [CONTRIBUTING](CONTRIBUTING.md) for contributing details.

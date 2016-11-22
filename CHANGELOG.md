@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.5.0 - 2016-11-22
+
+### Added
+
+* `Middlewares\Utils\CallableMiddleware` class, to create middlewares from callables
+* `Middlewares\Utils\Dispatcher` class, to execute the middleware stack and return a response.
+
 ## 0.4.0 - 2016-11-13
 
 ### Changed
