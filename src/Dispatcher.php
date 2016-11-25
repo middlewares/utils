@@ -8,12 +8,17 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use LogicException;
 
-class Dispatcher
+class Dispatcher implements ServerMiddlewareInterface
 {
     /**
      * @var ServerMiddlewareInterface[]
      */
     private $stack;
+
+    /**
+     * @var DeletageInterface|null
+     */
+    private $delegate;
 
     /**
      * @param ServerMiddlewareInterface[] $stack middleware stack (with at least one middleware component)
@@ -40,6 +45,23 @@ class Dispatcher
     }
 
     /**
+     * Process a server request and return a response.
+     *
+     * @param ServerRequestInterface $request
+     * @param DelegateInterface      $delegate
+     *
+     * @return ResponseInterface
+     */
+    public function process(ServerRequestInterface $request, DelegateInterface $delegate)
+    {
+        $this->delegate = $delegate;
+        $response = $this->dispatch($request);
+        $this->delegate = null;
+
+        return $response;
+    }
+
+    /**
      * @param int $index middleware stack index
      *
      * @return DelegateInterface
@@ -58,6 +80,10 @@ class Dispatcher
 
                 return $result;
             });
+        }
+
+        if ($this->delegate !== null) {
+            return $this->delegate;
         }
 
         return new Delegate(function () {
