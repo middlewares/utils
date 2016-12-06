@@ -16,9 +16,26 @@ class Dispatcher
     private $stack;
 
     /**
+     * Static helper to create and dispatch a request.
+     *
+     * @param ServerMiddlewareInterface[]
+     * @param ServerRequestInterface|null $request
+     *
+     * @return ResponseInterface
+     */
+    public static function run(array $stack, ServerRequestInterface $request = null)
+    {
+        if ($request === null) {
+            $request = Factory::createServerRequest();
+        }
+
+        return (new static($stack))->dispatch($request);
+    }
+
+    /**
      * @param ServerMiddlewareInterface[] $stack middleware stack (with at least one middleware component)
      */
-    public function __construct($stack)
+    public function __construct(array $stack)
     {
         assert(count($stack) > 0);
 
