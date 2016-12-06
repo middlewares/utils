@@ -15,7 +15,13 @@ class ServerRequestFactory implements ServerRequestFactoryInterface
     public function createServerRequest(array $server, $method = null, $uri = null)
     {
         if (class_exists('Zend\\Diactoros\\ServerRequest')) {
-            return new \Zend\Diactoros\ServerRequest($server, [], (string) $uri, $method);
+            return new \Zend\Diactoros\ServerRequest(
+                $server,
+                [],
+                (string) $uri,
+                $method,
+                new \Zend\Diactoros\Stream(fopen('php://temp', 'r+'))
+            );
         }
 
         if (class_exists('GuzzleHttp\\Psr7\\ServerRequest')) {

@@ -12,6 +12,8 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('Psr\\Http\\Message\\ResponseInterface', $response);
         $this->assertInstanceOf('Zend\\Diactoros\\Response', $response);
+        $this->assertTrue($response->getBody()->isWritable());
+        $this->assertTrue($response->getBody()->isSeekable());
     }
 
     public function testStream()
@@ -20,6 +22,8 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('Psr\\Http\\Message\\StreamInterface', $stream);
         $this->assertInstanceOf('Zend\\Diactoros\\Stream', $stream);
+        $this->assertTrue($stream->isWritable());
+        $this->assertTrue($stream->isSeekable());
     }
 
     public function testUri()
@@ -36,8 +40,10 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $request = Factory::createServerRequest([]);
 
         $this->assertInstanceOf('Psr\\Http\\Message\\ServerRequestInterface', $request);
-        //$this->assertInstanceOf('Zend\\Diactoros\\Uri', $uri);
+        $this->assertInstanceOf('Zend\\Diactoros\\ServerRequest', $request);
         $this->assertEquals('/', $request->getUri()->getPath());
         $this->assertEquals('GET', $request->getMethod());
+        $this->assertTrue($request->getBody()->isWritable());
+        $this->assertTrue($request->getBody()->isSeekable());
     }
 }
