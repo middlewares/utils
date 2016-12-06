@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.7.0 - 2016-12-06
+
+### Added
+
+* New static helper `Middlewares\Utils\Dispatcher::run` to create and dispatch a request easily
+
 ## 0.6.1 - 2016-12-06
 
 ### Fixed
