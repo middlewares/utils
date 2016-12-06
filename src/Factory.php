@@ -68,7 +68,7 @@ abstract class Factory
     /**
      * Set a custom serverRequestFactory.
      *
-     * @param ServerRequestFactoryInterface $uriFactory
+     * @param ServerRequestFactoryInterface $serverRequestFactory
      */
     public static function setServerRequestFactory(ServerRequestFactoryInterface $serverRequestFactory)
     {
