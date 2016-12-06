@@ -11,11 +11,12 @@ Common utilities used by the middlewares' packages:
 
 ## Factory
 
-Used to create psr-7 instances of `ResponseInterface`, `StreamInterface` and `UriInterface`. Detects automatically [Diactoros](https://github.com/zendframework/zend-diactoros), [Guzzle](https://github.com/guzzle/psr7) and [Slim](https://github.com/slimphp/Slim) but you can register a different factory using the [http-interop/http-factory](https://github.com/http-interop/http-factory) interface.
+Used to create psr-7 instances of `ServerRequestInterface`, `ResponseInterface`, `StreamInterface` and `UriInterface`. Detects automatically [Diactoros](https://github.com/zendframework/zend-diactoros), [Guzzle](https://github.com/guzzle/psr7) and [Slim](https://github.com/slimphp/Slim) but you can register a different factory using the [http-interop/http-factory](https://github.com/http-interop/http-factory) interface.
 
 ```php
 use Middlewares\Utils\Factory;
 
+$request = Factory::createServerRequest();
 $response = Factory::createResponse();
 $stream = Factory::createStream();
 $uri = Factory::createUri('http://example.com');
@@ -42,23 +43,29 @@ echo $response->getBody(); //Hello world
 
 ## Dispatcher
 
-Minimalist PSR-15 compatible dispatcher.
+Minimalist PSR-15 compatible dispatcher. Used for testing purposes.
 
 ```php
+use Middlewares\Utils\Factory;
 use Middlewares\Utils\Dispatcher;
 
 $dispatcher = new Dispatcher([
     new Middleware1(),
     new Middleware2(),
     new Middleware3(),
+    function ($request, $next) {
+        $response = $next->process($request);
+        return $response->withHeader('X-Foo', 'Bar');
+    }
 ]);
 
-$response = $dispatcher->dispatch(new Request());
+$response = $dispatcher->dispatch(Factory::createServerRequest());
 ```
 
 ## CallableMiddleware
 
 A simple way to create middlewares using callables. Internally uses [CallableHandler](#callablehandler) so you can use `echo` or return `string` in the callables (the response is created automatically if it's not returned).
+**Note:** You may not need use this directly in the `Dispatcher`, because is used automatically with instances of `Closure`.
 
 ```php
 use Middlewares\Utils\Dispatcher;
@@ -70,9 +77,10 @@ $dispatcher = new Dispatcher([
 
         return $response->withHeader('Content-Type', 'text/html');
     }),
-    new CallableMiddleware(function ($request, $delegate) {
+    //Providing a Closure directly, the dispatcher will convert to a CallableMiddleware automatically
+    function ($request, $delegate) {
         echo '<h1>Hello world</h1>';
-    }),
+    }
 ]);
 
 $response = $dispatcher->dispatch(new Request());

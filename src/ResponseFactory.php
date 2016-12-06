@@ -2,7 +2,6 @@
 
 namespace Middlewares\Utils;
 
-use Psr\Http\Message\ResponseInterface;
 use Interop\Http\Factory\ResponseFactoryInterface;
 
 /**
@@ -11,11 +10,7 @@ use Interop\Http\Factory\ResponseFactoryInterface;
 class ResponseFactory implements ResponseFactoryInterface
 {
     /**
-     * Creates a Response instance.
-     *
-     * @param int $code The status code
-     *
-     * @return ResponseInterface
+     * {@inheritdoc}
      */
     public function createResponse($code = 200)
     {

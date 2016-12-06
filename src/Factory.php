@@ -8,6 +8,7 @@ use Psr\Http\Message\UriInterface;
 use Interop\Http\Factory\ResponseFactoryInterface;
 use Interop\Http\Factory\StreamFactoryInterface;
 use Interop\Http\Factory\UriFactoryInterface;
+use Interop\Http\Factory\ServerRequestFactoryInterface;
 
 /**
  * Simple class to create instances of PSR-7 classes.
@@ -28,6 +29,11 @@ abstract class Factory
      * @var UriFactoryInterface
      */
     private static $uriFactory;
+
+    /**
+     * @var ServerRequestFactoryInterface
+     */
+    private static $serverRequestFactory;
 
     /**
      * Set a custom responseFactory.
@@ -57,6 +63,16 @@ abstract class Factory
     public static function setUriFactory(UriFactoryInterface $uriFactory)
     {
         self::$uriFactory = $uriFactory;
+    }
+
+    /**
+     * Set a custom serverRequestFactory.
+     *
+     * @param ServerRequestFactoryInterface $uriFactory
+     */
+    public static function setServerRequestFactory(ServerRequestFactoryInterface $serverRequestFactory)
+    {
+        self::$serverRequestFactory = $serverRequestFactory;
     }
 
     /**
@@ -109,5 +125,23 @@ abstract class Factory
         }
 
         return self::$uriFactory->createUri($uri);
+    }
+
+    /**
+     * Creates a serverRequest instance.
+     *
+     * @param array  $server
+     * @param string $method
+     * @param string $uri
+     *
+     * @return ServerRequest
+     */
+    public static function createServerRequest(array $server = [], $method = 'GET', $uri = '/')
+    {
+        if (self::$serverRequestFactory === null) {
+            self::$serverRequestFactory = new ServerRequestFactory();
+        }
+
+        return self::$serverRequestFactory->createServerRequest($server, $method, $uri);
     }
 }

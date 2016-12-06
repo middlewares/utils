@@ -6,7 +6,7 @@ use Interop\Http\Middleware\DelegateInterface;
 use Interop\Http\Middleware\ServerMiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use LogicException;
+use Closure;
 
 class Dispatcher
 {
@@ -46,22 +46,21 @@ class Dispatcher
      */
     private function resolve($index)
     {
-        if (isset($this->stack[$index])) {
-            return new Delegate(function (ServerRequestInterface $request) use ($index) {
-                $middleware = $this->stack[$index];
-
-                assert($middleware instanceof ServerMiddlewareInterface);
-
-                $result = $middleware->process($request, $this->resolve($index + 1));
-
-                assert($result instanceof ResponseInterface);
-
-                return $result;
+        return new Delegate(function (ServerRequestInterface $request) use ($index) {
+            $middleware = isset($this->stack[$index]) ? $this->stack[$index] : new CallableMiddleware(function () {
             });
-        }
 
-        return new Delegate(function () {
-            throw new LogicException('unresolved request: middleware stack exhausted with no result');
+            if ($middleware instanceof Closure) {
+                $middleware = new CallableMiddleware($middleware);
+            }
+
+            assert($middleware instanceof ServerMiddlewareInterface);
+
+            $result = $middleware->process($request, $this->resolve($index + 1));
+
+            assert($result instanceof ResponseInterface);
+
+            return $result;
         });
     }
 }

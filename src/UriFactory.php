@@ -2,7 +2,6 @@
 
 namespace Middlewares\Utils;
 
-use Psr\Http\Message\UriInterface;
 use Interop\Http\Factory\UriFactoryInterface;
 
 /**
@@ -11,11 +10,7 @@ use Interop\Http\Factory\UriFactoryInterface;
 class UriFactory implements UriFactoryInterface
 {
     /**
-     * Creates an Uri instance.
-     *
-     * @param string $uri
-     *
-     * @return UriInterface
+     * {@inheritdoc}
      */
     public function createUri($uri = '')
     {

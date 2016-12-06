@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.6.0 - 2016-12-06
+
+### Added
+
+* ServerRequest factory
+* `Middlewares\Utils\Dispatcher` accepts `Closure` as middleware components
+
+### Changed
+* `Middlewares\Utils\Dispatcher` creates automatically a response if the stack is exhausted
+
 ## 0.5.0 - 2016-11-22
 
 ### Added

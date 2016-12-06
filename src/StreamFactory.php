@@ -2,7 +2,6 @@
 
 namespace Middlewares\Utils;
 
-use Psr\Http\Message\StreamInterface;
 use Interop\Http\Factory\StreamFactoryInterface;
 
 /**
@@ -11,13 +10,7 @@ use Interop\Http\Factory\StreamFactoryInterface;
 class StreamFactory implements StreamFactoryInterface
 {
     /**
-     * Create a new stream from a string.
-     *
-     * The stream SHOULD be created with a temporary resource.
-     *
-     * @param string $content
-     *
-     * @return StreamInterface
+     * {@inheritdoc}
      */
     public function createStream($content = '')
     {
@@ -28,15 +21,7 @@ class StreamFactory implements StreamFactoryInterface
     }
 
     /**
-     * Create a stream from an existing file.
-     *
-     * The file MUST be opened using the given mode, which may be any mode
-     * supported by the `fopen` function.
-     *
-     * @param string $file
-     * @param string $mode
-     *
-     * @return StreamInterface
+     * {@inheritdoc}
      */
     public function createStreamFromFile($file, $mode = 'r')
     {
@@ -44,13 +29,7 @@ class StreamFactory implements StreamFactoryInterface
     }
 
     /**
-     * Create a new stream from an existing resource.
-     *
-     * The stream MUST be readable and may be writable.
-     *
-     * @param resource $resource
-     *
-     * @return StreamInterface
+     * {@inheritdoc}
      */
     public function createStreamFromResource($resource)
     {

@@ -11,20 +11,22 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
     public function testDispatcher()
     {
         $dispatcher = new Dispatcher([
-            new CallableMiddleware(function ($request, $delegate) {
+            function ($request, $delegate) {
                 $response = $delegate->process($request);
                 $response->getBody()->write('3');
 
                 return $response;
-            }),
-            new CallableMiddleware(function ($request, $delegate) {
+            },
+            function ($request, $delegate) {
                 $response = $delegate->process($request);
                 $response->getBody()->write('2');
 
                 return $response;
-            }),
+            },
             new CallableMiddleware(function ($request, $delegate) {
                 echo '1';
+
+                return $delegate->process($request);
             }),
         ]);
 
