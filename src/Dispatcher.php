@@ -11,7 +11,7 @@ use Closure;
 class Dispatcher
 {
     /**
-     * @var ServerMiddlewareInterface[]
+     * @var MiddlewareInterface[]
      */
     private $stack;
 
