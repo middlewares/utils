@@ -36,7 +36,7 @@ abstract class Factory
     private static $serverRequestFactory;
 
     /**
-     * Set a custom responseFactory.
+     * Set a custom ResponseFactory.
      *
      * @param ResponseFactoryInterface $responseFactory
      */
@@ -46,7 +46,7 @@ abstract class Factory
     }
 
     /**
-     * Set a custom streamFactory.
+     * Set a custom StreamFactory.
      *
      * @param StreamFactoryInterface $streamFactory
      */
@@ -56,7 +56,7 @@ abstract class Factory
     }
 
     /**
-     * Set a custom uriFactory.
+     * Set a custom UriFactory.
      *
      * @param UriFactoryInterface $uriFactory
      */
@@ -66,7 +66,7 @@ abstract class Factory
     }
 
     /**
-     * Set a custom serverRequestFactory.
+     * Set a custom ServerRequestFactory.
      *
      * @param ServerRequestFactoryInterface $serverRequestFactory
      */
@@ -128,7 +128,7 @@ abstract class Factory
     }
 
     /**
-     * Creates a serverRequest instance.
+     * Creates a ServerRequest instance.
      *
      * @param array  $server
      * @param string $method
