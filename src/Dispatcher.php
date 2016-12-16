@@ -2,8 +2,8 @@
 
 namespace Middlewares\Utils;
 
-use Interop\Http\Middleware\DelegateInterface;
-use Interop\Http\Middleware\ServerMiddlewareInterface;
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Closure;
@@ -18,7 +18,7 @@ class Dispatcher
     /**
      * Static helper to create and dispatch a request.
      *
-     * @param ServerMiddlewareInterface[]
+     * @param MiddlewareInterface[]
      * @param ServerRequestInterface|null $request
      *
      * @return ResponseInterface
@@ -33,7 +33,7 @@ class Dispatcher
     }
 
     /**
-     * @param ServerMiddlewareInterface[] $stack middleware stack (with at least one middleware component)
+     * @param MiddlewareInterface[] $stack middleware stack (with at least one middleware component)
      */
     public function __construct(array $stack)
     {
@@ -71,7 +71,7 @@ class Dispatcher
                 $middleware = new CallableMiddleware($middleware);
             }
 
-            assert($middleware instanceof ServerMiddlewareInterface);
+            assert($middleware instanceof MiddlewareInterface);
 
             $result = $middleware->process($request, $this->resolve($index + 1));
 

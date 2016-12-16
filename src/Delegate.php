@@ -2,8 +2,8 @@
 
 namespace Middlewares\Utils;
 
-use Interop\Http\Middleware\DelegateInterface;
-use Psr\Http\Message\RequestInterface;
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
 class Delegate implements DelegateInterface
@@ -22,11 +22,11 @@ class Delegate implements DelegateInterface
     }
 
     /**
-     * @param RequestInterface $request
+     * @param ServerRequestInterface $request
      *
      * @return ResponseInterface
      */
-    public function process(RequestInterface $request)
+    public function process(ServerRequestInterface $request)
     {
         return call_user_func($this->callback, $request);
     }
