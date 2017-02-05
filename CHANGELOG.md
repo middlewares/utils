@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## UNRELEASED
+
+### Added
+
+* Callable resolves to create callables from various representations
+
+### Removed
+
+* `Middlewares\Utils\CallableHandler::resolve`
+
 ## 0.8.0 - 2016-12-22
 
 ### Changed
