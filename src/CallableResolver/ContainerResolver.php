@@ -2,7 +2,6 @@
 
 namespace Middlewares\Utils\CallableResolver;
 
-use Closure;
 use Interop\Container\ContainerInterface;
 use RuntimeException;
 

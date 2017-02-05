@@ -2,7 +2,6 @@
 
 namespace Middlewares\Utils;
 
-use Middlewares\Utils\CallableResolver\ReflectionResolver;
 use Psr\Http\Message\ResponseInterface;
 
 /**
