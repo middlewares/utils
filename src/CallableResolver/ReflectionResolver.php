@@ -2,7 +2,6 @@
 
 namespace Middlewares\Utils\CallableResolver;
 
-use Closure;
 use ReflectionClass;
 use ReflectionMethod;
 use RuntimeException;
