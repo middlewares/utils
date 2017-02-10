@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## UNRELEASED
+
+### Changed
+
+* `Middlewares\Utils\Dispatcher` throws exceptions if the middlewares does not implement `Interop\Http\ServerMiddleware\MiddlewareInterface` or does not return an instance of `Psr\Http\Message\ResponseInterface`.
+* Moved the default factories to `Middlewares\Utils\Factory` namespace.
+* Minor code improvements.
+
 ## 0.9.0 - 2017-02-05
 
 ### Added
