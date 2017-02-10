@@ -57,11 +57,9 @@ final class ReflectionResolver extends Resolver
         $refClass = new ReflectionClass($class);
 
         if ($refClass->hasMethod('__construct')) {
-            $instance = $refClass->newInstanceArgs($args);
-        } else {
-            $instance = $refClass->newInstance();
+            return $refClass->newInstanceArgs($args);
         }
 
-        return $instance;
+        return $refClass->newInstance();
     }
 }
