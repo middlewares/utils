@@ -85,7 +85,7 @@ abstract class Factory
     public static function createResponse($code = 200)
     {
         if (self::$responseFactory === null) {
-            self::$responseFactory = new ResponseFactory();
+            self::$responseFactory = new Factory\ResponseFactory();
         }
 
         return self::$responseFactory->createResponse($code);
@@ -101,7 +101,7 @@ abstract class Factory
     public static function createStream($resource = null)
     {
         if (self::$streamFactory === null) {
-            self::$streamFactory = new StreamFactory();
+            self::$streamFactory = new Factory\StreamFactory();
         }
 
         if ($resource === null) {
@@ -121,7 +121,7 @@ abstract class Factory
     public static function createUri($uri = '')
     {
         if (self::$uriFactory === null) {
-            self::$uriFactory = new UriFactory();
+            self::$uriFactory = new Factory\UriFactory();
         }
 
         return self::$uriFactory->createUri($uri);
@@ -139,7 +139,7 @@ abstract class Factory
     public static function createServerRequest(array $server = [], $method = 'GET', $uri = '/')
     {
         if (self::$serverRequestFactory === null) {
-            self::$serverRequestFactory = new ServerRequestFactory();
+            self::$serverRequestFactory = new Factory\ServerRequestFactory();
         }
 
         return self::$serverRequestFactory->createServerRequest($server, $method, $uri);
