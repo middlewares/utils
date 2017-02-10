@@ -1,6 +1,6 @@
 <?php
 
-namespace Middlewares\Utils;
+namespace Middlewares\Utils\Factory;
 
 use Interop\Http\Factory\UriFactoryInterface;
 
