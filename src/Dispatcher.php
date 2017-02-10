@@ -7,6 +7,7 @@ use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Closure;
+use RuntimeException;
 
 class Dispatcher
 {
@@ -37,8 +38,6 @@ class Dispatcher
      */
     public function __construct(array $stack)
     {
-        assert(count($stack) > 0);
-
         $this->stack = $stack;
     }
 
@@ -71,13 +70,17 @@ class Dispatcher
                 $middleware = new CallableMiddleware($middleware);
             }
 
-            assert($middleware instanceof MiddlewareInterface);
+            if (!($middleware instanceof MiddlewareInterface)) {
+                throw new RuntimeException('The middleware must be an instance of MiddlewareInterface');
+            }
 
-            $result = $middleware->process($request, $this->resolve($index + 1));
+            $response = $middleware->process($request, $this->resolve($index + 1));
 
-            assert($result instanceof ResponseInterface);
+            if (!($response instanceof ResponseInterface)) {
+                throw new RuntimeException('The middleware result must be an instance of ResponseInterface');
+            }
 
-            return $result;
+            return $response;
         });
     }
 }
