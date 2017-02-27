@@ -2,7 +2,7 @@
 
 namespace Middlewares\Utils\CallableResolver;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use RuntimeException;
 
 /**
