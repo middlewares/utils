@@ -2,7 +2,7 @@
 
 namespace Middlewares\Tests\CallableResolver;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use Middlewares\Utils\CallableResolver\CallableResolverInterface;
 use Middlewares\Utils\CallableResolver\ContainerResolver;
 use Prophecy\Prophecy\ObjectProphecy;

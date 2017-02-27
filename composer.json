@@ -6,6 +6,7 @@
     "keywords": [
         "psr-7",
         "psr-15",
+        "psr-11",
         "middleware",
         "http"
     ],
@@ -26,10 +27,10 @@
         "squizlabs/php_codesniffer": "^2.7",
         "slim/slim": "^3.5",
         "guzzlehttp/psr7": "^1.3",
-        "container-interop/container-interop": "^1.1"
+        "psr/container": "^1.0"
     },
     "suggest": {
-        "container-interop/container-interop": "Can be used to automatically resolve callables"
+        "psr/container": "Can be used to automatically resolve callables"
     },
     "autoload": {
         "psr-4": {
