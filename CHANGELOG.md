@@ -7,8 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## UNRELEASED
 
-### Changed
+### 0.10.0 - 2017-02-27
 
+* Replaced deprecated `container-interop` by `psr/contaienr` (PSR-11).
 * `Middlewares\Utils\Dispatcher` throws exceptions if the middlewares does not implement `Interop\Http\ServerMiddleware\MiddlewareInterface` or does not return an instance of `Psr\Http\Message\ResponseInterface`.
 * Moved the default factories to `Middlewares\Utils\Factory` namespace.
 * Minor code improvements.
