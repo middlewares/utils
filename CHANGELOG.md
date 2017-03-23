@@ -5,13 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## 0.10.1 - 2017-02-27
+## [0.11.0] - UNRELEASED
+
+### Added
+
+* New class `Middlewares\Utils\Helpers` with common helpers to manipulate PSR-7 messages
+* New helper `Middlewares\Utils\Helpers::fixContentLength` used to add/modify/remove the `Content-Length` header of a http message.
+
+## [0.10.1] - 2017-02-27
 
 ### Fixed
 
 * Fixed changelog file
 
-## 0.10.0 - 2017-02-27
+## [0.10.0] - 2017-02-27
 
 ### Changed
 
@@ -20,7 +27,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 * Moved the default factories to `Middlewares\Utils\Factory` namespace.
 * Minor code improvements.
 
-## 0.9.0 - 2017-02-05
+## [0.9.0] - 2017-02-05
 
 ### Added
 
@@ -30,26 +37,26 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 * `Middlewares\Utils\CallableHandler::resolve`
 
-## 0.8.0 - 2016-12-22
+## [0.8.0] - 2016-12-22
 
 ### Changed
 
 * Updated `http-interop/http-middleware` to `0.4`
 * Updated `friendsofphp/php-cs-fixer` to `2.0`
 
-## 0.7.0 - 2016-12-06
+## [0.7.0] - 2016-12-06
 
 ### Added
 
 * New static helper `Middlewares\Utils\Dispatcher::run` to create and dispatch a request easily
 
-## 0.6.1 - 2016-12-06
+## [0.6.1] - 2016-12-06
 
 ### Fixed
 
 * Ensure that the body of the serverRequest is writable and seekable. 
 
-## 0.6.0 - 2016-12-06
+## [0.6.0] - 2016-12-06
 
 ### Added
 
@@ -60,32 +67,32 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 * `Middlewares\Utils\Dispatcher` creates automatically a response if the stack is exhausted
 
-## 0.5.0 - 2016-11-22
+## [0.5.0] - 2016-11-22
 
 ### Added
 
 * `Middlewares\Utils\CallableMiddleware` class, to create middlewares from callables
 * `Middlewares\Utils\Dispatcher` class, to execute the middleware stack and return a response.
 
-## 0.4.0 - 2016-11-13
+## [0.4.0] - 2016-11-13
 
 ### Changed
 
 * Updated `http-interop/http-factory` to `0.2`
 
-## 0.3.1 - 2016-10-03
+## [0.3.1] - 2016-10-03
 
 ### Fixed
 
 * Bug in CallableHandler that resolve to the declaring class of a method instead the final class.
 
-## 0.3.0 - 2016-10-03
+## [0.3.0] - 2016-10-03
 
 ### Added
 
 * `Middlewares\Utils\CallableHandler` class, allowing to resolve and execute callables safely.
 
-## 0.2.0 - 2016-10-01
+## [0.2.0] - 2016-10-01
 
 ### Added
 
@@ -97,3 +104,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 * Response factory
 * Stream factory
+
+[0.11.0]: https://github.com/middlewares/utils/compare/v0.10.0...master
+[0.10.1]: https://github.com/middlewares/utils/compare/v0.10.0...v0.10.1
+[0.10.0]: https://github.com/middlewares/utils/compare/v0.9.0...v0.10.0
+[0.9.0]: https://github.com/middlewares/utils/compare/v0.8.0...v0.9.0
+[0.7.0]: https://github.com/middlewares/utils/compare/v0.7.0...v0.8.0
+[0.6.1]: https://github.com/middlewares/utils/compare/v0.6.0...v0.6.1
+[0.6.0]: https://github.com/middlewares/utils/compare/v0.5.0...v0.6.0
+[0.5.0]: https://github.com/middlewares/utils/compare/v0.4.0...v0.5.0
+[0.4.0]: https://github.com/middlewares/utils/compare/v0.3.1...v0.3.0
+[0.3.1]: https://github.com/middlewares/utils/compare/v0.3.0...v0.3.1
+[0.3.0]: https://github.com/middlewares/utils/compare/v0.2.0...v0.3.0
+[0.2.0]: https://github.com/middlewares/utils/compare/v0.1.0...v0.2.0
