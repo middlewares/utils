@@ -135,7 +135,7 @@ abstract class Factory
      * @param string $method
      * @param string $uri
      *
-     * @return ServerRequest
+     * @return ServerRequestInterface
      */
     public static function createServerRequest(array $server = [], $method = 'GET', $uri = '/')
     {
