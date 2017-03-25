@@ -5,6 +5,7 @@ namespace Middlewares\Utils;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UriInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Interop\Http\Factory\ResponseFactoryInterface;
 use Interop\Http\Factory\StreamFactoryInterface;
 use Interop\Http\Factory\UriFactoryInterface;
@@ -142,6 +143,12 @@ abstract class Factory
             self::$serverRequestFactory = new Factory\ServerRequestFactory();
         }
 
-        return self::$serverRequestFactory->createServerRequest($server, $method, $uri);
+        if (is_string($uri)) {
+            $uri = self::createUri($uri);
+        }
+
+        return self::$serverRequestFactory->createServerRequestFromArray($server)
+            ->withMethod($method)
+            ->withUri($uri);
     }
 }

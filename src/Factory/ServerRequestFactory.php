@@ -3,6 +3,7 @@
 namespace Middlewares\Utils\Factory;
 
 use Interop\Http\Factory\ServerRequestFactoryInterface;
+use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * Simple class to create server request instances of PSR-7 classes.
@@ -12,7 +13,29 @@ class ServerRequestFactory implements ServerRequestFactoryInterface
     /**
      * {@inheritdoc}
      */
-    public function createServerRequest(array $server, $method = null, $uri = null)
+    public function createServerRequest($method, $uri)
+    {
+        return self::create([], $method, $uri);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function createServerRequestFromArray(array $server)
+    {
+        return self::create($server, 'GET', '/');
+    }
+
+    /**
+     * Create a Server request
+     *
+     * @param array $server
+     * @param string $method
+     * @param string $uri
+     *
+     * @return ServerRequestInterface
+     */
+    private static function create(array $server, $method, $uri)
     {
         if (class_exists('Zend\\Diactoros\\ServerRequest')) {
             return new \Zend\Diactoros\ServerRequest(
