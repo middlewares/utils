@@ -5,12 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [0.11.0] - UNRELEASED
+## [0.11.0] - 2017-03-25
 
 ### Added
 
 * New class `Middlewares\Utils\Helpers` with common helpers to manipulate PSR-7 messages
 * New helper `Middlewares\Utils\Helpers::fixContentLength` used to add/modify/remove the `Content-Length` header of a http message.
+
+### Changed
+
+* Updated `http-interop/http-factory` to `0.3`
 
 ## [0.10.1] - 2017-02-27
 
