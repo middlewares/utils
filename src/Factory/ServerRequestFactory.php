@@ -15,7 +15,7 @@ class ServerRequestFactory implements ServerRequestFactoryInterface
      */
     public function createServerRequest($method, $uri)
     {
-        return self::create([], $method, $uri);
+        return self::create([], $method, (string) $uri);
     }
 
     /**
@@ -41,20 +41,20 @@ class ServerRequestFactory implements ServerRequestFactoryInterface
             return new \Zend\Diactoros\ServerRequest(
                 $server,
                 [],
-                (string) $uri,
+                $uri,
                 $method,
                 new \Zend\Diactoros\Stream(fopen('php://temp', 'r+'))
             );
         }
 
         if (class_exists('GuzzleHttp\\Psr7\\ServerRequest')) {
-            return new \GuzzleHttp\Psr7\ServerRequest($method, (string) $uri, [], null, '1.1', $server);
+            return new \GuzzleHttp\Psr7\ServerRequest($method, $uri, [], null, '1.1', $server);
         }
 
         if (class_exists('Slim\\Http\\Request')) {
             return new \Slim\Http\Request(
                 $method,
-                \Slim\Http\Uri::createFromString((string) $uri),
+                \Slim\Http\Uri::createFromString($uri),
                 new \Slim\Http\Headers(),
                 [],
                 $server,
