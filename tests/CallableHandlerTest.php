@@ -2,7 +2,9 @@
 
 namespace Middlewares\Tests;
 
+use Middlewares\Utils\Factory;
 use Middlewares\Utils\CallableHandler;
+use Psr\Http\Message\ResponseInterface;
 
 class CallableHandlerTest extends \PHPUnit_Framework_TestCase
 {
@@ -10,9 +12,12 @@ class CallableHandlerTest extends \PHPUnit_Framework_TestCase
     {
         $response = CallableHandler::execute('sprintf', ['Hello %s', 'World']);
 
-        $this->assertInstanceOf('Psr\\Http\\Message\\ResponseInterface', $response);
+        $this->assertInstanceOf(ResponseInterface::class, $response);
         $this->assertEquals('Hello World', (string) $response->getBody());
+    }
 
+    public function testOb()
+    {
         $callable = function () {
             echo 'Hello';
 
@@ -21,7 +26,7 @@ class CallableHandlerTest extends \PHPUnit_Framework_TestCase
 
         $response = CallableHandler::execute($callable);
 
-        $this->assertInstanceOf('Psr\\Http\\Message\\ResponseInterface', $response);
+        $this->assertInstanceOf(ResponseInterface::class, $response);
         $this->assertEquals('Hello World', (string) $response->getBody());
 
         $callable = function () {
@@ -45,5 +50,33 @@ class CallableHandlerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame($level, ob_get_level());
         $this->assertSame('', ob_get_clean());
+    }
+
+    public function testReturnNull()
+    {
+        $response = CallableHandler::execute(function () {
+        });
+
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+        $this->assertEquals('', (string) $response->getBody());
+    }
+
+    public function testReturnObjectToString()
+    {
+        $response = CallableHandler::execute(function () {
+            return Factory::createUri('http://example.com');
+        });
+
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+        $this->assertEquals('http://example.com', (string) $response->getBody());
+    }
+
+    public function testException()
+    {
+        $this->expectException('UnexpectedValueException');
+
+        CallableHandler::execute(function () {
+            return ['not', 'valid', 'value'];
+        });
     }
 }

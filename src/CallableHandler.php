@@ -3,6 +3,7 @@
 namespace Middlewares\Utils;
 
 use Psr\Http\Message\ResponseInterface;
+use UnexpectedValueException;
 
 /**
  * Simple class to execute callables and returns responses.
@@ -28,8 +29,15 @@ abstract class CallableHandler
             if ($return instanceof ResponseInterface) {
                 $response = $return;
                 $return = '';
-            } else {
+            } elseif (is_null($return)
+                 || is_scalar($return)
+                 || (is_object($return) && method_exists($return, '__toString'))
+            ) {
                 $response = Factory::createResponse();
+            } else {
+                throw new UnexpectedValueException(
+                    'The value returned must be scalar or an object with __toString method'
+                );
             }
 
             while (ob_get_level() >= $level) {
