@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [UNRELEASED]
+
+### Changed
+
+* `Middlewares\Utils\CallableHandler` expects one of the following values returned by the callable:
+  * A `Psr\Http\Message\ResponseInterface`
+  * `null` or scalar
+  * an object with `__toString` method implemented
+
+  Otherwise, throws an `UnexpectedValueException`
+
 ## [0.11.0] - 2017-03-25
 
 ### Added
@@ -109,6 +120,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 * Response factory
 * Stream factory
 
+[UNRELEASED]: https://github.com/middlewares/utils/compare/v0.11.0...master
 [0.11.0]: https://github.com/middlewares/utils/compare/v0.10.1...v0.11.0
 [0.10.1]: https://github.com/middlewares/utils/compare/v0.10.0...v0.10.1
 [0.10.0]: https://github.com/middlewares/utils/compare/v0.9.0...v0.10.0
