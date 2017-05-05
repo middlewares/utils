@@ -10,7 +10,7 @@ use Psr\Http\Message\MessageInterface;
 abstract class Helpers
 {
     /**
-     * Add or remove the Content-Length header
+     * Fix the Content-Length header
      * Used by middlewares that modify the body content
      *
      * @param MessageInterface $response
@@ -19,6 +19,10 @@ abstract class Helpers
      */
     public static function fixContentLength(MessageInterface $response)
     {
+        if (!$response->hasHeader('Content-Length')) {
+            return $response;
+        }
+
         if ($response->getBody()->getSize() !== null) {
             return $response->withHeader('Content-Length', (string) $response->getBody()->getSize());
         }
