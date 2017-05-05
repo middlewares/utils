@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   * an object with `__toString` method implemented
 
   Otherwise, throws an `UnexpectedValueException`
+* `Middlewares\Helpers::fixContentLength` only modifies or removes the `Content-Length` header, but does not add it if didn't exist previously.
 
 ## [0.11.0] - 2017-03-25
 

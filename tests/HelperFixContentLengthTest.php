@@ -5,19 +5,10 @@ namespace Middlewares\Tests;
 use Middlewares\Utils\Helpers;
 use Middlewares\Utils\Factory;
 use Zend\Diactoros\CallbackStream;
+use Psr\Http\Message\ResponseInterface;
 
 class HelperFixContentLengthTest extends \PHPUnit_Framework_TestCase
 {
-    public function testAddContentLength()
-    {
-        $response = Factory::createResponse();
-        $response->getBody()->write('Hello world');
-        $response = Helpers::fixContentLength($response);
-
-        $this->assertInstanceOf('Psr\\Http\\Message\\ResponseInterface', $response);
-        $this->assertEquals('11', $response->getHeaderLine('Content-Length'));
-    }
-
     public function testReplaceContentLength()
     {
         $response = Factory::createResponse()
@@ -26,11 +17,11 @@ class HelperFixContentLengthTest extends \PHPUnit_Framework_TestCase
         $response->getBody()->write('Hello world');
         $response = Helpers::fixContentLength($response);
 
-        $this->assertInstanceOf('Psr\\Http\\Message\\ResponseInterface', $response);
+        $this->assertInstanceOf(ResponseInterface::class, $response);
         $this->assertEquals('11', $response->getHeaderLine('Content-Length'));
     }
 
-    public function testNotAddContentLength()
+    public function testBodyWithoutSize()
     {
         $response = Factory::createResponse()
             ->withBody(new CallbackStream(function () {
@@ -38,7 +29,17 @@ class HelperFixContentLengthTest extends \PHPUnit_Framework_TestCase
 
         $response = Helpers::fixContentLength($response);
 
-        $this->assertInstanceOf('Psr\\Http\\Message\\ResponseInterface', $response);
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+        $this->assertFalse($response->hasHeader('Content-Length'));
+    }
+
+    public function testResponseWithoutHeader()
+    {
+        $response = Factory::createResponse();
+        $response->getBody()->write('Hello world');
+        $response = Helpers::fixContentLength($response);
+
+        $this->assertInstanceOf(ResponseInterface::class, $response);
         $this->assertFalse($response->hasHeader('Content-Length'));
     }
 
@@ -51,7 +52,7 @@ class HelperFixContentLengthTest extends \PHPUnit_Framework_TestCase
 
         $response = Helpers::fixContentLength($response);
 
-        $this->assertInstanceOf('Psr\\Http\\Message\\ResponseInterface', $response);
+        $this->assertInstanceOf(ResponseInterface::class, $response);
         $this->assertFalse($response->hasHeader('Content-Length'));
     }
 }
