@@ -61,4 +61,13 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Psr\\Http\\Message\\ResponseInterface', $response);
         $this->assertEquals('123', (string) $response->getBody());
     }
+
+    public function testMiddlewareException()
+    {
+        $this->expectException('UnexpectedValueException');
+
+        $response = Dispatcher::run([
+            ''
+        ]);
+    }
 }

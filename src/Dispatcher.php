@@ -8,6 +8,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Closure;
 use RuntimeException;
+use UnexpectedValueException;
 
 class Dispatcher
 {
@@ -71,13 +72,17 @@ class Dispatcher
             }
 
             if (!($middleware instanceof MiddlewareInterface)) {
-                throw new RuntimeException('The middleware must be an instance of MiddlewareInterface');
+                throw new UnexpectedValueException(
+                    sprintf('The middleware must be an instance of %s', MiddlewareInterface::class)
+                );
             }
 
             $response = $middleware->process($request, $this->resolve($index + 1));
 
             if (!($response instanceof ResponseInterface)) {
-                throw new RuntimeException('The middleware result must be an instance of ResponseInterface');
+                throw new UnexpectedValueException(
+                    sprintf('The middleware must return an instance of %s', ResponseInterface::class)
+                );
             }
 
             return $response;
