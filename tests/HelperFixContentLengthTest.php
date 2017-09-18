@@ -6,8 +6,9 @@ use Middlewares\Utils\Helpers;
 use Middlewares\Utils\Factory;
 use Zend\Diactoros\CallbackStream;
 use Psr\Http\Message\ResponseInterface;
+use PHPUnit\Framework\TestCase;
 
-class HelperFixContentLengthTest extends \PHPUnit_Framework_TestCase
+class HelperFixContentLengthTest extends TestCase
 {
     public function testReplaceContentLength()
     {

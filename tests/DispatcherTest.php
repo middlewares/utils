@@ -5,28 +5,29 @@ namespace Middlewares\Tests;
 use Middlewares\Utils\Dispatcher;
 use Middlewares\Utils\CallableMiddleware;
 use Psr\Http\Message\ResponseInterface;
+use PHPUnit\Framework\TestCase;
 
-class DispatcherTest extends \PHPUnit_Framework_TestCase
+class DispatcherTest extends TestCase
 {
     public function testDispatcher()
     {
         $response = Dispatcher::run([
-            function ($request, $delegate) {
-                $response = $delegate->process($request);
+            function ($request, $handler) {
+                $response = $handler->handle($request);
                 $response->getBody()->write('3');
 
                 return $response;
             },
-            function ($request, $delegate) {
-                $response = $delegate->process($request);
+            function ($request, $handler) {
+                $response = $handler->handle($request);
                 $response->getBody()->write('2');
 
                 return $response;
             },
-            new CallableMiddleware(function ($request, $delegate) {
+            new CallableMiddleware(function ($request, $handler) {
                 echo '1';
 
-                return $delegate->process($request);
+                return $handler->handle($request);
             }),
         ]);
 

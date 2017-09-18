@@ -4,8 +4,9 @@ namespace Middlewares\Tests\CallableResolver;
 
 use Middlewares\Utils\CallableResolver\CallableResolverInterface;
 use Middlewares\Utils\CallableResolver\ReflectionResolver;
+use PHPUnit\Framework\TestCase;
 
-final class ReflectionResolverTest extends \PHPUnit_Framework_TestCase
+final class ReflectionResolverTest extends TestCase
 {
     public function testCallableResolver()
     {
