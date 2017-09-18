@@ -2,8 +2,8 @@
 
 namespace Middlewares\Utils;
 
-use Interop\Http\ServerMiddleware\DelegateInterface;
-use Interop\Http\ServerMiddleware\MiddlewareInterface;
+use Interop\Http\Server\RequestHandlerInterface;
+use Interop\Http\Server\MiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Closure;
@@ -53,17 +53,17 @@ class Dispatcher
     {
         $resolved = $this->resolve(0);
 
-        return $resolved->process($request);
+        return $resolved->handle($request);
     }
 
     /**
      * @param int $index middleware stack index
      *
-     * @return DelegateInterface
+     * @return RequestHandlerInterface
      */
     private function resolve($index)
     {
-        return new Delegate(function (ServerRequestInterface $request) use ($index) {
+        return new RequestHandler(function (ServerRequestInterface $request) use ($index) {
             $middleware = isset($this->stack[$index]) ? $this->stack[$index] : new CallableMiddleware(function () {
             });
 

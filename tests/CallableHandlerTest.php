@@ -5,8 +5,9 @@ namespace Middlewares\Tests;
 use Middlewares\Utils\Factory;
 use Middlewares\Utils\CallableHandler;
 use Psr\Http\Message\ResponseInterface;
+use PHPUnit\Framework\TestCase;
 
-class CallableHandlerTest extends \PHPUnit_Framework_TestCase
+class CallableHandlerTest extends TestCase
 {
     public function testExecute()
     {

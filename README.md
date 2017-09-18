@@ -54,7 +54,7 @@ $dispatcher = new Dispatcher([
     new Middleware2(),
     new Middleware3(),
     function ($request, $next) {
-        $response = $next->process($request);
+        $response = $next->handle($request);
         return $response->withHeader('X-Foo', 'Bar');
     }
 ]);
@@ -72,13 +72,13 @@ use Middlewares\Utils\Dispatcher;
 use Middlewares\Utils\CallableMiddleware;
 
 $dispatcher = new Dispatcher([
-    new CallableMiddleware(function ($request, $delegate) {
-        $response = $delegate->process($request);
+    new CallableMiddleware(function ($request, $next) {
+        $response = $next->handle($request);
 
         return $response->withHeader('Content-Type', 'text/html');
     }),
     //Providing a Closure directly, the dispatcher will convert to a CallableMiddleware automatically
-    function ($request, $delegate) {
+    function ($request) {
         echo '<h1>Hello world</h1>';
     }
 ]);

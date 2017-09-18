@@ -5,9 +5,10 @@ namespace Middlewares\Tests\CallableResolver;
 use Psr\Container\ContainerInterface;
 use Middlewares\Utils\CallableResolver\CallableResolverInterface;
 use Middlewares\Utils\CallableResolver\ContainerResolver;
+use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 
-final class ContainerResolverTest extends \PHPUnit_Framework_TestCase
+final class ContainerResolverTest extends TestCase
 {
     public function testCallableResolver()
     {
