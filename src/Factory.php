@@ -2,14 +2,14 @@
 
 namespace Middlewares\Utils;
 
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\StreamInterface;
-use Psr\Http\Message\UriInterface;
-use Psr\Http\Message\ServerRequestInterface;
 use Interop\Http\Factory\ResponseFactoryInterface;
+use Interop\Http\Factory\ServerRequestFactoryInterface;
 use Interop\Http\Factory\StreamFactoryInterface;
 use Interop\Http\Factory\UriFactoryInterface;
-use Interop\Http\Factory\ServerRequestFactoryInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\StreamInterface;
+use Psr\Http\Message\UriInterface;
 
 /**
  * Simple class to create instances of PSR-7 classes.

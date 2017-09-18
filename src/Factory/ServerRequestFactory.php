@@ -29,7 +29,7 @@ class ServerRequestFactory implements ServerRequestFactoryInterface
     /**
      * Create a Server request
      *
-     * @param array $server
+     * @param array  $server
      * @param string $method
      * @param string $uri
      *

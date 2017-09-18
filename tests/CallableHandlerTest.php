@@ -2,10 +2,10 @@
 
 namespace Middlewares\Tests;
 
-use Middlewares\Utils\Factory;
 use Middlewares\Utils\CallableHandler;
-use Psr\Http\Message\ResponseInterface;
+use Middlewares\Utils\Factory;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\ResponseInterface;
 
 class CallableHandlerTest extends TestCase
 {
