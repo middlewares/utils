@@ -2,11 +2,11 @@
 
 namespace Middlewares\Tests\CallableResolver;
 
-use Psr\Container\ContainerInterface;
 use Middlewares\Utils\CallableResolver\CallableResolverInterface;
 use Middlewares\Utils\CallableResolver\ContainerResolver;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
+use Psr\Container\ContainerInterface;
 
 final class ContainerResolverTest extends TestCase
 {

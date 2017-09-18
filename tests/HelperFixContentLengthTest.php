@@ -2,11 +2,11 @@
 
 namespace Middlewares\Tests;
 
-use Middlewares\Utils\Helpers;
 use Middlewares\Utils\Factory;
-use Zend\Diactoros\CallbackStream;
-use Psr\Http\Message\ResponseInterface;
+use Middlewares\Utils\Helpers;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\ResponseInterface;
+use Zend\Diactoros\CallbackStream;
 
 class HelperFixContentLengthTest extends TestCase
 {

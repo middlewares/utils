@@ -2,10 +2,10 @@
 
 namespace Middlewares\Tests;
 
-use Middlewares\Utils\Dispatcher;
 use Middlewares\Utils\CallableMiddleware;
-use Psr\Http\Message\ResponseInterface;
+use Middlewares\Utils\Dispatcher;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\ResponseInterface;
 
 class DispatcherTest extends TestCase
 {

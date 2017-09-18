@@ -3,8 +3,8 @@
 namespace Middlewares\Utils;
 
 use Interop\Http\Server\RequestHandlerInterface;
-use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 
 class RequestHandler implements RequestHandlerInterface
 {
