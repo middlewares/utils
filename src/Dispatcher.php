@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace Middlewares\Utils;
 
@@ -24,7 +25,7 @@ class Dispatcher
      *
      * @return ResponseInterface
      */
-    public static function run(array $stack, ServerRequestInterface $request = null)
+    public static function run(array $stack, ServerRequestInterface $request = null): ResponseInterface
     {
         if ($request === null) {
             $request = Factory::createServerRequest();
@@ -48,7 +49,7 @@ class Dispatcher
      *
      * @return ResponseInterface
      */
-    public function dispatch(ServerRequestInterface $request)
+    public function dispatch(ServerRequestInterface $request): ResponseInterface
     {
         $resolved = $this->resolve(0);
 
@@ -60,7 +61,7 @@ class Dispatcher
      *
      * @return RequestHandlerInterface
      */
-    private function resolve($index)
+    private function resolve(int $index): RequestHandlerInterface
     {
         return new RequestHandler(function (ServerRequestInterface $request) use ($index) {
             $middleware = isset($this->stack[$index]) ? $this->stack[$index] : new CallableMiddleware(function () {

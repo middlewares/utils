@@ -1,9 +1,11 @@
 <?php
+declare(strict_types = 1);
 
 namespace Middlewares\Utils\Factory;
 
 use Interop\Http\Factory\ServerRequestFactoryInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use RuntimeException;
 
 /**
  * Simple class to create server request instances of PSR-7 classes.
@@ -62,6 +64,6 @@ class ServerRequestFactory implements ServerRequestFactoryInterface
             );
         }
 
-        throw new \RuntimeException('Unable to create a server request. No PSR-7 server request library detected');
+        throw new RuntimeException('Unable to create a server request. No PSR-7 server request library detected');
     }
 }

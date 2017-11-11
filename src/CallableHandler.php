@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace Middlewares\Utils;
 
@@ -18,7 +19,7 @@ abstract class CallableHandler
      *
      * @return ResponseInterface
      */
-    public static function execute($callable, array $arguments = [])
+    public static function execute(callable $callable, array $arguments = []): ResponseInterface
     {
         ob_start();
         $level = ob_get_level();

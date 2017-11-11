@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace Middlewares\Utils\CallableResolver;
 
@@ -20,7 +21,7 @@ final class ContainerResolver extends Resolver
         $this->container = $container;
     }
 
-    public function resolve($callable, array $args = [])
+    public function resolve($callable, array $args = []): callable
     {
         if (is_string($callable)) {
             $callable = $this->resolveString($callable);

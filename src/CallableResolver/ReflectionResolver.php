@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace Middlewares\Utils\CallableResolver;
 
@@ -11,7 +12,7 @@ use RuntimeException;
  */
 final class ReflectionResolver extends Resolver
 {
-    public function resolve($callable, array $args = [])
+    public function resolve($callable, array $args = []): callable
     {
         if (is_string($callable)) {
             $callable = $this->resolveString($callable);
@@ -48,7 +49,7 @@ final class ReflectionResolver extends Resolver
      *
      * @return object
      */
-    private function createClass($class, $args = [])
+    private function createClass(string $class, array $args = [])
     {
         if (!class_exists($class)) {
             throw new RuntimeException("The class {$class} does not exists");

@@ -1,8 +1,10 @@
 <?php
+declare(strict_types = 1);
 
 namespace Middlewares\Utils\Factory;
 
 use Interop\Http\Factory\StreamFactoryInterface;
+use RuntimeException;
 
 /**
  * Simple class to create instances of PSR-7 streams.
@@ -45,6 +47,6 @@ class StreamFactory implements StreamFactoryInterface
             return new \Slim\Http\Stream($resource);
         }
 
-        throw new \RuntimeException('Unable to create a stream. No PSR-7 stream library detected');
+        throw new RuntimeException('Unable to create a stream. No PSR-7 stream library detected');
     }
 }

@@ -1,8 +1,10 @@
 <?php
+declare(strict_types = 1);
 
 namespace Middlewares\Utils\Factory;
 
 use Interop\Http\Factory\ResponseFactoryInterface;
+use RuntimeException;
 
 /**
  * Simple class to create response instances of PSR-7 classes.
@@ -26,6 +28,6 @@ class ResponseFactory implements ResponseFactoryInterface
             return new \Slim\Http\Response($code);
         }
 
-        throw new \RuntimeException('Unable to create a response. No PSR-7 stream library detected');
+        throw new RuntimeException('Unable to create a response. No PSR-7 stream library detected');
     }
 }
