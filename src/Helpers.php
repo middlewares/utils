@@ -13,10 +13,6 @@ abstract class Helpers
     /**
      * Fix the Content-Length header
      * Used by middlewares that modify the body content
-     *
-     * @param MessageInterface $response
-     *
-     * @return MessageInterface
      */
     public static function fixContentLength(MessageInterface $response): MessageInterface
     {

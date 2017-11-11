@@ -19,11 +19,6 @@ class Dispatcher
 
     /**
      * Static helper to create and dispatch a request.
-     *
-     * @param MiddlewareInterface[]
-     * @param ServerRequestInterface|null $request
-     *
-     * @return ResponseInterface
      */
     public static function run(array $stack, ServerRequestInterface $request = null): ResponseInterface
     {
@@ -44,10 +39,6 @@ class Dispatcher
 
     /**
      * Dispatches the middleware stack and returns the resulting `ResponseInterface`.
-     *
-     * @param ServerRequestInterface $request
-     *
-     * @return ResponseInterface
      */
     public function dispatch(ServerRequestInterface $request): ResponseInterface
     {
@@ -64,11 +55,11 @@ class Dispatcher
     private function resolve(int $index): RequestHandlerInterface
     {
         return new RequestHandler(function (ServerRequestInterface $request) use ($index) {
-            $middleware = isset($this->stack[$index]) ? $this->stack[$index] : new CallableMiddleware(function () {
+            $middleware = isset($this->stack[$index]) ? $this->stack[$index] : new CallableHandler(function () {
             });
 
             if ($middleware instanceof Closure) {
-                $middleware = new CallableMiddleware($middleware);
+                $middleware = new CallableHandler($middleware);
             }
 
             if (!($middleware instanceof MiddlewareInterface)) {

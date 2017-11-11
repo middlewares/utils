@@ -12,7 +12,8 @@ class CallableHandlerTest extends TestCase
 {
     public function testExecute()
     {
-        $response = CallableHandler::execute('sprintf', ['Hello %s', 'World']);
+        $callable = new CallableHandler('sprintf', ['Hello %s', 'World']);
+        $response = $callable();
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
         $this->assertEquals('Hello World', (string) $response->getBody());
@@ -20,18 +21,18 @@ class CallableHandlerTest extends TestCase
 
     public function testOb()
     {
-        $callable = function () {
+        $callable = new CallableHandler(function () {
             echo 'Hello';
 
             return ' World';
-        };
+        });
 
-        $response = CallableHandler::execute($callable);
+        $response = $callable();
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
         $this->assertEquals('Hello World', (string) $response->getBody());
 
-        $callable = function () {
+        $callable = new CallableHandler(function () {
             echo 'Hello';
             ob_start();
             echo 'Hello';
@@ -40,13 +41,13 @@ class CallableHandlerTest extends TestCase
             ob_start();
             echo 'Hello';
             throw new \Exception('Error Processing Request');
-        };
+        });
 
         ob_start();
         $level = ob_get_level();
 
         try {
-            CallableHandler::execute($callable);
+            $callable();
         } catch (\Exception $e) {
         }
 
@@ -56,8 +57,8 @@ class CallableHandlerTest extends TestCase
 
     public function testReturnNull()
     {
-        $response = CallableHandler::execute(function () {
-        });
+        $response = (new CallableHandler(function () {
+        }))();
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
         $this->assertEquals('', (string) $response->getBody());
@@ -65,9 +66,9 @@ class CallableHandlerTest extends TestCase
 
     public function testReturnObjectToString()
     {
-        $response = CallableHandler::execute(function () {
+        $response = (new CallableHandler(function () {
             return Factory::createUri('http://example.com');
-        });
+        }))();
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
         $this->assertEquals('http://example.com', (string) $response->getBody());
@@ -77,8 +78,8 @@ class CallableHandlerTest extends TestCase
     {
         $this->expectException('UnexpectedValueException');
 
-        CallableHandler::execute(function () {
+        (new CallableHandler(function () {
             return ['not', 'valid', 'value'];
-        });
+        }))();
     }
 }

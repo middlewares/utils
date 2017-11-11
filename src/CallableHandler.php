@@ -3,23 +3,74 @@ declare(strict_types = 1);
 
 namespace Middlewares\Utils;
 
+use Interop\Http\Server\MiddlewareInterface;
+use Interop\Http\Server\RequestHandlerInterface;
+use Middlewares\Utils\CallableResolver\CallableResolverInterface;
+use Middlewares\Utils\CallableResolver\ReflectionResolver;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use UnexpectedValueException;
 
 /**
- * Simple class to execute callables and returns responses.
+ * Simple class to execute callables as middlewares or request handlers.
  */
-abstract class CallableHandler
+class CallableHandler implements MiddlewareInterface, RequestHandlerInterface
 {
+    private $callable;
+    private $arguments;
+    private $resolver;
+
+    /**
+     * @param mixed                     $callable
+     * @param array                     $arguments
+     * @param CallableResolverInterface $resolver
+     */
+    public function __construct($callable, array $arguments = [], CallableResolverInterface $resolver = null)
+    {
+        $this->callable = $callable;
+        $this->arguments = $arguments;
+        $this->resolver = $resolver ?: new ReflectionResolver();
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * Process a server request and return a response.
+     * @see RequestHandlerInterface
+     */
+    public function handle(ServerRequestInterface $request): ResponseInterface
+    {
+        return $this->__invoke($request);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * Process a server request and return a response.
+     * @see MiddlewareInterface
+     */
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
+    {
+        $callable = $this->resolver->resolve($this->callable, array_merge([$request], $this->arguments));
+
+        return self::execute($callable, array_merge([$request, $handler], $this->arguments));
+    }
+
+    /**
+     * Magic method to invoke the callable directly
+     */
+    public function __invoke(): ResponseInterface
+    {
+        $arguments = array_merge(func_get_args(), $this->arguments);
+        $callable = $this->resolver->resolve($this->callable, $arguments);
+
+        return self::execute($callable, $arguments);
+    }
+
     /**
      * Execute the callable.
-     *
-     * @param callable $callable
-     * @param array    $arguments
-     *
-     * @return ResponseInterface
      */
-    public static function execute(callable $callable, array $arguments = []): ResponseInterface
+    private static function execute(callable $callable, array $arguments = []): ResponseInterface
     {
         ob_start();
         $level = ob_get_level();

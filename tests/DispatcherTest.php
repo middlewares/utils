@@ -3,7 +3,7 @@ declare(strict_types = 1);
 
 namespace Middlewares\Tests;
 
-use Middlewares\Utils\CallableMiddleware;
+use Middlewares\Utils\CallableHandler;
 use Middlewares\Utils\Dispatcher;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
@@ -25,7 +25,7 @@ class DispatcherTest extends TestCase
 
                 return $response;
             },
-            new CallableMiddleware(function ($request, $handler) {
+            new CallableHandler(function ($request, $handler) {
                 echo '1';
 
                 return $handler->handle($request);
