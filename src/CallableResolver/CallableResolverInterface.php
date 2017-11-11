@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace Middlewares\Utils\CallableResolver;
 
@@ -19,5 +20,5 @@ interface CallableResolverInterface
      *
      * @return callable
      */
-    public function resolve($callable, array $args = []);
+    public function resolve($callable, array $args = []): callable;
 }

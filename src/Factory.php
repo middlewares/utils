@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace Middlewares\Utils;
 
@@ -83,7 +84,7 @@ abstract class Factory
      *
      * @return ResponseInterface
      */
-    public static function createResponse($code = 200)
+    public static function createResponse(int $code = 200): ResponseInterface
     {
         if (self::$responseFactory === null) {
             self::$responseFactory = new Factory\ResponseFactory();
@@ -99,7 +100,7 @@ abstract class Factory
      *
      * @return StreamInterface
      */
-    public static function createStream($resource = null)
+    public static function createStream($resource = null): StreamInterface
     {
         if (self::$streamFactory === null) {
             self::$streamFactory = new Factory\StreamFactory();
@@ -119,7 +120,7 @@ abstract class Factory
      *
      * @return UriInterface
      */
-    public static function createUri($uri = '')
+    public static function createUri(string $uri = ''): UriInterface
     {
         if (self::$uriFactory === null) {
             self::$uriFactory = new Factory\UriFactory();
@@ -137,8 +138,11 @@ abstract class Factory
      *
      * @return ServerRequestInterface
      */
-    public static function createServerRequest(array $server = [], $method = 'GET', $uri = '/')
-    {
+    public static function createServerRequest(
+        array $server = [],
+        string $method = 'GET',
+        string $uri = '/'
+    ): ServerRequestInterface {
         if (self::$serverRequestFactory === null) {
             self::$serverRequestFactory = new Factory\ServerRequestFactory();
         }

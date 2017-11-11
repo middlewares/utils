@@ -1,8 +1,10 @@
 <?php
+declare(strict_types = 1);
 
 namespace Middlewares\Utils\Factory;
 
 use Interop\Http\Factory\UriFactoryInterface;
+use RuntimeException;
 
 /**
  * Simple class to create instances of PSR-7 uri.
@@ -26,6 +28,6 @@ class UriFactory implements UriFactoryInterface
             return \Slim\Http\Uri::createFromString($uri);
         }
 
-        throw new \RuntimeException('Unable to create an uri. No PSR-7 uri library detected');
+        throw new RuntimeException('Unable to create an uri. No PSR-7 uri library detected');
     }
 }

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace Middlewares\Utils;
 
@@ -17,7 +18,7 @@ abstract class Helpers
      *
      * @return MessageInterface
      */
-    public static function fixContentLength(MessageInterface $response)
+    public static function fixContentLength(MessageInterface $response): MessageInterface
     {
         if (!$response->hasHeader('Content-Length')) {
             return $response;
