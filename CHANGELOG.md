@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.13.0] - 2017-11-11
+
+### Changed
+
+* The minimum PHP version supported is 7.0
+* Replaced `http-interop/http-middleware` with  `http-interop/http-server-middleware`.
+* Changed `Middlewares\Utils\CallableHandler` signature. Now it is instantiable and can be used as middleware and server request handler.
+
+### Removed
+
+* `Middlewares\Utils\CallableMiddleware`. Use `Middlewares\Utils\CallableHandler` instead.
+
 ## [0.12.0] - 2017-09-18
 
 ### Changed

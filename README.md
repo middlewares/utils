@@ -27,20 +27,6 @@ Factory::setResponseFactory(new FooResponseFactory());
 $fooResponse = Factory::createResponse();
 ```
 
-## CallableHandler
-
-To execute a callable and return a response with the output. Useful to handle routes, etc:
-
-```php
-use Middlewares\Utils\CallableHandler;
-
-$response = CallableHandler::execute(function () {
-    echo 'Hello world';
-});
-
-echo $response->getBody(); //Hello world
-```
-
 ## Dispatcher
 
 Minimalist PSR-15 compatible dispatcher. Used for testing purposes.
@@ -62,29 +48,27 @@ $dispatcher = new Dispatcher([
 $response = $dispatcher->dispatch(Factory::createServerRequest());
 ```
 
-## CallableMiddleware
+## CallableHandler
 
-A simple way to create middlewares using callables. Internally uses [CallableHandler](#callablehandler) so you can use `echo` or return `string` in the callables (the response is created automatically if it's not returned).
-**Note:** You may not need use this directly in the `Dispatcher`, because is used automatically with instances of `Closure`.
+To resolve and execute a callable. It can be used as a middleware, server request handler or a callable:
 
 ```php
-use Middlewares\Utils\Dispatcher;
-use Middlewares\Utils\CallableMiddleware;
+use Middlewares\Utils\CallableHandler;
 
-$dispatcher = new Dispatcher([
-    new CallableMiddleware(function ($request, $next) {
-        $response = $next->handle($request);
+$callable = new CallableHandler(function () {
+    return 'Hello world';
+});
 
-        return $response->withHeader('Content-Type', 'text/html');
-    }),
-    //Providing a Closure directly, the dispatcher will convert to a CallableMiddleware automatically
-    function ($request) {
-        echo '<h1>Hello world</h1>';
-    }
-]);
+$response = $callable();
 
-$response = $dispatcher->dispatch(new Request());
+echo $response->getBody(); //Hello world
 ```
+
+The constructor accepts the following arguments:
+
+* `mixed $callable` It can be callable or a string that can be resolved as callable, for example `MyClass::method`.
+* `array $arguments` Extra arguments passed when it's invoked. 
+* `CallableResolverInterface $resolver` Used to resolve the `$callable` argument to generate something really callable. Currently there are two available resolvers: `ReflectionResolver` (used by default) and `ContainerResolver` (to use a PSR-11 container)
 
 ## Helpers
 

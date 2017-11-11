@@ -39,8 +39,6 @@ abstract class Factory
 
     /**
      * Set a custom ResponseFactory.
-     *
-     * @param ResponseFactoryInterface $responseFactory
      */
     public static function setResponseFactory(ResponseFactoryInterface $responseFactory)
     {
@@ -49,8 +47,6 @@ abstract class Factory
 
     /**
      * Set a custom StreamFactory.
-     *
-     * @param StreamFactoryInterface $streamFactory
      */
     public static function setStreamFactory(StreamFactoryInterface $streamFactory)
     {
@@ -59,8 +55,6 @@ abstract class Factory
 
     /**
      * Set a custom UriFactory.
-     *
-     * @param UriFactoryInterface $uriFactory
      */
     public static function setUriFactory(UriFactoryInterface $uriFactory)
     {
@@ -69,8 +63,6 @@ abstract class Factory
 
     /**
      * Set a custom ServerRequestFactory.
-     *
-     * @param ServerRequestFactoryInterface $serverRequestFactory
      */
     public static function setServerRequestFactory(ServerRequestFactoryInterface $serverRequestFactory)
     {
@@ -81,8 +73,6 @@ abstract class Factory
      * Creates a Response instance.
      *
      * @param int $code The status code
-     *
-     * @return ResponseInterface
      */
     public static function createResponse(int $code = 200): ResponseInterface
     {
@@ -97,8 +87,6 @@ abstract class Factory
      * Creates a Stream instance.
      *
      * @param resource $resource A resource returned by fopen
-     *
-     * @return StreamInterface
      */
     public static function createStream($resource = null): StreamInterface
     {
@@ -115,10 +103,6 @@ abstract class Factory
 
     /**
      * Creates an Uri instance.
-     *
-     * @param string $uri
-     *
-     * @return UriInterface
      */
     public static function createUri(string $uri = ''): UriInterface
     {
@@ -131,12 +115,6 @@ abstract class Factory
 
     /**
      * Creates a ServerRequest instance.
-     *
-     * @param array  $server
-     * @param string $method
-     * @param string $uri
-     *
-     * @return ServerRequestInterface
      */
     public static function createServerRequest(
         array $server = [],
