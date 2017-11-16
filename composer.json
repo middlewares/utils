@@ -29,6 +29,9 @@
         "guzzlehttp/psr7": "^1.3",
         "psr/container": "^1.0"
     },
+    "conflict": {
+        "http-interop/http-middleware": "*"
+    },
     "suggest": {
         "psr/container": "Can be used to automatically resolve callables"
     },
