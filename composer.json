@@ -30,7 +30,7 @@
         "psr/container": "^1.0"
     },
     "conflict": {
-        "http-interop/http-middleware": "*"
+        "http-interop/http-middleware": "<0.5"
     },
     "suggest": {
         "psr/container": "Can be used to automatically resolve callables"
