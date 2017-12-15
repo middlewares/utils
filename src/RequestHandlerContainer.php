@@ -10,6 +10,7 @@ use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use ReflectionClass;
 use ReflectionMethod;
+use RuntimeException;
 
 /**
  * Resolve a callable using a container.
