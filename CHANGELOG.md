@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.14.0] - UNRELEASED
+
+### Added
+
+- New class `RequestHandlerContainer` implementing PSR-11 to resolve handlers in any format (classes, callables) and return PSR-15 `RequestHandlerInterface` instances. This can be used to resolve router handlers, for example.
+
+### Removed
+
+- Deleted all callable resolvers classes. Use the `RequestHandlerContainer`, or any other PSR-11 implementation.
+
+### Changed
+
+- The signature of `CallableHandler` was simplified. Removed `$resolver` and `$arguments` in the constructor. 
+
 ## [0.13.0] - 2017-11-16
 
 ### Changed

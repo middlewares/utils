@@ -12,8 +12,8 @@ class CallableHandlerTest extends TestCase
 {
     public function testExecute()
     {
-        $callable = new CallableHandler('sprintf', ['Hello %s', 'World']);
-        $response = $callable();
+        $callable = new CallableHandler('sprintf');
+        $response = $callable('Hello %s', 'World');
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
         $this->assertEquals('Hello World', (string) $response->getBody());
