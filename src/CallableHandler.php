@@ -3,10 +3,9 @@ declare(strict_types = 1);
 
 namespace Middlewares\Utils;
 
+use Exception;
 use Interop\Http\Server\MiddlewareInterface;
 use Interop\Http\Server\RequestHandlerInterface;
-use Middlewares\Utils\CallableResolver\CallableResolverInterface;
-use Middlewares\Utils\CallableResolver\ReflectionResolver;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use UnexpectedValueException;
@@ -17,19 +16,10 @@ use UnexpectedValueException;
 class CallableHandler implements MiddlewareInterface, RequestHandlerInterface
 {
     private $callable;
-    private $arguments;
-    private $resolver;
 
-    /**
-     * @param mixed                     $callable
-     * @param array                     $arguments
-     * @param CallableResolverInterface $resolver
-     */
-    public function __construct($callable, array $arguments = [], CallableResolverInterface $resolver = null)
+    public function __construct(callable $callable)
     {
         $this->callable = $callable;
-        $this->arguments = $arguments;
-        $this->resolver = $resolver ?: new ReflectionResolver();
     }
 
     /**
@@ -40,7 +30,7 @@ class CallableHandler implements MiddlewareInterface, RequestHandlerInterface
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        return $this->__invoke($request);
+        return self::execute($this->callable, [$request]);
     }
 
     /**
@@ -51,9 +41,7 @@ class CallableHandler implements MiddlewareInterface, RequestHandlerInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $callable = $this->resolver->resolve($this->callable, array_merge([$request], $this->arguments));
-
-        return self::execute($callable, array_merge([$request, $handler], $this->arguments));
+        return self::execute($this->callable, [$request, $handler]);
     }
 
     /**
@@ -61,10 +49,7 @@ class CallableHandler implements MiddlewareInterface, RequestHandlerInterface
      */
     public function __invoke(): ResponseInterface
     {
-        $arguments = array_merge(func_get_args(), $this->arguments);
-        $callable = $this->resolver->resolve($this->callable, $arguments);
-
-        return self::execute($callable, $arguments);
+        return self::execute($this->callable, func_get_args());
     }
 
     /**
@@ -103,7 +88,7 @@ class CallableHandler implements MiddlewareInterface, RequestHandlerInterface
             }
 
             return $response;
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             while (ob_get_level() >= $level) {
                 ob_end_clean();
             }

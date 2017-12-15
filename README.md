@@ -64,12 +64,6 @@ $response = $callable();
 echo $response->getBody(); //Hello world
 ```
 
-The constructor accepts the following arguments:
-
-* `mixed $callable` It can be callable or a string that can be resolved as callable, for example `MyClass::method`.
-* `array $arguments` Extra arguments passed when it's invoked. 
-* `CallableResolverInterface $resolver` Used to resolve the `$callable` argument to generate something really callable. Currently there are two available resolvers: `ReflectionResolver` (used by default) and `ContainerResolver` (to use a PSR-11 container)
-
 ## Helpers
 
 A collection of helpers for psr-7 message manipulation. It contains the following methods:

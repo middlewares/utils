@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace Middlewares\Tests\CallableResolver;
+namespace Middlewares\Tests;
 
 final class ControllerStub
 {
