@@ -5,19 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [0.14.0] - UNRELEASED
+## [UNRELEASED]
 
 ### Added
 
 - New class `RequestHandlerContainer` implementing PSR-11 to resolve handlers in any format (classes, callables) and return PSR-15 `RequestHandlerInterface` instances. This can be used to resolve router handlers, for example.
 
+### Changed
+
+- The signature of `CallableHandler` was simplified. Removed `$resolver` and `$arguments` in the constructor.
+
 ### Removed
 
 - Deleted all callable resolvers classes. Use the `RequestHandlerContainer`, or any other PSR-11 implementation.
-
-### Changed
-
-- The signature of `CallableHandler` was simplified. Removed `$resolver` and `$arguments` in the constructor. 
 
 ## [0.13.0] - 2017-11-16
 
@@ -155,6 +155,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Response factory
 - Stream factory
 
+[UNRELEASED]: https://github.com/middlewares/utils/compare/v0.13.0...HEAD
 [0.13.0]: https://github.com/middlewares/utils/compare/v0.12.0...v0.13.0
 [0.12.0]: https://github.com/middlewares/utils/compare/v0.11.1...v0.12.0
 [0.11.1]: https://github.com/middlewares/utils/compare/v0.11.0...v0.11.1
