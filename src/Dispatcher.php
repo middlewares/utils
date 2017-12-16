@@ -68,15 +68,7 @@ class Dispatcher
                 );
             }
 
-            $response = $middleware->process($request, $this->resolve($index + 1));
-
-            if (!($response instanceof ResponseInterface)) {
-                throw new UnexpectedValueException(
-                    sprintf('The middleware must return an instance of %s', ResponseInterface::class)
-                );
-            }
-
-            return $response;
+            return $middleware->process($request, $this->resolve($index + 1));
         });
     }
 }
