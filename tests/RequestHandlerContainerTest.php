@@ -24,6 +24,8 @@ final class ReflectionResolverTest extends TestCase
     {
         $resolver = new RequestHandlerContainer();
 
+        $this->assertTrue($resolver->has(ControllerStub::class.'::action'));
+
         $callable = $resolver->get(ControllerStub::class.'::action');
 
         $this->assertInstanceOf(RequestHandlerInterface::class, $callable);
@@ -32,6 +34,8 @@ final class ReflectionResolverTest extends TestCase
     public function testResolveFunction()
     {
         $resolver = new RequestHandlerContainer();
+
+        $this->assertTrue($resolver->has('printf'));
 
         $callable = $resolver->get('printf');
 

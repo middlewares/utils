@@ -19,6 +19,9 @@ class RequestHandlerContainer implements ContainerInterface
 {
     protected $arguments;
 
+    /**
+     * @param array $arguments Arguments passed to the request handler constructor
+     */
     public function __construct(array $arguments = [])
     {
         $this->arguments = $arguments;
@@ -48,11 +51,8 @@ class RequestHandlerContainer implements ContainerInterface
         try {
             $handler = $this->resolve($id);
         } catch (Exception $exception) {
-            throw new class(
-                "Error getting the handler $id",
-                0,
-                $exception
-            ) extends Exception implements ContainerExceptionInterface {
+            throw new class("Error getting the handler $id", 0, $exception)
+                extends Exception implements ContainerExceptionInterface {
             };
         }
 
@@ -64,11 +64,8 @@ class RequestHandlerContainer implements ContainerInterface
             return new CallableHandler($handler);
         }
 
-        throw new class(
-            "Handler $id not found or has not valid type",
-            0,
-            $exception
-        ) extends Exception implements NotFoundExceptionInterface {
+        throw new class("Handler $id not found or has not valid type", 0, $exception)
+            extends Exception implements NotFoundExceptionInterface {
         };
     }
 
