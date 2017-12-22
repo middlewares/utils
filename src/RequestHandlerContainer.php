@@ -81,30 +81,20 @@ class RequestHandlerContainer implements ContainerInterface
         $handler = $this->split($handler);
 
         if (is_string($handler)) {
-            if (function_exists($handler)) {
-                return $handler;
-            }
-
-            return $this->createClass($handler);
+            return function_exists($handler) ? $handler : $this->createClass($handler);
         }
 
-        if (is_array($handler)) {
-            if (is_string($handler[0])) {
-                list($class, $method) = $handler;
-
-                $refMethod = new ReflectionMethod($class, $method);
-
-                if (!$refMethod->isStatic()) {
-                    $class = $this->createClass($class);
-
-                    return [$class, $method];
-                }
-            }
-
+        if (!is_array($handler) || !is_string($handler[0])) {
             return $handler;
         }
 
-        return $handler;
+        list($class, $method) = $handler;
+        
+        if ((new ReflectionMethod($class, $method))->isStatic()) {
+            return $handler;
+        }
+
+        return [$this->createClass($class), $method];
     }
 
     /**
@@ -115,7 +105,7 @@ class RequestHandlerContainer implements ContainerInterface
     protected function createClass(string $className)
     {
         if (!class_exists($className)) {
-            throw new RuntimeException("The class {$class} does not exists");
+            throw new RuntimeException("The class {$className} does not exists");
         }
 
         $reflection = new ReflectionClass($className);
@@ -135,10 +125,10 @@ class RequestHandlerContainer implements ContainerInterface
     protected function split(string $string)
     {
         //ClassName/Service::method
-        if (strpos($string, '::') !== false) {
-            return explode('::', $string, 2);
+        if (strpos($string, '::') === false) {
+            return $string;
         }
 
-        return $string;
+        return explode('::', $string, 2);
     }
 }
