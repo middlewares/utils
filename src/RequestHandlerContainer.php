@@ -52,7 +52,8 @@ class RequestHandlerContainer implements ContainerInterface
             $handler = $this->resolve($id);
         } catch (Exception $exception) {
             throw new class("Error getting the handler $id", 0, $exception)
-                extends Exception implements ContainerExceptionInterface {};
+                extends Exception implements ContainerExceptionInterface {
+            };
         }
 
         if ($handler instanceof RequestHandlerInterface) {
@@ -64,7 +65,8 @@ class RequestHandlerContainer implements ContainerInterface
         }
 
         throw new class("Handler $id not found or has not valid type", 0, $exception)
-            extends Exception implements NotFoundExceptionInterface {};
+            extends Exception implements NotFoundExceptionInterface {
+        };
     }
 
     /**
