@@ -103,7 +103,7 @@ class RequestHandlerContainer implements ContainerInterface
     protected function createClass(string $className)
     {
         if (!class_exists($className)) {
-            throw new RuntimeException("The class {$class} does not exists");
+            throw new RuntimeException("The class {$className} does not exists");
         }
 
         $reflection = new ReflectionClass($className);
