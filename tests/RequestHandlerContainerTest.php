@@ -3,9 +3,9 @@ declare(strict_types = 1);
 
 namespace Middlewares\Tests;
 
-use Psr\Http\Server\RequestHandlerInterface;
 use Middlewares\Utils\RequestHandlerContainer;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Server\RequestHandlerInterface;
 
 final class ReflectionResolverTest extends TestCase
 {
