@@ -4,10 +4,10 @@ declare(strict_types = 1);
 namespace Middlewares\Utils;
 
 use Exception;
-use Interop\Http\Server\RequestHandlerInterface;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use ReflectionClass;
 use ReflectionMethod;
 use RuntimeException;
@@ -89,7 +89,7 @@ class RequestHandlerContainer implements ContainerInterface
         }
 
         list($class, $method) = $handler;
-        
+
         if ((new ReflectionMethod($class, $method))->isStatic()) {
             return $handler;
         }
