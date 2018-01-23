@@ -3,7 +3,7 @@ declare(strict_types = 1);
 
 namespace Middlewares\Tests;
 
-use Interop\Http\Server\RequestHandlerInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Middlewares\Utils\RequestHandlerContainer;
 use PHPUnit\Framework\TestCase;
 
