@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.0.0] - 2018-01-23
+
+### Changed
+
+- Replaced `http-interop/http-server-middleware` with `psr/http-server-middleware`.
+
 ## [0.14.0] - 2017-12-16
 
 ### Added
@@ -24,7 +30,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 
 - The minimum PHP version supported is 7.0
-- Replaced `http-interop/http-middleware` with  `http-interop/http-server-middleware`.
+- Replaced `http-interop/http-middleware` with `http-interop/http-server-middleware`.
 - Changed `Middlewares\Utils\CallableHandler` signature. Now it is instantiable and can be used as middleware and server request handler.
 
 ### Removed
@@ -155,6 +161,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Response factory
 - Stream factory
 
+[1.0.0]: https://github.com/middlewares/utils/compare/v0.14.0...v1.0.0
 [0.14.0]: https://github.com/middlewares/utils/compare/v0.13.0...v0.14.0
 [0.13.0]: https://github.com/middlewares/utils/compare/v0.12.0...v0.13.0
 [0.12.0]: https://github.com/middlewares/utils/compare/v0.11.1...v0.12.0
