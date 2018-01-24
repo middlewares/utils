@@ -6,13 +6,13 @@ namespace Middlewares\Tests;
 use Middlewares\Utils\Factory;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UriInterface;
-use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response;
+use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\Stream;
 use Zend\Diactoros\Uri;
-use Zend\Diactoros\ServerRequest;
 
 class FactoryTest extends TestCase
 {
