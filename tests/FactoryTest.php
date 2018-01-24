@@ -5,6 +5,14 @@ namespace Middlewares\Tests;
 
 use Middlewares\Utils\Factory;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\StreamInterface;
+use Psr\Http\Message\UriInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Zend\Diactoros\Response;
+use Zend\Diactoros\Stream;
+use Zend\Diactoros\Uri;
+use Zend\Diactoros\ServerRequest;
 
 class FactoryTest extends TestCase
 {
@@ -12,8 +20,8 @@ class FactoryTest extends TestCase
     {
         $response = Factory::createResponse();
 
-        $this->assertInstanceOf('Psr\\Http\\Message\\ResponseInterface', $response);
-        $this->assertInstanceOf('Zend\\Diactoros\\Response', $response);
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+        $this->assertInstanceOf(Response::class, $response);
         $this->assertTrue($response->getBody()->isWritable());
         $this->assertTrue($response->getBody()->isSeekable());
     }
@@ -22,8 +30,8 @@ class FactoryTest extends TestCase
     {
         $stream = Factory::createStream();
 
-        $this->assertInstanceOf('Psr\\Http\\Message\\StreamInterface', $stream);
-        $this->assertInstanceOf('Zend\\Diactoros\\Stream', $stream);
+        $this->assertInstanceOf(StreamInterface::class, $stream);
+        $this->assertInstanceOf(Stream::class, $stream);
         $this->assertTrue($stream->isWritable());
         $this->assertTrue($stream->isSeekable());
     }
@@ -32,8 +40,8 @@ class FactoryTest extends TestCase
     {
         $uri = Factory::createUri('http://example.com/my-path');
 
-        $this->assertInstanceOf('Psr\\Http\\Message\\UriInterface', $uri);
-        $this->assertInstanceOf('Zend\\Diactoros\\Uri', $uri);
+        $this->assertInstanceOf(UriInterface::class, $uri);
+        $this->assertInstanceOf(Uri::class, $uri);
         $this->assertEquals('/my-path', $uri->getPath());
     }
 
@@ -41,8 +49,8 @@ class FactoryTest extends TestCase
     {
         $request = Factory::createServerRequest([]);
 
-        $this->assertInstanceOf('Psr\\Http\\Message\\ServerRequestInterface', $request);
-        $this->assertInstanceOf('Zend\\Diactoros\\ServerRequest', $request);
+        $this->assertInstanceOf(ServerRequestInterface::class, $request);
+        $this->assertInstanceOf(ServerRequest::class, $request);
         $this->assertEquals('/', $request->getUri()->getPath());
         $this->assertEquals('GET', $request->getMethod());
         $this->assertTrue($request->getBody()->isWritable());
