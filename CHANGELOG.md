@@ -5,11 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [1.0.0] - 2018-01-23
+## [1.0.0] - 2018-01-24
 
 ### Changed
 
 - Replaced `http-interop/http-server-middleware` with `psr/http-server-middleware`.
+
+### Removed
+
+- Removed `Middlewares\Utils\Helpers` because contains just one helper and it's no longer needed.
 
 ## [0.14.0] - 2017-12-16
 

@@ -64,16 +64,6 @@ $response = $callable();
 echo $response->getBody(); //Hello world
 ```
 
-## Helpers
-
-A collection of helpers for psr-7 message manipulation. It contains the following methods:
-
-```php
-Helpers::fixContentLength(MessageInterface $response): MessageInterface
-```
-
-Fixes the `Content-Length` header based in the body size.
-
 ---
 
 Please see [CHANGELOG](CHANGELOG.md) for more information about recent changes and [CONTRIBUTING](CONTRIBUTING.md) for contributing details.
