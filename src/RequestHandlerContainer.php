@@ -10,7 +10,6 @@ use Psr\Container\NotFoundExceptionInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use ReflectionClass;
 use ReflectionMethod;
-use RuntimeException;
 
 /**
  * Resolve a callable using a container.
@@ -50,23 +49,19 @@ class RequestHandlerContainer implements ContainerInterface
     {
         try {
             $handler = $this->resolve($id);
+
+            if ($handler instanceof RequestHandlerInterface) {
+                return $handler;
+            }
+
+            return new CallableHandler($handler);
+        } catch (NotFoundExceptionInterface $exception) {
+            throw $exception;
         } catch (Exception $exception) {
             throw new class("Error getting the handler $id", 0, $exception)
                 extends Exception implements ContainerExceptionInterface {
             };
         }
-
-        if ($handler instanceof RequestHandlerInterface) {
-            return $handler;
-        }
-
-        if (is_callable($handler)) {
-            return new CallableHandler($handler);
-        }
-
-        throw new class("Handler $id not found or has not valid type", 0, $exception)
-            extends Exception implements NotFoundExceptionInterface {
-        };
     }
 
     /**
@@ -82,10 +77,6 @@ class RequestHandlerContainer implements ContainerInterface
 
         if (is_string($handler)) {
             return function_exists($handler) ? $handler : $this->createClass($handler);
-        }
-
-        if (!is_array($handler) || !is_string($handler[0])) {
-            return $handler;
         }
 
         list($class, $method) = $handler;
@@ -105,7 +96,9 @@ class RequestHandlerContainer implements ContainerInterface
     protected function createClass(string $className)
     {
         if (!class_exists($className)) {
-            throw new RuntimeException("The class {$className} does not exists");
+            throw new class("The class $className does not exists")
+                extends Exception implements NotFoundExceptionInterface {
+            };
         }
 
         $reflection = new ReflectionClass($className);
@@ -120,7 +113,7 @@ class RequestHandlerContainer implements ContainerInterface
     /**
      * Slit a string to an array
      *
-     * @return string|array
+     * @return string|string[]
      */
     protected function split(string $string)
     {

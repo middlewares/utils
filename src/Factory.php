@@ -39,6 +39,7 @@ abstract class Factory
 
     /**
      * Set a custom ResponseFactory.
+     * @codeCoverageIgnore
      */
     public static function setResponseFactory(ResponseFactoryInterface $responseFactory)
     {
@@ -47,6 +48,7 @@ abstract class Factory
 
     /**
      * Set a custom StreamFactory.
+     * @codeCoverageIgnore
      */
     public static function setStreamFactory(StreamFactoryInterface $streamFactory)
     {
@@ -55,6 +57,7 @@ abstract class Factory
 
     /**
      * Set a custom UriFactory.
+     * @codeCoverageIgnore
      */
     public static function setUriFactory(UriFactoryInterface $uriFactory)
     {
@@ -63,6 +66,7 @@ abstract class Factory
 
     /**
      * Set a custom ServerRequestFactory.
+     * @codeCoverageIgnore
      */
     public static function setServerRequestFactory(ServerRequestFactoryInterface $serverRequestFactory)
     {

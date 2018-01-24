@@ -1,10 +1,14 @@
 <?php
 declare(strict_types = 1);
 
-namespace Middlewares\Tests;
+namespace Middlewares\Tests\Assets;
 
-final class ControllerStub
+final class Controller
 {
+    public static function staticAction()
+    {
+    }
+
     public function action()
     {
     }

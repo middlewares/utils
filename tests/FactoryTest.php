@@ -36,6 +36,20 @@ class FactoryTest extends TestCase
         $this->assertTrue($stream->isSeekable());
     }
 
+    public function testStreamWithResource()
+    {
+        $resource = fopen('php://temp', 'r+');
+        fwrite($resource, 'Hello world');
+
+        $stream = Factory::createStream($resource);
+
+        $this->assertInstanceOf(StreamInterface::class, $stream);
+        $this->assertInstanceOf(Stream::class, $stream);
+        $this->assertTrue($stream->isWritable());
+        $this->assertTrue($stream->isSeekable());
+        $this->assertEquals('Hello world', (string) $stream);
+    }
+
     public function testUri()
     {
         $uri = Factory::createUri('http://example.com/my-path');
