@@ -19,6 +19,19 @@ class CallableHandlerTest extends TestCase
         $this->assertEquals('Hello World', (string) $response->getBody());
     }
 
+    public function testExecuteHandler()
+    {
+        $callable = new CallableHandler(function ($request) {
+            echo $request->getHeaderLine('Foo');
+        });
+
+        $request = Factory::createServerRequest()->withHeader('Foo', 'Bar');
+        $response = $callable->handle($request);
+
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+        $this->assertEquals('Bar', (string) $response->getBody());
+    }
+
     public function testOb()
     {
         $callable = new CallableHandler(function () {
