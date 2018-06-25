@@ -64,6 +64,21 @@ $response = $callable();
 echo $response->getBody(); //Hello world
 ```
 
+## HttpErrorException
+
+General purpose exception used to represent HTTP errors.
+
+```php
+use Middlewares\Utils\HttpErrorException;
+
+$exception = HttpErrorException::create(500, [
+    'problem' => 'Something bad happened',
+]);
+
+// Additional context can be get and set on the exception
+$context = $exception->getContext();
+```
+
 ---
 
 Please see [CHANGELOG](CHANGELOG.md) for more information about recent changes and [CONTRIBUTING](CONTRIBUTING.md) for contributing details.
