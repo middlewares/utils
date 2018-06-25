@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [1.1.0] - ???
+## [1.1.0] - 2018-06-25
 
 ### Added
 
@@ -64,7 +64,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   * A `Psr\Http\Message\ResponseInterface`
   * `null` or scalar
   * an object with `__toString` method implemented
-   Otherwise, throws an `UnexpectedValueException`
+  Otherwise, throws an `UnexpectedValueException`
 - `Middlewares\Helpers::fixContentLength` only modifies or removes the `Content-Length` header, but does not add it if didn't exist previously.
 
 ## [0.11.0] - 2017-03-25
@@ -171,6 +171,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Response factory
 - Stream factory
 
+
+[1.1.0]: https://github.com/middlewares/utils/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/middlewares/utils/compare/v0.14.0...v1.0.0
 [0.14.0]: https://github.com/middlewares/utils/compare/v0.13.0...v0.14.0
 [0.13.0]: https://github.com/middlewares/utils/compare/v0.12.0...v0.13.0
