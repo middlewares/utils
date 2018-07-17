@@ -121,7 +121,7 @@ abstract class Factory
      * Creates a ServerRequest instance.
      */
     public static function createServerRequest(
-        array $server = [],
+        array $serverParams = [],
         string $method = 'GET',
         string $uri = '/'
     ): ServerRequestInterface {
@@ -129,12 +129,6 @@ abstract class Factory
             self::$serverRequestFactory = new Factory\ServerRequestFactory();
         }
 
-        if (is_string($uri)) {
-            $uri = self::createUri($uri);
-        }
-
-        return self::$serverRequestFactory->createServerRequestFromArray($server)
-            ->withMethod($method)
-            ->withUri($uri);
+        return self::$serverRequestFactory->createServerRequest($method, $uri, $serverParams);
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types = 1);
 namespace Middlewares\Utils\Factory;
 
 use Interop\Http\Factory\ResponseFactoryInterface;
+use Psr\Http\Message\ResponseInterface;
 use RuntimeException;
 
 /**
@@ -11,23 +12,24 @@ use RuntimeException;
  */
 class ResponseFactory implements ResponseFactoryInterface
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function createResponse($code = 200)
+    public function createResponse(int $code = 200, string $reasonPhrase = ''): ResponseInterface
     {
         if (class_exists('Zend\\Diactoros\\Response')) {
-            return new \Zend\Diactoros\Response('php://memory', $code);
+            $response = new \Zend\Diactoros\Response('php://memory', $code);
+
+            return $reasonPhrase !== '' ? $response->withStatus($code, $reasonPhrase) : $response;
         }
 
         if (class_exists('GuzzleHttp\\Psr7\\Response')) {
-            return new \GuzzleHttp\Psr7\Response($code);
+            return new \GuzzleHttp\Psr7\Response($code, [], null, '1.1', $reasonPhrase);
         }
 
         if (class_exists('Slim\\Http\\Response')) {
-            return new \Slim\Http\Response($code);
+            $response = new \Slim\Http\Response($code);
+
+            return $reasonPhrase !== '' ? $response->withStatus($code, $reasonPhrase) : $response;
         }
 
-        throw new RuntimeException('Unable to create a response. No PSR-7 stream library detected');
+        throw new RuntimeException('Unable to create a response. No PSR-7 library detected');
     }
 }
