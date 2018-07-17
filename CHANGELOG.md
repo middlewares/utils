@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.2.0] - 2018-07-17
+
+### Changed
+
+- Updated `http-interop/http-factory` to `0.4`
+
 ## [1.1.0] - 2018-06-25
 
 ### Added
@@ -172,6 +178,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Stream factory
 
 
+[1.2.0]: https://github.com/middlewares/utils/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/middlewares/utils/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/middlewares/utils/compare/v0.14.0...v1.0.0
 [0.14.0]: https://github.com/middlewares/utils/compare/v0.13.0...v0.14.0
