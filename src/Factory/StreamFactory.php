@@ -4,6 +4,7 @@ declare(strict_types = 1);
 namespace Middlewares\Utils\Factory;
 
 use Interop\Http\Factory\StreamFactoryInterface;
+use Psr\Http\Message\StreamInterface;
 use RuntimeException;
 
 /**
@@ -11,10 +12,7 @@ use RuntimeException;
  */
 class StreamFactory implements StreamFactoryInterface
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function createStream($content = '')
+    public function createStream(string $content = ''): StreamInterface
     {
         $stream = $this->createStreamFromFile('php://temp', 'r+');
         $stream->write($content);
@@ -22,18 +20,12 @@ class StreamFactory implements StreamFactoryInterface
         return $stream;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function createStreamFromFile($file, $mode = 'r')
+    public function createStreamFromFile(string $filename, string $mode = 'r'): StreamInterface
     {
-        return $this->createStreamFromResource(fopen($file, $mode));
+        return $this->createStreamFromResource(fopen($filename, $mode));
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function createStreamFromResource($resource)
+    public function createStreamFromResource($resource): StreamInterface
     {
         if (class_exists('Zend\\Diactoros\\Stream')) {
             return new \Zend\Diactoros\Stream($resource);

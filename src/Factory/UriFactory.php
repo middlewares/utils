@@ -4,6 +4,7 @@ declare(strict_types = 1);
 namespace Middlewares\Utils\Factory;
 
 use Interop\Http\Factory\UriFactoryInterface;
+use Psr\Http\Message\UriInterface;
 use RuntimeException;
 
 /**
@@ -11,10 +12,7 @@ use RuntimeException;
  */
 class UriFactory implements UriFactoryInterface
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function createUri($uri = '')
+    public function createUri(string $uri = ''): UriInterface
     {
         if (class_exists('Zend\\Diactoros\\Uri')) {
             return new \Zend\Diactoros\Uri($uri);
