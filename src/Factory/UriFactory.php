@@ -3,7 +3,7 @@ declare(strict_types = 1);
 
 namespace Middlewares\Utils\Factory;
 
-use Interop\Http\Factory\UriFactoryInterface;
+use Psr\Http\Message\UriFactoryInterface;
 use Psr\Http\Message\UriInterface;
 use RuntimeException;
 

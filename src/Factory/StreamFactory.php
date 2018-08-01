@@ -3,7 +3,7 @@ declare(strict_types = 1);
 
 namespace Middlewares\Utils\Factory;
 
-use Interop\Http\Factory\StreamFactoryInterface;
+use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\StreamInterface;
 use RuntimeException;
 
