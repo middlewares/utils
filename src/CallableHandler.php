@@ -4,6 +4,7 @@ declare(strict_types = 1);
 namespace Middlewares\Utils;
 
 use Exception;
+use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -16,10 +17,12 @@ use UnexpectedValueException;
 class CallableHandler implements MiddlewareInterface, RequestHandlerInterface
 {
     private $callable;
+    private $responseFactory;
 
-    public function __construct(callable $callable)
+    public function __construct(callable $callable, ResponseFactoryInterface $responseFactory = null)
     {
         $this->callable = $callable;
+        $this->responseFactory = $responseFactory;
     }
 
     /**
@@ -30,7 +33,7 @@ class CallableHandler implements MiddlewareInterface, RequestHandlerInterface
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        return self::execute($this->callable, [$request]);
+        return $this->execute([$request]);
     }
 
     /**
@@ -41,7 +44,7 @@ class CallableHandler implements MiddlewareInterface, RequestHandlerInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        return self::execute($this->callable, [$request, $handler]);
+        return $this->execute([$request, $handler]);
     }
 
     /**
@@ -49,19 +52,19 @@ class CallableHandler implements MiddlewareInterface, RequestHandlerInterface
      */
     public function __invoke(): ResponseInterface
     {
-        return self::execute($this->callable, func_get_args());
+        return $this->execute(func_get_args());
     }
 
     /**
      * Execute the callable.
      */
-    private static function execute(callable $callable, array $arguments = []): ResponseInterface
+    private function execute(array $arguments = []): ResponseInterface
     {
         ob_start();
         $level = ob_get_level();
 
         try {
-            $return = call_user_func_array($callable, $arguments);
+            $return = call_user_func_array($this->callable, $arguments);
 
             if ($return instanceof ResponseInterface) {
                 $response = $return;
@@ -70,7 +73,8 @@ class CallableHandler implements MiddlewareInterface, RequestHandlerInterface
                  || is_scalar($return)
                  || (is_object($return) && method_exists($return, '__toString'))
             ) {
-                $response = Factory::createResponse();
+                $responseFactory = $this->responseFactory ?: Factory::getResponseFactory();
+                $response = $responseFactory->createResponse();
             } else {
                 throw new UnexpectedValueException(
                     'The value returned must be scalar or an object with __toString method'

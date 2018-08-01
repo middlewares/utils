@@ -8,14 +8,14 @@ use Middlewares\Utils\Factory\DiactorosFactory;
 use Middlewares\Utils\Factory\GuzzleFactory;
 use Middlewares\Utils\Factory\SlimFactory;
 use PHPUnit\Framework\TestCase;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Message\StreamInterface;
-use Psr\Http\Message\UriInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestFactoryInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\StreamFactoryInterface;
+use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UriFactoryInterface;
+use Psr\Http\Message\UriInterface;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\Stream;
@@ -148,7 +148,7 @@ class FactoryTest extends TestCase
                 SlimFactory::class,
                 SlimFactory::class,
                 SlimFactory::class,
-            ]
+            ],
         ];
     }
 
@@ -157,10 +157,10 @@ class FactoryTest extends TestCase
      */
     public function testPriorities(
         array $priorities,
-        $serverRequestFactoryClass,
-        $responseFactoryClass,
-        $streamFactoryClass,
-        $uriFactoryClass
+        string $serverRequestFactoryClass,
+        string $responseFactoryClass,
+        string $streamFactoryClass,
+        string $uriFactoryClass
     ) {
         Factory::reset($priorities);
 

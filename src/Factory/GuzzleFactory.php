@@ -3,6 +3,10 @@ declare(strict_types = 1);
 
 namespace Middlewares\Utils\Factory;
 
+use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Psr7\ServerRequest;
+use GuzzleHttp\Psr7\Stream;
+use GuzzleHttp\Psr7\Uri;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestFactoryInterface;
@@ -11,15 +15,15 @@ use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UriFactoryInterface;
 use Psr\Http\Message\UriInterface;
-use GuzzleHttp\Psr7\Response;
-use GuzzleHttp\Psr7\ServerRequest;
-use GuzzleHttp\Psr7\Stream;
-use GuzzleHttp\Psr7\Uri;
 
 /**
  * Simple class to create response instances of PSR-7 classes.
  */
-class GuzzleFactory implements ResponseFactoryInterface, ServerRequestFactoryInterface, StreamFactoryInterface, UriFactoryInterface
+class GuzzleFactory implements
+    ResponseFactoryInterface,
+    ServerRequestFactoryInterface,
+    StreamFactoryInterface,
+    UriFactoryInterface
 {
     /**
      * Check whether Diactoros is available
@@ -42,6 +46,7 @@ class GuzzleFactory implements ResponseFactoryInterface, ServerRequestFactoryInt
 
     /**
      * @see ServerRequestFactoryInterface
+     * @param mixed $uri
      */
     public function createServerRequest(string $method, $uri, array $serverParams = []): ServerRequestInterface
     {
@@ -69,6 +74,7 @@ class GuzzleFactory implements ResponseFactoryInterface, ServerRequestFactoryInt
 
     /**
      * @see StreamFactoryInterface
+     * @param mixed $resource
      */
     public function createStreamFromResource($resource): StreamInterface
     {

@@ -25,7 +25,7 @@ class CallableHandlerTest extends TestCase
             echo $request->getHeaderLine('Foo');
         });
 
-        $request = Factory::createServerRequest()->withHeader('Foo', 'Bar');
+        $request = Factory::createServerRequest('GET', '/')->withHeader('Foo', 'Bar');
         $response = $callable->handle($request);
 
         $this->assertInstanceOf(ResponseInterface::class, $response);

@@ -12,15 +12,19 @@ use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UriFactoryInterface;
 use Psr\Http\Message\UriInterface;
 use Slim\Http\Headers;
-use Slim\Http\Response;
 use Slim\Http\Request;
+use Slim\Http\Response;
 use Slim\Http\Stream;
 use Slim\Http\Uri;
 
 /**
  * Simple class to create response instances of PSR-7 classes.
  */
-class SlimFactory implements ResponseFactoryInterface, ServerRequestFactoryInterface, StreamFactoryInterface, UriFactoryInterface
+class SlimFactory implements
+    ResponseFactoryInterface,
+    ServerRequestFactoryInterface,
+    StreamFactoryInterface,
+    UriFactoryInterface
 {
     /**
      * Check whether Diactoros is available
@@ -45,6 +49,7 @@ class SlimFactory implements ResponseFactoryInterface, ServerRequestFactoryInter
 
     /**
      * @see ServerRequestFactoryInterface
+     * @param mixed $uri
      */
     public function createServerRequest(string $method, $uri, array $serverParams = []): ServerRequestInterface
     {
@@ -79,6 +84,7 @@ class SlimFactory implements ResponseFactoryInterface, ServerRequestFactoryInter
 
     /**
      * @see StreamFactoryInterface
+     * @param mixed $resource
      */
     public function createStreamFromResource($resource): StreamInterface
     {
