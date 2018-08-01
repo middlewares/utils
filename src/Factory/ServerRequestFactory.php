@@ -3,7 +3,7 @@ declare(strict_types = 1);
 
 namespace Middlewares\Utils\Factory;
 
-use Interop\Http\Factory\ServerRequestFactoryInterface;
+use Psr\Http\Message\ServerRequestFactoryInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use RuntimeException;
 
