@@ -101,14 +101,14 @@ class FactoryTest extends TestCase
         $this->assertTrue($serverRequest->getBody()->isSeekable());
     }
 
-    public function prioritiesDataProvider(): array
+    public function strategiesDataProvider(): array
     {
         return [
             [
                 [
-                    'diactoros' => DiactorosFactory::class,
-                    'guzzle' => GuzzleFactory::class,
-                    'slim' => SlimFactory::class,
+                    DiactorosFactory::class,
+                    GuzzleFactory::class,
+                    SlimFactory::class,
                 ],
                 DiactorosFactory::class,
                 DiactorosFactory::class,
@@ -117,9 +117,9 @@ class FactoryTest extends TestCase
             ],
             [
                 [
-                    'guzzle' => GuzzleFactory::class,
-                    'diactoros' => DiactorosFactory::class,
-                    'slim' => SlimFactory::class,
+                    GuzzleFactory::class,
+                    DiactorosFactory::class,
+                    SlimFactory::class,
                 ],
                 GuzzleFactory::class,
                 GuzzleFactory::class,
@@ -128,9 +128,9 @@ class FactoryTest extends TestCase
             ],
             [
                 [
-                    'slim' => SlimFactory::class,
-                    'guzzle' => GuzzleFactory::class,
-                    'diactoros' => DiactorosFactory::class,
+                    SlimFactory::class,
+                    GuzzleFactory::class,
+                    DiactorosFactory::class,
                 ],
                 SlimFactory::class,
                 SlimFactory::class,
@@ -139,10 +139,10 @@ class FactoryTest extends TestCase
             ],
             [
                 [
-                    'other' => 'Not found',
-                    'slim' => SlimFactory::class,
-                    'guzzle' => GuzzleFactory::class,
-                    'diactoros' => DiactorosFactory::class,
+                    'NotFound',
+                    SlimFactory::class,
+                    GuzzleFactory::class,
+                    DiactorosFactory::class,
                 ],
                 SlimFactory::class,
                 SlimFactory::class,
@@ -153,16 +153,16 @@ class FactoryTest extends TestCase
     }
 
     /**
-     * @dataProvider prioritiesDataProvider
+     * @dataProvider strategiesDataProvider
      */
-    public function testPriorities(
-        array $priorities,
+    public function testStrategies(
+        array $strategies,
         string $serverRequestFactoryClass,
         string $responseFactoryClass,
         string $streamFactoryClass,
         string $uriFactoryClass
     ) {
-        Factory::reset($priorities);
+        Factory::setStrategies($strategies);
 
         $serverRequestFactory = Factory::getServerRequestFactory();
         $responseFactory = Factory::getResponseFactory();

@@ -21,10 +21,10 @@ use RuntimeException;
  */
 abstract class Factory
 {
-    private static $priorities = [
-        'diactoros' => DiactorosFactory::class,
-        'guzzle' => GuzzleFactory::class,
-        'slim' => SlimFactory::class,
+    private static $strategies = [
+        DiactorosFactory::class,
+        GuzzleFactory::class,
+        SlimFactory::class,
     ];
 
     private static $factory;
@@ -44,8 +44,8 @@ abstract class Factory
             return self::$factories[$type] = self::$factory;
         }
 
-        foreach (self::$priorities as $className) {
-            if (is_array($className)) {
+        foreach (self::$strategies as $className) {
+            if (is_array($className) && isset($className[$type])) {
                 $className = $className[$type];
 
                 if (class_exists($className)) {
@@ -70,16 +70,13 @@ abstract class Factory
     }
 
     /**
-     * Remove the cached instances and, optionally, change the priorities
+     * Change the strategies
      */
-    public static function reset(array $priorities = null)
+    public static function setStrategies(array $strategies = null)
     {
         self::$factory = null;
         self::$factories = [];
-
-        if ($priorities) {
-            self::$priorities = $priorities;
-        }
+        self::$strategies = $strategies;
     }
 
     /**
