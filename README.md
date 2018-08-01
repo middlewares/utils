@@ -21,7 +21,8 @@ $response = Factory::createResponse(200);
 $stream = Factory::createStream('Hello world');
 $uri = Factory::createUri('http://example.com');
 
-//By default, detect diactoros, guzzle and slim (in this priority), but you can change the order or add other classes
+// By default, detect diactoros, guzzle and slim (in this order of priority),
+// but you can change it and add other classes
 Factory::setStrategy([
     'MyApp\Psr17Factory'
     Middlewares\Utils\Factory\GuzzleFactory,
@@ -43,10 +44,9 @@ $uri = $uriFactory->createUri('http://hello-world.com');
 Minimalist PSR-15 compatible dispatcher. Used for testing purposes.
 
 ```php
-use Middlewares\Utils\Factory;
 use Middlewares\Utils\Dispatcher;
 
-$dispatcher = new Dispatcher([
+$response = Dispatcher::run([
     new Middleware1(),
     new Middleware2(),
     new Middleware3(),
@@ -55,8 +55,6 @@ $dispatcher = new Dispatcher([
         return $response->withHeader('X-Foo', 'Bar');
     }
 ]);
-
-$response = $dispatcher->dispatch(Factory::createServerRequest());
 ```
 
 ## CallableHandler
