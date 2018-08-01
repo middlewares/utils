@@ -11,98 +11,155 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UriInterface;
+use Middlewares\Utils\Factory\DiactorosFactory;
+use Middlewares\Utils\Factory\GuzzleFactory;
+use Middlewares\Utils\Factory\SlimFactory;
+use RuntimeException;
 
 /**
  * Simple class to create instances of PSR-7 classes.
  */
 abstract class Factory
 {
-    /**
-     * @var ResponseFactoryInterface
-     */
-    private static $responseFactory;
+    private static $priorities = [
+        'diactoros' => DiactorosFactory::class,
+        'guzzle' => GuzzleFactory::class,
+        'slim' => SlimFactory::class
+    ];
+
+    private static $factory;
+
+    private static $factories = [];
 
     /**
-     * @var StreamFactoryInterface
+     * Create the PSR-17 factories or throw an exception
      */
-    private static $streamFactory;
+    private static function getFactory(string $type)
+    {
+        if (!empty(self::$factories[$type])) {
+            return self::$factories[$type];
+        }
+
+        if (!empty(self::$factory)) {
+            return self::$factories[$type] = self::$factory;
+        }
+
+        foreach (self::$priorities as $className) {
+            if (is_array($className)) {
+                $className = $className[$type];
+
+                if (class_exists($className)) {
+                    return self::$factories[$type] = new $className();
+                }
+
+                continue;
+            }
+
+            if (!class_exists($className)) {
+                continue;
+            }
+
+            if (strpos($className, __NAMESPACE__) === 0 && !$className::isInstalled()) {
+                continue;
+            }
+
+            return self::$factories[$type] = self::$factory = new $className();
+        }
+
+        throw new RuntimeException('No PSR-7 library detected');
+    }
 
     /**
-     * @var UriFactoryInterface
+     * Remove the cached instances and, optionally, change the priorities
      */
-    private static $uriFactory;
+    public static function reset(array $priorities = null)
+    {
+        self::$factory = null;
+        self::$factories = [];
 
-    /**
-     * @var ServerRequestFactoryInterface
-     */
-    private static $serverRequestFactory;
+        if ($priorities) {
+            self::$priorities = $priorities;
+        }
+    }
 
     /**
      * Set a custom ResponseFactory.
-     * @codeCoverageIgnore
      */
     public static function setResponseFactory(ResponseFactoryInterface $responseFactory)
     {
-        self::$responseFactory = $responseFactory;
+        self::$factories['response'] = $responseFactory;
+    }
+
+    /**
+     * Get a ResponseFactory.
+     */
+    public static function getResponseFactory(): ResponseFactoryInterface
+    {
+        return self::getFactory('response');
     }
 
     /**
      * Set a custom StreamFactory.
-     * @codeCoverageIgnore
      */
     public static function setStreamFactory(StreamFactoryInterface $streamFactory)
     {
-        self::$streamFactory = $streamFactory;
+        self::$factories['stream'] = $streamFactory;
+    }
+
+    /**
+     * Get a StreamFactory.
+     */
+    public static function getStreamFactory(): StreamFactoryInterface
+    {
+        return self::getFactory('stream');
     }
 
     /**
      * Set a custom UriFactory.
-     * @codeCoverageIgnore
      */
     public static function setUriFactory(UriFactoryInterface $uriFactory)
     {
-        self::$uriFactory = $uriFactory;
+        self::$factories['uri'] = $uriFactory;
+    }
+
+    /**
+     * Get a UriFactory.
+     */
+    public static function getUriFactory(): UriFactoryInterface
+    {
+        return self::getFactory('uri');
     }
 
     /**
      * Set a custom ServerRequestFactory.
-     * @codeCoverageIgnore
      */
     public static function setServerRequestFactory(ServerRequestFactoryInterface $serverRequestFactory)
     {
-        self::$serverRequestFactory = $serverRequestFactory;
+        self::$factories['serverRequest'] = $serverRequestFactory;
+    }
+
+    /**
+     * Get a ServerRequestFactory.
+     */
+    public static function getServerRequestFactory(): ServerRequestFactoryInterface
+    {
+        return self::getFactory('serverRequest');
     }
 
     /**
      * Creates a Response instance.
-     *
-     * @param int $code The status code
      */
-    public static function createResponse(int $code = 200): ResponseInterface
+    public static function createResponse(int $code = 200, string $reasonPhrase = ''): ResponseInterface
     {
-        if (self::$responseFactory === null) {
-            self::$responseFactory = new Factory\ResponseFactory();
-        }
-
-        return self::$responseFactory->createResponse($code);
+        return self::getResponseFactory()->createResponse($code, $reasonPhrase);
     }
 
     /**
      * Creates a Stream instance.
-     *
-     * @param resource $resource A resource returned by fopen
      */
-    public static function createStream($resource = null): StreamInterface
+    public static function createStream(string $content = ''): StreamInterface
     {
-        if (self::$streamFactory === null) {
-            self::$streamFactory = new Factory\StreamFactory();
-        }
-
-        if ($resource === null) {
-            return self::$streamFactory->createStream();
-        }
-
-        return self::$streamFactory->createStreamFromResource($resource);
+        return self::getStreamFactory()->createStream($content);
     }
 
     /**
@@ -110,25 +167,14 @@ abstract class Factory
      */
     public static function createUri(string $uri = ''): UriInterface
     {
-        if (self::$uriFactory === null) {
-            self::$uriFactory = new Factory\UriFactory();
-        }
-
-        return self::$uriFactory->createUri($uri);
+        return self::getUriFactory()->createUri($uri);
     }
 
     /**
      * Creates a ServerRequest instance.
      */
-    public static function createServerRequest(
-        array $serverParams = [],
-        string $method = 'GET',
-        string $uri = '/'
-    ): ServerRequestInterface {
-        if (self::$serverRequestFactory === null) {
-            self::$serverRequestFactory = new Factory\ServerRequestFactory();
-        }
-
-        return self::$serverRequestFactory->createServerRequest($method, $uri, $serverParams);
+    public static function createServerRequest(string $method, $uri, array $serverParams = []): ServerRequestInterface
+    {
+        return self::getServerRequestFactory()->createServerRequest($method, $uri, $serverParams);
     }
 }
