@@ -5,11 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [1.3.0] - UNRELEASED
+## [2.0.0] - UNRELEASED
 
 ### Added
 
 - New methods added to `Factory` to return PSR-17 factories: `getResponseFactory`, `getServerRequestFactory`, `getStreamFactory` and `getUriFactory`.
+- New method `Factory::setStrategies()` to configure the priority order of the Diactoros, Guzzle and Slim factories or register new classes.
 - Added a second argument to `Callablehandler` constructor to pass a response factory
 
 ### Changed
@@ -192,6 +193,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Stream factory
 
 
+[2.0.0]: https://github.com/middlewares/utils/compare/v1.2.0...HEAD
 [1.2.0]: https://github.com/middlewares/utils/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/middlewares/utils/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/middlewares/utils/compare/v0.14.0...v1.0.0
