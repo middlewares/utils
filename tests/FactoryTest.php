@@ -140,14 +140,17 @@ class FactoryTest extends TestCase
             [
                 [
                     'NotFound',
-                    SlimFactory::class,
-                    GuzzleFactory::class,
-                    DiactorosFactory::class,
+                    [
+                        'serverRequest' => SlimFactory::class,
+                        'response' => DiactorosFactory::class,
+                        'stream' => SlimFactory::class,
+                        'uri' => GuzzleFactory::class,
+                    ]
                 ],
                 SlimFactory::class,
+                DiactorosFactory::class,
                 SlimFactory::class,
-                SlimFactory::class,
-                SlimFactory::class,
+                GuzzleFactory::class,
             ],
         ];
     }
