@@ -19,7 +19,11 @@ use Zend\Diactoros\Uri;
 /**
  * Simple class to create response instances of PSR-7 classes.
  */
-class DiactorosFactory implements ResponseFactoryInterface, ServerRequestFactoryInterface, StreamFactoryInterface, UriFactoryInterface
+class DiactorosFactory implements
+    ResponseFactoryInterface,
+    ServerRequestFactoryInterface,
+    StreamFactoryInterface,
+    UriFactoryInterface
 {
     /**
      * Check whether Diactoros is available
@@ -44,6 +48,7 @@ class DiactorosFactory implements ResponseFactoryInterface, ServerRequestFactory
 
     /**
      * @see ServerRequestFactoryInterface
+     * @param mixed $uri
      */
     public function createServerRequest(string $method, $uri, array $serverParams = []): ServerRequestInterface
     {
@@ -77,6 +82,7 @@ class DiactorosFactory implements ResponseFactoryInterface, ServerRequestFactory
 
     /**
      * @see StreamFactoryInterface
+     * @param mixed $resource
      */
     public function createStreamFromResource($resource): StreamInterface
     {

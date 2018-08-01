@@ -3,17 +3,17 @@ declare(strict_types = 1);
 
 namespace Middlewares\Utils;
 
-use Psr\Http\Message\ResponseFactoryInterface;
-use Psr\Http\Message\ServerRequestFactoryInterface;
-use Psr\Http\Message\StreamFactoryInterface;
-use Psr\Http\Message\UriFactoryInterface;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Message\StreamInterface;
-use Psr\Http\Message\UriInterface;
 use Middlewares\Utils\Factory\DiactorosFactory;
 use Middlewares\Utils\Factory\GuzzleFactory;
 use Middlewares\Utils\Factory\SlimFactory;
+use Psr\Http\Message\ResponseFactoryInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestFactoryInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\StreamFactoryInterface;
+use Psr\Http\Message\StreamInterface;
+use Psr\Http\Message\UriFactoryInterface;
+use Psr\Http\Message\UriInterface;
 use RuntimeException;
 
 /**
@@ -24,7 +24,7 @@ abstract class Factory
     private static $priorities = [
         'diactoros' => DiactorosFactory::class,
         'guzzle' => GuzzleFactory::class,
-        'slim' => SlimFactory::class
+        'slim' => SlimFactory::class,
     ];
 
     private static $factory;
@@ -172,6 +172,7 @@ abstract class Factory
 
     /**
      * Creates a ServerRequest instance.
+     * @param mixed $uri
      */
     public static function createServerRequest(string $method, $uri, array $serverParams = []): ServerRequestInterface
     {

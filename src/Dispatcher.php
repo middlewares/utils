@@ -23,7 +23,7 @@ class Dispatcher
     public static function run(array $stack, ServerRequestInterface $request = null): ResponseInterface
     {
         if ($request === null) {
-            $request = Factory::createServerRequest();
+            $request = Factory::createServerRequest('GET', '/');
         }
 
         return (new static($stack))->dispatch($request);

@@ -5,11 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [1.3.0] - 2018-08-01
+## [1.3.0] - UNRELEASED
+
+### Added
+
+- New methods added to `Factory` to return PSR-17 factories: `getResponseFactory`, `getServerRequestFactory`, `getStreamFactory` and `getUriFactory`.
+- Added a second argument to `Callablehandler` constructor to pass a response factory
 
 ### Changed
 
 - Exchanged abandoned `http-interop/http-factory` with `psr/http-factory`
+- Changed the signature of `Factory::createServerRequest()` to be aligned with PSR-17
+- Changed the signature of `Factory::createStream()` to be aligned with PSR-17
+- Changed the signature of `Factory::createResponse()` to be aligned with PSR-17
 
 ## [1.2.0] - 2018-07-17
 
