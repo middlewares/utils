@@ -90,7 +90,7 @@ $context = $exception->getContext();
 
 ## Traits
 
-Traits containing common utilities shared between many middlewares like the ability to customize PSR-17 factories to create PSR-7 objects.
+Common utilities shared between many middlewares like the ability to customize PSR-17 factories.
 
 * `HasResponseFactory`
 * `HasStreamFactory`
