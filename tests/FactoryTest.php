@@ -145,7 +145,7 @@ class FactoryTest extends TestCase
                         'response' => DiactorosFactory::class,
                         'stream' => SlimFactory::class,
                         'uri' => GuzzleFactory::class,
-                    ]
+                    ],
                 ],
                 SlimFactory::class,
                 DiactorosFactory::class,
