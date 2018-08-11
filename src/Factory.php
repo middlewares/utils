@@ -25,6 +25,7 @@ abstract class Factory
         DiactorosFactory::class,
         GuzzleFactory::class,
         SlimFactory::class,
+        'Nyholm\Psr7\Factory\Psr17Factory',
     ];
 
     private static $factory;
