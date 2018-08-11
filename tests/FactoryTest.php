@@ -7,6 +7,7 @@ use Middlewares\Utils\Factory;
 use Middlewares\Utils\Factory\DiactorosFactory;
 use Middlewares\Utils\Factory\GuzzleFactory;
 use Middlewares\Utils\Factory\SlimFactory;
+use Nyholm\Psr7\Factory\Psr17Factory;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -136,6 +137,15 @@ class FactoryTest extends TestCase
                 SlimFactory::class,
                 SlimFactory::class,
                 SlimFactory::class,
+            ],
+            [
+                [
+                    Psr17Factory::class,
+                ],
+                Psr17Factory::class,
+                Psr17Factory::class,
+                Psr17Factory::class,
+                Psr17Factory::class,
             ],
             [
                 [

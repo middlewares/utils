@@ -11,7 +11,7 @@ Common utilities used by the middlewares' packages:
 
 ## Factory
 
-Used to create psr-7 instances of `ServerRequestInterface`, `ResponseInterface`, `StreamInterface` and `UriInterface`. Detects automatically [Diactoros](https://github.com/zendframework/zend-diactoros), [Guzzle](https://github.com/guzzle/psr7) and [Slim](https://github.com/slimphp/Slim) but you can register a different factory using the [psr/http-factory](https://github.com/php-fig/http-factory) interface.
+Used to create psr-7 instances of `ServerRequestInterface`, `ResponseInterface`, `StreamInterface` and `UriInterface`. Detects automatically [Diactoros](https://github.com/zendframework/zend-diactoros), [Guzzle](https://github.com/guzzle/psr7), [Slim](https://github.com/slimphp/Slim) and [Nyholm/psr7](https://github.com/Nyholm/psr7) but you can register a different factory using the [psr/http-factory](https://github.com/php-fig/http-factory) interface.
 
 ```php
 use Middlewares\Utils\Factory;
@@ -21,7 +21,7 @@ $response = Factory::createResponse(200);
 $stream = Factory::createStream('Hello world');
 $uri = Factory::createUri('http://example.com');
 
-// By default, detect diactoros, guzzle and slim (in this order of priority),
+// By default, detect diactoros, guzzle, slim and nyholm (in this order of priority),
 // but you can change it and add other classes
 Factory::setStrategy([
     'MyApp\Psr17Factory'
