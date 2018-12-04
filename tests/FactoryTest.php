@@ -4,7 +4,6 @@ declare(strict_types = 1);
 namespace Middlewares\Tests;
 
 use Middlewares\Utils\Factory;
-use Middlewares\Utils\Factory\DiactorosFactory;
 use Middlewares\Utils\Factory\GuzzleFactory;
 use Middlewares\Utils\Factory\SlimFactory;
 use PHPUnit\Framework\TestCase;
@@ -17,9 +16,13 @@ use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UriFactoryInterface;
 use Psr\Http\Message\UriInterface;
 use Zend\Diactoros\Response;
+use Zend\Diactoros\ResponseFactory;
 use Zend\Diactoros\ServerRequest;
+use Zend\Diactoros\ServerRequestFactory;
 use Zend\Diactoros\Stream;
+use Zend\Diactoros\StreamFactory;
 use Zend\Diactoros\Uri;
+use Zend\Diactoros\UriFactory;
 
 class FactoryTest extends TestCase
 {
@@ -29,7 +32,7 @@ class FactoryTest extends TestCase
         $responseFactory = Factory::getResponseFactory();
 
         $this->assertInstanceOf(ResponseFactoryInterface::class, $responseFactory);
-        $this->assertInstanceOf(DiactorosFactory::class, $responseFactory);
+        $this->assertInstanceOf(ResponseFactory::class, $responseFactory);
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
         $this->assertInstanceOf(Response::class, $response);
@@ -45,7 +48,7 @@ class FactoryTest extends TestCase
         $streamFactory = Factory::getStreamFactory();
 
         $this->assertInstanceOf(StreamFactoryInterface::class, $streamFactory);
-        $this->assertInstanceOf(DiactorosFactory::class, $streamFactory);
+        $this->assertInstanceOf(StreamFactory::class, $streamFactory);
 
         $this->assertInstanceOf(StreamInterface::class, $stream);
         $this->assertInstanceOf(Stream::class, $stream);
@@ -76,7 +79,7 @@ class FactoryTest extends TestCase
         $uriFactory = Factory::getUriFactory();
 
         $this->assertInstanceOf(UriFactoryInterface::class, $uriFactory);
-        $this->assertInstanceOf(DiactorosFactory::class, $uriFactory);
+        $this->assertInstanceOf(UriFactory::class, $uriFactory);
 
         $this->assertInstanceOf(UriInterface::class, $uri);
         $this->assertInstanceOf(Uri::class, $uri);
@@ -90,7 +93,7 @@ class FactoryTest extends TestCase
         $serverRequestFactory = Factory::getServerRequestFactory();
 
         $this->assertInstanceOf(ServerRequestFactoryInterface::class, $serverRequestFactory);
-        $this->assertInstanceOf(DiactorosFactory::class, $serverRequestFactory);
+        $this->assertInstanceOf(ServerRequestFactory::class, $serverRequestFactory);
 
         $this->assertInstanceOf(ServerRequestInterface::class, $serverRequest);
         $this->assertInstanceOf(ServerRequest::class, $serverRequest);
@@ -106,19 +109,23 @@ class FactoryTest extends TestCase
         return [
             [
                 [
-                    DiactorosFactory::class,
+                    [
+                        'serverRequest' => ServerRequestFactory::class,
+                        'response' => ResponseFactory::class,
+                        'stream' => StreamFactory::class,
+                        'uri' => UriFactory::class,
+                    ],
                     GuzzleFactory::class,
                     SlimFactory::class,
                 ],
-                DiactorosFactory::class,
-                DiactorosFactory::class,
-                DiactorosFactory::class,
-                DiactorosFactory::class,
+                ServerRequestFactory::class,
+                ResponseFactory::class,
+                StreamFactory::class,
+                UriFactory::class,
             ],
             [
                 [
                     GuzzleFactory::class,
-                    DiactorosFactory::class,
                     SlimFactory::class,
                 ],
                 GuzzleFactory::class,
@@ -130,7 +137,6 @@ class FactoryTest extends TestCase
                 [
                     SlimFactory::class,
                     GuzzleFactory::class,
-                    DiactorosFactory::class,
                 ],
                 SlimFactory::class,
                 SlimFactory::class,
@@ -142,13 +148,13 @@ class FactoryTest extends TestCase
                     'NotFound',
                     [
                         'serverRequest' => SlimFactory::class,
-                        'response' => DiactorosFactory::class,
+                        'response' => ResponseFactory::class,
                         'stream' => SlimFactory::class,
                         'uri' => GuzzleFactory::class,
                     ],
                 ],
                 SlimFactory::class,
-                DiactorosFactory::class,
+                ResponseFactory::class,
                 SlimFactory::class,
                 GuzzleFactory::class,
             ],

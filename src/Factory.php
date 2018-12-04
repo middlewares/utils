@@ -22,7 +22,12 @@ use RuntimeException;
 abstract class Factory
 {
     private static $strategies = [
-        DiactorosFactory::class,
+        'diactoros' => [
+            'serverRequest' => 'Zend\Diactoros\ServerRequestFactory',
+            'response' => 'Zend\Diactoros\ResponseFactory',
+            'stream' => 'Zend\Diactoros\StreamFactory',
+            'uri' => 'Zend\Diactoros\UriFactory',
+        ],
         GuzzleFactory::class,
         SlimFactory::class,
         'Nyholm\Psr7\Factory\Psr17Factory',
