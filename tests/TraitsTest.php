@@ -6,7 +6,7 @@ namespace Middlewares\Tests;
 use GuzzleHttp\Psr7\Stream;
 use Middlewares\Tests\Assets\MiddlewareWithTraits;
 use Middlewares\Utils\Dispatcher;
-use Middlewares\Utils\Factory\GuzzleFactory;
+use GuzzleHttp\Psr7\HttpFactory as GuzzleFactory;
 use Middlewares\Utils\Factory\SlimFactory;
 use PHPUnit\Framework\TestCase;
 use Slim\Http\Response;

@@ -3,9 +3,6 @@ declare(strict_types = 1);
 
 namespace Middlewares\Utils;
 
-use Middlewares\Utils\Factory\DiactorosFactory;
-use Middlewares\Utils\Factory\GuzzleFactory;
-use Middlewares\Utils\Factory\SlimFactory;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestFactoryInterface;
@@ -14,81 +11,55 @@ use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UriFactoryInterface;
 use Psr\Http\Message\UriInterface;
-use RuntimeException;
 
 /**
  * Simple class to create instances of PSR-7 classes.
  */
 abstract class Factory
 {
-    private static $strategies = [
+    private static $instance;
+
+    private static $defaultStrategies = [
         'diactoros' => [
             'serverRequest' => 'Zend\Diactoros\ServerRequestFactory',
             'response' => 'Zend\Diactoros\ResponseFactory',
             'stream' => 'Zend\Diactoros\StreamFactory',
             'uri' => 'Zend\Diactoros\UriFactory',
         ],
+        'GuzzleHttp\Psr7\HttpFactory',
+        SlimFactory::class,
+        'Nyholm\Psr7\Factory\Psr17Factory',
         'sunrise' => [
             'serverRequest' => 'Sunrise\Http\ServerRequest\ServerRequestFactory',
             'response' => 'Sunrise\Http\Message\ResponseFactory',
             'stream' => 'Sunrise\Stream\StreamFactory',
             'uri' => 'Sunrise\Uri\UriFactory',
         ],
-        GuzzleFactory::class,
-        SlimFactory::class,
-        'Nyholm\Psr7\Factory\Psr17Factory',
     ];
 
-    private static $factory;
-
-    private static $factories = [];
-
-    /**
-     * Create the PSR-17 factories or throw an exception
-     */
-    private static function getFactory(string $type)
+    private static function getInstance(): FactoryDiscovery
     {
-        if (!empty(self::$factories[$type])) {
-            return self::$factories[$type];
+        if (!self::$instance) {
+            self::$instance = new FactoryDiscovery(self::$defaultStrategies);
         }
-
-        if (!empty(self::$factory)) {
-            return self::$factories[$type] = self::$factory;
-        }
-
-        foreach (self::$strategies as $className) {
-            if (is_array($className) && isset($className[$type])) {
-                $className = $className[$type];
-
-                if (class_exists($className)) {
-                    return self::$factories[$type] = new $className();
-                }
-
-                continue;
-            }
-
-            if (!class_exists($className)) {
-                continue;
-            }
-
-            if (strpos($className, __NAMESPACE__) === 0 && !$className::isInstalled()) {
-                continue;
-            }
-
-            return self::$factories[$type] = self::$factory = new $className();
-        }
-
-        throw new RuntimeException('No PSR-7 library detected');
+        
+        return self::$instance;
+    }
+    
+    /**
+     * Return the default strategies available
+     */
+    public static function getDefaultStrategies(): array
+    {
+        return self::$defaultStrategies;
     }
 
     /**
      * Change the strategies
      */
-    public static function setStrategies(array $strategies = null)
+    public static function setStrategies(array $strategies)
     {
-        self::$factory = null;
-        self::$factories = [];
-        self::$strategies = $strategies;
+        self::$instance = new FactoryDiscovery($strategies);
     }
 
     /**
@@ -96,7 +67,7 @@ abstract class Factory
      */
     public static function setResponseFactory(ResponseFactoryInterface $responseFactory)
     {
-        self::$factories['response'] = $responseFactory;
+        self::getInstance()->setResponseFactory($responseFactory);
     }
 
     /**
@@ -104,7 +75,7 @@ abstract class Factory
      */
     public static function getResponseFactory(): ResponseFactoryInterface
     {
-        return self::getFactory('response');
+        return self::getInstance()->getResponseFactory();
     }
 
     /**
@@ -112,7 +83,7 @@ abstract class Factory
      */
     public static function setStreamFactory(StreamFactoryInterface $streamFactory)
     {
-        self::$factories['stream'] = $streamFactory;
+        self::getInstance()->setStreamFactory($streamFactory);
     }
 
     /**
@@ -120,7 +91,7 @@ abstract class Factory
      */
     public static function getStreamFactory(): StreamFactoryInterface
     {
-        return self::getFactory('stream');
+        return self::getInstance()->getStreamFactory();
     }
 
     /**
@@ -128,7 +99,7 @@ abstract class Factory
      */
     public static function setUriFactory(UriFactoryInterface $uriFactory)
     {
-        self::$factories['uri'] = $uriFactory;
+        self::getInstance()->setUriFactory($uriFactory);
     }
 
     /**
@@ -136,7 +107,7 @@ abstract class Factory
      */
     public static function getUriFactory(): UriFactoryInterface
     {
-        return self::getFactory('uri');
+        return self::getInstance()->getUriFactory();
     }
 
     /**
@@ -144,7 +115,7 @@ abstract class Factory
      */
     public static function setServerRequestFactory(ServerRequestFactoryInterface $serverRequestFactory)
     {
-        self::$factories['serverRequest'] = $serverRequestFactory;
+        self::getInstance()->setServerRequestFactory($serverRequestFactory);
     }
 
     /**
@@ -152,7 +123,7 @@ abstract class Factory
      */
     public static function getServerRequestFactory(): ServerRequestFactoryInterface
     {
-        return self::getFactory('serverRequest');
+        return self::getInstance()->getServerRequestFactory();
     }
 
     /**
@@ -160,7 +131,7 @@ abstract class Factory
      */
     public static function createResponse(int $code = 200, string $reasonPhrase = ''): ResponseInterface
     {
-        return self::getResponseFactory()->createResponse($code, $reasonPhrase);
+        return self::getInstance()->createResponse($code, $reasonPhrase);
     }
 
     /**
@@ -168,7 +139,7 @@ abstract class Factory
      */
     public static function createStream(string $content = ''): StreamInterface
     {
-        return self::getStreamFactory()->createStream($content);
+        return self::getInstance()->createStream($content);
     }
 
     /**
@@ -176,7 +147,7 @@ abstract class Factory
      */
     public static function createUri(string $uri = ''): UriInterface
     {
-        return self::getUriFactory()->createUri($uri);
+        return self::getInstance()->createUri($uri);
     }
 
     /**
@@ -185,6 +156,6 @@ abstract class Factory
      */
     public static function createServerRequest(string $method, $uri, array $serverParams = []): ServerRequestInterface
     {
-        return self::getServerRequestFactory()->createServerRequest($method, $uri, $serverParams);
+        return self::getInstance()->createServerRequest($method, $uri, $serverParams);
     }
 }

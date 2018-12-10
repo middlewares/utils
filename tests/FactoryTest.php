@@ -4,7 +4,7 @@ declare(strict_types = 1);
 namespace Middlewares\Tests;
 
 use Middlewares\Utils\Factory;
-use Middlewares\Utils\Factory\GuzzleFactory;
+use GuzzleHttp\Psr7\HttpFactory as GuzzleFactory;
 use Middlewares\Utils\Factory\SlimFactory;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseFactoryInterface;

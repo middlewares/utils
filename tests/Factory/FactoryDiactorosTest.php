@@ -14,23 +14,23 @@ use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UriFactoryInterface;
 use Psr\Http\Message\UriInterface;
-use Sunrise\Http\ServerRequest\ServerRequest;
-use Sunrise\Http\ServerRequest\ServerRequestFactory;
-use Sunrise\Http\Message\Response;
-use Sunrise\Http\Message\ResponseFactory;
-use Sunrise\Stream\Stream;
-use Sunrise\Stream\StreamFactory;
-use Sunrise\Uri\Uri;
-use Sunrise\Uri\UriFactory;
+use Zend\Diactoros\ServerRequest;
+use Zend\Diactoros\ServerRequestFactory;
+use Zend\Diactoros\Response;
+use Zend\Diactoros\ResponseFactory;
+use Zend\Diactoros\Stream;
+use Zend\Diactoros\StreamFactory;
+use Zend\Diactoros\Uri;
+use Zend\Diactoros\UriFactory;
 
-class FactorySunriseTest extends TestCase
+class FactoryDiactorosTest extends TestCase
 {
     private static $factory;
 
     public static function setUpBeforeClass()
     {
         $allStrategies = Factory::getDefaultStrategies();
-        self::$factory = new FactoryDiscovery([$allStrategies['sunrise']]);
+        self::$factory = new FactoryDiscovery([$allStrategies['diactoros']]);
     }
 
     public static function tearDownBeforeClass()
