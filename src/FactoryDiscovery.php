@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace Middlewares\Utils;
 
-use Middlewares\Utils\Factory\SlimFactory;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestFactoryInterface;
@@ -17,12 +16,16 @@ use RuntimeException;
 /**
  * Simple class to create instances of PSR-7 classes.
  */
-class FactoryDiscovery implements ResponseFactoryInterface, ServerRequestFactoryInterface, StreamFactoryInterface, UriFactoryInterface
+class FactoryDiscovery implements
+    ResponseFactoryInterface,
+    ServerRequestFactoryInterface,
+    StreamFactoryInterface,
+    UriFactoryInterface
 {
     private $strategies = [];
 
     private $factory;
-    
+
     private $factories = [];
 
     public function __construct(array $strategies)
@@ -166,6 +169,7 @@ class FactoryDiscovery implements ResponseFactoryInterface, ServerRequestFactory
 
     /**
      * Creates a Stream instance from a resource.
+     * @param mixed $resource
      */
     public function createStreamFromResource($resource): StreamInterface
     {
