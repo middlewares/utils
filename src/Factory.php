@@ -42,10 +42,10 @@ abstract class Factory
         if (!self::$instance) {
             self::$instance = new FactoryDiscovery(self::$defaultStrategies);
         }
-        
+
         return self::$instance;
     }
-    
+
     /**
      * Return the default strategies available
      */

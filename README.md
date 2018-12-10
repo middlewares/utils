@@ -88,13 +88,6 @@ $exception = HttpErrorException::create(500, [
 $context = $exception->getContext();
 ```
 
-## Traits
-
-Common utilities shared between many middlewares like the ability to customize PSR-17 factories.
-
-* `HasResponseFactory`
-* `HasStreamFactory`
-
 ---
 
 Please see [CHANGELOG](CHANGELOG.md) for more information about recent changes and [CONTRIBUTING](CONTRIBUTING.md) for contributing details.

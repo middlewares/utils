@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Middlewares\Tests\Factory;
 
@@ -14,10 +14,10 @@ use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UriFactoryInterface;
 use Psr\Http\Message\UriInterface;
-use Sunrise\Http\ServerRequest\ServerRequest;
-use Sunrise\Http\ServerRequest\ServerRequestFactory;
 use Sunrise\Http\Message\Response;
 use Sunrise\Http\Message\ResponseFactory;
+use Sunrise\Http\ServerRequest\ServerRequest;
+use Sunrise\Http\ServerRequest\ServerRequestFactory;
 use Sunrise\Stream\Stream;
 use Sunrise\Stream\StreamFactory;
 use Sunrise\Uri\Uri;
