@@ -6,7 +6,6 @@ namespace Middlewares\Utils;
 use Middlewares\Utils\Factory\DiactorosFactory;
 use Middlewares\Utils\Factory\GuzzleFactory;
 use Middlewares\Utils\Factory\SlimFactory;
-use Middlewares\Utils\Factory\SunriseFactory;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestFactoryInterface;
@@ -26,8 +25,13 @@ abstract class Factory
         DiactorosFactory::class,
         GuzzleFactory::class,
         SlimFactory::class,
-        SunriseFactory::class,
         'Nyholm\Psr7\Factory\Psr17Factory',
+        'sunrise' => [
+            'serverRequest' => 'Sunrise\Http\ServerRequest\ServerRequestFactory',
+            'response' => 'Sunrise\Http\Message\ResponseFactory',
+            'stream' => 'Sunrise\Stream\StreamFactory',
+            'uri' => 'Sunrise\Uri\UriFactory',
+        ],
     ];
 
     private static $factory;
