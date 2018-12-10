@@ -7,6 +7,7 @@ use Middlewares\Utils\Factory;
 use Middlewares\Utils\Factory\DiactorosFactory;
 use Middlewares\Utils\Factory\GuzzleFactory;
 use Middlewares\Utils\Factory\SlimFactory;
+use Middlewares\Utils\Factory\SunriseFactory;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -109,6 +110,7 @@ class FactoryTest extends TestCase
                     DiactorosFactory::class,
                     GuzzleFactory::class,
                     SlimFactory::class,
+                    SunriseFactory::class,
                 ],
                 DiactorosFactory::class,
                 DiactorosFactory::class,
@@ -120,6 +122,7 @@ class FactoryTest extends TestCase
                     GuzzleFactory::class,
                     DiactorosFactory::class,
                     SlimFactory::class,
+                    SunriseFactory::class,
                 ],
                 GuzzleFactory::class,
                 GuzzleFactory::class,
@@ -129,25 +132,38 @@ class FactoryTest extends TestCase
             [
                 [
                     SlimFactory::class,
-                    GuzzleFactory::class,
                     DiactorosFactory::class,
+                    GuzzleFactory::class,
+                    SunriseFactory::class,
                 ],
                 SlimFactory::class,
                 SlimFactory::class,
                 SlimFactory::class,
                 SlimFactory::class,
+            ],
+            [
+                [
+                    SunriseFactory::class,
+                    DiactorosFactory::class,
+                    GuzzleFactory::class,
+                    SlimFactory::class,
+                ],
+                SunriseFactory::class,
+                SunriseFactory::class,
+                SunriseFactory::class,
+                SunriseFactory::class,
             ],
             [
                 [
                     'NotFound',
                     [
-                        'serverRequest' => SlimFactory::class,
+                        'serverRequest' => SunriseFactory::class,
                         'response' => DiactorosFactory::class,
                         'stream' => SlimFactory::class,
                         'uri' => GuzzleFactory::class,
                     ],
                 ],
-                SlimFactory::class,
+                SunriseFactory::class,
                 DiactorosFactory::class,
                 SlimFactory::class,
                 GuzzleFactory::class,
