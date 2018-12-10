@@ -29,8 +29,7 @@ class FactorySunriseTest extends TestCase
 
     public static function setUpBeforeClass()
     {
-        $allStrategies = Factory::getDefaultStrategies();
-        self::$factory = new FactoryDiscovery([$allStrategies['sunrise']]);
+        self::$factory = new FactoryDiscovery([Factory::SUNRISE]);
     }
 
     public static function tearDownBeforeClass()
