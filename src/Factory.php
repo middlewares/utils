@@ -28,6 +28,12 @@ abstract class Factory
             'stream' => 'Zend\Diactoros\StreamFactory',
             'uri' => 'Zend\Diactoros\UriFactory',
         ],
+        'sunrise' => [
+            'serverRequest' => 'Sunrise\Http\ServerRequest\ServerRequestFactory',
+            'response' => 'Sunrise\Http\Message\ResponseFactory',
+            'stream' => 'Sunrise\Stream\StreamFactory',
+            'uri' => 'Sunrise\Uri\UriFactory',
+        ],
         GuzzleFactory::class,
         SlimFactory::class,
         'Nyholm\Psr7\Factory\Psr17Factory',
