@@ -19,39 +19,35 @@ abstract class Factory
 {
     private static $instance;
 
-    private static $defaultStrategies = [
-        'diactoros' => [
-            'serverRequest' => 'Zend\Diactoros\ServerRequestFactory',
-            'response' => 'Zend\Diactoros\ResponseFactory',
-            'stream' => 'Zend\Diactoros\StreamFactory',
-            'uri' => 'Zend\Diactoros\UriFactory',
-        ],
-        'GuzzleHttp\Psr7\HttpFactory',
-        SlimFactory::class,
-        'Nyholm\Psr7\Factory\Psr17Factory',
-        'sunrise' => [
-            'serverRequest' => 'Sunrise\Http\ServerRequest\ServerRequestFactory',
-            'response' => 'Sunrise\Http\Message\ResponseFactory',
-            'stream' => 'Sunrise\Stream\StreamFactory',
-            'uri' => 'Sunrise\Uri\UriFactory',
-        ],
+    const DIACTOROS = [
+        'serverRequest' => 'Zend\Diactoros\ServerRequestFactory',
+        'response' => 'Zend\Diactoros\ResponseFactory',
+        'stream' => 'Zend\Diactoros\StreamFactory',
+        'uri' => 'Zend\Diactoros\UriFactory',
+    ];
+    const GUZZLE = 'GuzzleHttp\Psr7\HttpFactory';
+    const SLIM = Factory\SlimFactory::class;
+    const NYHOLM = 'Nyholm\Psr7\Factory\Psr17Factory';
+    const SUNRISE = [
+        'serverRequest' => 'Sunrise\Http\ServerRequest\ServerRequestFactory',
+        'response' => 'Sunrise\Http\Message\ResponseFactory',
+        'stream' => 'Sunrise\Stream\StreamFactory',
+        'uri' => 'Sunrise\Uri\UriFactory',
     ];
 
     private static function getInstance(): FactoryDiscovery
     {
         if (!self::$instance) {
-            self::$instance = new FactoryDiscovery(self::$defaultStrategies);
+            self::$instance = new FactoryDiscovery([
+                self::DIACTOROS,
+                self::GUZZLE,
+                self::SLIM,
+                self::NYHOLM,
+                self::SUNRISE,
+            ]);
         }
 
         return self::$instance;
-    }
-
-    /**
-     * Return the default strategies available
-     */
-    public static function getDefaultStrategies(): array
-    {
-        return self::$defaultStrategies;
     }
 
     /**

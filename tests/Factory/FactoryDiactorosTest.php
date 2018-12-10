@@ -29,8 +29,7 @@ class FactoryDiactorosTest extends TestCase
 
     public static function setUpBeforeClass()
     {
-        $allStrategies = Factory::getDefaultStrategies();
-        self::$factory = new FactoryDiscovery([$allStrategies['diactoros']]);
+        self::$factory = new FactoryDiscovery([Factory::DIACTOROS]);
     }
 
     public static function tearDownBeforeClass()
