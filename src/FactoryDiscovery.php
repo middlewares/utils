@@ -36,7 +36,7 @@ class FactoryDiscovery implements
     /**
      * Get the strategies
      */
-    public static function getStrategies(): array
+    public function getStrategies(): array
     {
         return $this->strategies;
     }
