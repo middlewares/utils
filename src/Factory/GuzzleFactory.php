@@ -17,7 +17,9 @@ use Psr\Http\Message\UriFactoryInterface;
 use Psr\Http\Message\UriInterface;
 
 /**
- * Simple class to create response instances of PSR-7 classes.
+ * GuzzleFactory
+ *
+ * @link https://github.com/guzzle/psr7
  */
 class GuzzleFactory implements
     ResponseFactoryInterface,
@@ -26,14 +28,27 @@ class GuzzleFactory implements
     UriFactoryInterface
 {
     /**
-     * Check whether Diactoros is available
+     * @var bool
      */
-    public static function isInstalled(): bool
+    public static function isInstalled() : bool
     {
-        return class_exists('GuzzleHttp\\Psr7\\Response')
-            && class_exists('GuzzleHttp\\Psr7\\ServerRequest')
-            && class_exists('GuzzleHttp\\Psr7\\Stream')
-            && class_exists('GuzzleHttp\\Psr7\\Uri');
+        return \class_exists('GuzzleHttp\\Psr7\\Response')
+            && \class_exists('GuzzleHttp\\Psr7\\ServerRequest')
+            && \class_exists('GuzzleHttp\\Psr7\\Stream')
+            && \class_exists('GuzzleHttp\\Psr7\\Uri');
+    }
+
+    /**
+     * @var array
+     */
+    public static function getFactories() : array
+    {
+        return [
+            'response' => self::class,
+            'serverRequest' => self::class,
+            'stream' => self::class,
+            'uri' => self::class,
+        ];
     }
 
     /**

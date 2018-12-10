@@ -18,7 +18,9 @@ use Slim\Http\Stream;
 use Slim\Http\Uri;
 
 /**
- * Simple class to create response instances of PSR-7 classes.
+ * SlimFactory
+ *
+ * @link https://github.com/slimphp/Slim
  */
 class SlimFactory implements
     ResponseFactoryInterface,
@@ -26,15 +28,29 @@ class SlimFactory implements
     StreamFactoryInterface,
     UriFactoryInterface
 {
+
     /**
-     * Check whether Diactoros is available
+     * @var bool
      */
-    public static function isInstalled(): bool
+    public static function isInstalled() : bool
     {
-        return class_exists('Slim\\Http\\Response')
-            && class_exists('Slim\\Http\\Request')
-            && class_exists('Slim\\Http\\Stream')
-            && class_exists('Slim\\Http\\Uri');
+        return \class_exists('Slim\\Http\\Request')
+            && \class_exists('Slim\\Http\\Response')
+            && \class_exists('Slim\\Http\\Stream')
+            && \class_exists('Slim\\Http\\Uri');
+    }
+
+    /**
+     * @var array
+     */
+    public static function getFactories() : array
+    {
+        return [
+            'response' => self::class,
+            'serverRequest' => self::class,
+            'stream' => self::class,
+            'uri' => self::class,
+        ];
     }
 
     /**

@@ -5,7 +5,9 @@ namespace Middlewares\Utils;
 
 use Middlewares\Utils\Factory\DiactorosFactory;
 use Middlewares\Utils\Factory\GuzzleFactory;
+use Middlewares\Utils\Factory\NyholmFactory;
 use Middlewares\Utils\Factory\SlimFactory;
+use Middlewares\Utils\Factory\SunriseFactory;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestFactoryInterface;
@@ -21,27 +23,22 @@ use RuntimeException;
  */
 abstract class Factory
 {
-    private static $strategies = [
-        'diactoros' => [
-            'serverRequest' => 'Zend\Diactoros\ServerRequestFactory',
-            'response' => 'Zend\Diactoros\ResponseFactory',
-            'stream' => 'Zend\Diactoros\StreamFactory',
-            'uri' => 'Zend\Diactoros\UriFactory',
-        ],
-        'sunrise' => [
-            'serverRequest' => 'Sunrise\Http\ServerRequest\ServerRequestFactory',
-            'response' => 'Sunrise\Http\Message\ResponseFactory',
-            'stream' => 'Sunrise\Stream\StreamFactory',
-            'uri' => 'Sunrise\Uri\UriFactory',
-        ],
-        GuzzleFactory::class,
-        SlimFactory::class,
-        'Nyholm\Psr7\Factory\Psr17Factory',
-    ];
 
-    private static $factory;
-
+    /**
+     * @var array
+     */
     private static $factories = [];
+
+    /**
+     * @var array
+     */
+    private static $strategies = [
+        DiactorosFactory::class,
+        GuzzleFactory::class,
+        NyholmFactory::class,
+        SlimFactory::class,
+        SunriseFactory::class,
+    ];
 
     /**
      * Create the PSR-17 factories or throw an exception
@@ -52,30 +49,18 @@ abstract class Factory
             return self::$factories[$type];
         }
 
-        if (!empty(self::$factory)) {
-            return self::$factories[$type] = self::$factory;
-        }
-
-        foreach (self::$strategies as $className) {
-            if (is_array($className) && isset($className[$type])) {
-                $className = $className[$type];
-
-                if (class_exists($className)) {
-                    return self::$factories[$type] = new $className();
-                }
-
+        foreach (self::$strategies as $strategy) {
+            if (!$strategy::isInstalled()) {
                 continue;
             }
 
-            if (!class_exists($className)) {
+            $factories = $strategy::getFactories();
+
+            if (!isset($factories[$type]) || !\class_exists($factories[$type])) {
                 continue;
             }
 
-            if (strpos($className, __NAMESPACE__) === 0 && !$className::isInstalled()) {
-                continue;
-            }
-
-            return self::$factories[$type] = self::$factory = new $className();
+            return self::$factories[$type] = new $factories[$type];
         }
 
         throw new RuntimeException('No PSR-7 library detected');
@@ -84,9 +69,8 @@ abstract class Factory
     /**
      * Change the strategies
      */
-    public static function setStrategies(array $strategies = null)
+    public static function setStrategies(array $strategies = [])
     {
-        self::$factory = null;
         self::$factories = [];
         self::$strategies = $strategies;
     }
@@ -181,7 +165,6 @@ abstract class Factory
 
     /**
      * Creates a ServerRequest instance.
-     * @param mixed $uri
      */
     public static function createServerRequest(string $method, $uri, array $serverParams = []): ServerRequestInterface
     {
