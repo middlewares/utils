@@ -26,7 +26,12 @@ abstract class Factory
         'uri' => 'Zend\Diactoros\UriFactory',
     ];
     const GUZZLE = 'GuzzleHttp\Psr7\HttpFactory';
-    const SLIM = Factory\SlimFactory::class;
+    const SLIM = [
+        'serverRequest' => 'Slim\Psr7\Factory\ServerRequestFactory',
+        'response' => 'Slim\Psr7\Factory\ResponseFactory',
+        'stream' => 'Slim\Psr7\Factory\StreamFactory',
+        'uri' => 'Slim\Psr7\Factory\UriFactory',
+    ];
     const NYHOLM = 'Nyholm\Psr7\Factory\Psr17Factory';
     const SUNRISE = [
         'serverRequest' => 'Sunrise\Http\ServerRequest\ServerRequestFactory',

@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.0.0] - UNRELEASED
+
+### Added
+
+- Added `Sunrise` to the list of factories detected automatically
+
+### Changed
+
+- `Factory::setStrategy` was renamed to `Factory::setStrategies`
+
 ## [2.1.1] - 2018-08-11
 
 ### Added
