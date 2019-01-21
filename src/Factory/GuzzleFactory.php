@@ -26,7 +26,7 @@ class GuzzleFactory implements
     UriFactoryInterface
 {
     /**
-     * Check whether Diactoros is available
+     * Check whether Guzzle is available
      */
     public static function isInstalled(): bool
     {

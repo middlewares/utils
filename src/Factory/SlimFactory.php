@@ -27,7 +27,7 @@ class SlimFactory implements
     UriFactoryInterface
 {
     /**
-     * Check whether Diactoros is available
+     * Check whether Slim is available
      */
     public static function isInstalled(): bool
     {
