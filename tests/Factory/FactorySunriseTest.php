@@ -27,12 +27,12 @@ class FactorySunriseTest extends TestCase
 {
     private static $factory;
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         self::$factory = new FactoryDiscovery([Factory::SUNRISE]);
     }
 
-    public static function tearDownBeforeClass()
+    public static function tearDownBeforeClass(): void
     {
         self::$factory = null;
     }
