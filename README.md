@@ -15,7 +15,6 @@ Common utilities used by the middlewares' packages:
 * [HttpErrorException](#httperrorexception)
 * [Traits](#traits)
 
-
 ## Installation
 
 This package is installable and autoloadable via Composer as [middlewares/cache](https://packagist.org/packages/middlewares/cache).
@@ -23,7 +22,6 @@ This package is installable and autoloadable via Composer as [middlewares/cache]
 ```sh
 composer require middlewares/utils
 ```
-
 
 ## Factory
 
