@@ -17,7 +17,7 @@ Common utilities used by the middlewares' packages:
 
 ## Installation
 
-This package is installable and autoloadable via Composer as [middlewares/cache](https://packagist.org/packages/middlewares/cache).
+This package is installable and autoloadable via Composer as [middlewares/utils](https://packagist.org/packages/middlewares/utils).
 
 ```sh
 composer require middlewares/utils
