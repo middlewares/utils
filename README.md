@@ -9,6 +9,20 @@
 
 Common utilities used by the middlewares' packages:
 
+* [Factory](#factory)
+* [Dispatcher](#dispatcher)
+* [CallableHandler](#callablehandler)
+* [HttpErrorException](#httperrorexception)
+* [Traits](#traits)
+
+## Installation
+
+This package is installable and autoloadable via Composer as [middlewares/utils](https://packagist.org/packages/middlewares/utils).
+
+```sh
+composer require middlewares/utils
+```
+
 ## Factory
 
 Used to create psr-7 instances of `ServerRequestInterface`, `ResponseInterface`, `StreamInterface` and `UriInterface`. Detects automatically [Diactoros](https://github.com/zendframework/zend-diactoros), [Guzzle](https://github.com/guzzle/psr7), [Slim](https://github.com/slimphp/Slim) and [Nyholm/psr7](https://github.com/Nyholm/psr7) but you can register a different factory using the [psr/http-factory](https://github.com/php-fig/http-factory) interface.
