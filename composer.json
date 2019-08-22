@@ -28,7 +28,7 @@
         "friendsofphp/php-cs-fixer": "^2.0",
         "squizlabs/php_codesniffer": "^3.0",
         "slim/psr7": "~0.3",
-        "guzzlehttp/psr7": "2.x-dev",
+        "guzzlehttp/psr7": "dev-master",
         "sunrise/stream": "^1.0",
         "sunrise/uri": "^1.0",
         "sunrise/http-message": "^1.0",
