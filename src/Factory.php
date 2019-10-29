@@ -6,6 +6,7 @@ namespace Middlewares\Utils;
 use Middlewares\Utils\Factory\DiactorosFactory;
 use Middlewares\Utils\Factory\GuzzleFactory;
 use Middlewares\Utils\Factory\SlimFactory;
+use Middlewares\Utils\Factory\SlimPsr7Factory;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestFactoryInterface;
@@ -25,6 +26,7 @@ abstract class Factory
         DiactorosFactory::class,
         GuzzleFactory::class,
         SlimFactory::class,
+        SlimPsr7Factory::class,
         'Nyholm\Psr7\Factory\Psr17Factory',
     ];
 
