@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.0.1] - 2019-11-29
+### Fixed
+- Moved a dependency to dev
+- Updated docs
+
 ## [3.0.0] - 2019-11-29
 ### Added
 - Added `FactoryInterface` that returns all PSR-17 factories
@@ -175,6 +180,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 [#16]: https://github.com/middlewares/utils/issues/16
 [#17]: https://github.com/middlewares/utils/issues/17
 
+[3.0.1]: https://github.com/middlewares/utils/compare/v3.0.0...v3.0.1
 [3.0.0]: https://github.com/middlewares/utils/compare/v2.2.0...v3.0.0
 [2.2.0]: https://github.com/middlewares/utils/compare/v2.1.1...v2.2.0
 [2.1.1]: https://github.com/middlewares/utils/compare/v2.1.0...v2.1.1
