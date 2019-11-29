@@ -6,6 +6,7 @@ namespace Middlewares\Tests\Factory;
 use Middlewares\Utils\FactoryDiscovery;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ServerRequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
@@ -24,6 +25,14 @@ class FactoryNyholmTest extends TestCase
     public static function tearDownBeforeClass(): void
     {
         self::$factory = null;
+    }
+
+    public function testRequest()
+    {
+        $requestFactory = self::$factory->getRequestFactory();
+
+        $this->assertInstanceOf(RequestFactoryInterface::class, $requestFactory);
+        $this->assertInstanceOf(Psr17Factory::class, $requestFactory);
     }
 
     public function testResponse()

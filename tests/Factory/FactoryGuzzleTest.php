@@ -6,6 +6,7 @@ namespace Middlewares\Tests\Factory;
 use GuzzleHttp\Psr7\HttpFactory;
 use Middlewares\Utils\FactoryDiscovery;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ServerRequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
@@ -24,6 +25,14 @@ class FactoryGuzzleTest extends TestCase
     public static function tearDownBeforeClass(): void
     {
         self::$factory = null;
+    }
+
+    public function testRequest()
+    {
+        $requestFactory = self::$factory->getRequestFactory();
+
+        $this->assertInstanceOf(RequestFactoryInterface::class, $requestFactory);
+        $this->assertInstanceOf(HttpFactory::class, $requestFactory);
     }
 
     public function testResponse()

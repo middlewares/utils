@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Added `FactoryDiscovery` class to discover automatically PSR-7 implementation libraries
 - Added `Factory::getFactory()` and `Factory::setFactory()` to set manually PSR-17 factories
 - Added `Factory::getResponseFactory()`
+- Added `Factory::getRequestFactory()`
 - Added `Factory::getServerRequestFactory()`
 - Added `Factory::getStreamFactory()`
 - Added `Factory::getUriFactory()`
