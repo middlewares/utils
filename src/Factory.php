@@ -9,6 +9,8 @@ use Psr\Http\Message\ServerRequestFactoryInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\StreamInterface;
+use Psr\Http\Message\UploadedFileFactoryInterface;
+use Psr\Http\Message\UploadedFileInterface;
 use Psr\Http\Message\UriFactoryInterface;
 use Psr\Http\Message\UriInterface;
 
@@ -61,6 +63,21 @@ abstract class Factory
     public static function createStream(string $content = ''): StreamInterface
     {
         return self::getStreamFactory()->createStream($content);
+    }
+
+    public static function getUploadedFileFactory(): UploadedFileFactoryInterface
+    {
+        return self::getFactory()->getUploadedFileFactory();
+    }
+
+    public static function createUploadedFile(
+        StreamInterface $stream,
+        int $size = null,
+        int $error = \UPLOAD_ERR_OK,
+        string $filename = null,
+        string $mediaType = null
+    ): UploadedFileInterface {
+        return self::getUploadedFileFactory()->createUploadedFile($stream, $size, $error, $filename, $mediaType);
     }
 
     public static function getUriFactory(): UriFactoryInterface
