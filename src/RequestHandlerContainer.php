@@ -58,8 +58,8 @@ class RequestHandlerContainer implements ContainerInterface
         } catch (NotFoundExceptionInterface $exception) {
             throw $exception;
         } catch (Exception $exception) {
-            throw new class("Error getting the handler $id", 0, $exception)
-            extends Exception implements ContainerExceptionInterface {
+            $message = sprintf('Error getting the handler %s', $id);
+            throw new class($message, 0, $exception) extends Exception implements ContainerExceptionInterface {
             };
         }
     }
@@ -96,8 +96,8 @@ class RequestHandlerContainer implements ContainerInterface
     protected function createClass(string $className)
     {
         if (!class_exists($className)) {
-            throw new class("The class $className does not exists")
-            extends Exception implements NotFoundExceptionInterface {
+            $message = sprintf('The class %s does not exists', $className);
+            throw new class($message) extends Exception implements NotFoundExceptionInterface {
             };
         }
 

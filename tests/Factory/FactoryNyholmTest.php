@@ -3,22 +3,13 @@ declare(strict_types = 1);
 
 namespace Middlewares\Tests\Factory;
 
-use Middlewares\Utils\Factory;
 use Middlewares\Utils\FactoryDiscovery;
+use Nyholm\Psr7\Factory\Psr17Factory;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseFactoryInterface;
-use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestFactoryInterface;
-use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\StreamFactoryInterface;
-use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UriFactoryInterface;
-use Psr\Http\Message\UriInterface;
-use Nyholm\Psr7\Factory\Psr17Factory;
-use Nyholm\Psr7\Response;
-use Nyholm\Psr7\ServerRequest;
-use Nyholm\Psr7\Stream;
-use Nyholm\Psr7\Uri;
 
 class FactoryNyholmTest extends TestCase
 {

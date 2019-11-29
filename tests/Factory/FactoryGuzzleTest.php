@@ -3,22 +3,13 @@ declare(strict_types = 1);
 
 namespace Middlewares\Tests\Factory;
 
-use Middlewares\Utils\Factory;
+use GuzzleHttp\Psr7\HttpFactory;
 use Middlewares\Utils\FactoryDiscovery;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseFactoryInterface;
-use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestFactoryInterface;
-use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\StreamFactoryInterface;
-use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UriFactoryInterface;
-use Psr\Http\Message\UriInterface;
-use GuzzleHttp\Psr7\HttpFactory;
-use GuzzleHttp\Psr7\Response;
-use GuzzleHttp\Psr7\ServerRequest;
-use GuzzleHttp\Psr7\Stream;
-use GuzzleHttp\Psr7\Uri;
 
 class FactoryGuzzleTest extends TestCase
 {

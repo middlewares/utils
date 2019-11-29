@@ -3,24 +3,15 @@ declare(strict_types = 1);
 
 namespace Middlewares\Tests\Factory;
 
-use Middlewares\Utils\Factory;
 use Middlewares\Utils\FactoryDiscovery;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseFactoryInterface;
-use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestFactoryInterface;
-use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\StreamFactoryInterface;
-use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UriFactoryInterface;
-use Psr\Http\Message\UriInterface;
-use Sunrise\Http\Message\Response;
 use Sunrise\Http\Message\ResponseFactory;
-use Sunrise\Http\ServerRequest\ServerRequest;
 use Sunrise\Http\ServerRequest\ServerRequestFactory;
-use Sunrise\Stream\Stream;
 use Sunrise\Stream\StreamFactory;
-use Sunrise\Uri\Uri;
 use Sunrise\Uri\UriFactory;
 
 class FactorySunriseTest extends TestCase
