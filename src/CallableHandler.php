@@ -26,9 +26,8 @@ class CallableHandler implements MiddlewareInterface, RequestHandlerInterface
     }
 
     /**
-     * {@inheritdoc}
-     *
      * Process a server request and return a response.
+     *
      * @see RequestHandlerInterface
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
@@ -37,9 +36,8 @@ class CallableHandler implements MiddlewareInterface, RequestHandlerInterface
     }
 
     /**
-     * {@inheritdoc}
-     *
      * Process a server request and return a response.
+     *
      * @see MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface

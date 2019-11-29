@@ -1,7 +1,7 @@
 {
     "name": "middlewares/utils",
     "type": "library",
-    "description": "Common utils to create PSR-15 middleware packages",
+    "description": "Common utils for PSR-15 middleware packages",
     "license": "MIT",
     "keywords": [
         "psr-7",
