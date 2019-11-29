@@ -16,21 +16,46 @@ use RuntimeException;
 /**
  * Simple class to create instances of PSR-7 classes.
  */
-class FactoryDiscovery implements
-    ResponseFactoryInterface,
-    ServerRequestFactoryInterface,
-    StreamFactoryInterface,
-    UriFactoryInterface
+class FactoryDiscovery implements FactoryInterface
 {
-    private $strategies = [];
+    const DIACTOROS = [
+        'serverRequest' => 'Zend\Diactoros\ServerRequestFactory',
+        'response' => 'Zend\Diactoros\ResponseFactory',
+        'stream' => 'Zend\Diactoros\StreamFactory',
+        'uri' => 'Zend\Diactoros\UriFactory',
+    ];
+    const GUZZLE = 'GuzzleHttp\Psr7\HttpFactory';
+    const SLIM = [
+        'serverRequest' => 'Slim\Psr7\Factory\ServerRequestFactory',
+        'response' => 'Slim\Psr7\Factory\ResponseFactory',
+        'stream' => 'Slim\Psr7\Factory\StreamFactory',
+        'uri' => 'Slim\Psr7\Factory\UriFactory',
+    ];
+    const NYHOLM = 'Nyholm\Psr7\Factory\Psr17Factory';
+    const SUNRISE = [
+        'serverRequest' => 'Sunrise\Http\ServerRequest\ServerRequestFactory',
+        'response' => 'Sunrise\Http\Message\ResponseFactory',
+        'stream' => 'Sunrise\Stream\StreamFactory',
+        'uri' => 'Sunrise\Uri\UriFactory',
+    ];
+
+    private $strategies = [
+        self::DIACTOROS,
+        self::GUZZLE,
+        self::SLIM,
+        self::NYHOLM,
+        self::SUNRISE,
+    ];
 
     private $factory;
 
     private $factories = [];
 
-    public function __construct(array $strategies)
+    public function __construct(array $strategies = null)
     {
-        $this->strategies = $strategies;
+        if (!empty($strategies)) {
+            $this->strategies = $strategies;
+        }
     }
 
     /**
@@ -69,127 +94,49 @@ class FactoryDiscovery implements
                 continue;
             }
 
-            if (strpos($className, __NAMESPACE__) === 0 && !$className::isInstalled()) {
-                continue;
-            }
-
             return $this->factories[$type] = $this->factory = new $className();
         }
 
         throw new RuntimeException('No PSR-7 library detected');
     }
 
-    /**
-     * Set a custom ResponseFactory.
-     */
     public function setResponseFactory(ResponseFactoryInterface $responseFactory)
     {
         $this->factories['response'] = $responseFactory;
     }
 
-    /**
-     * Get a ResponseFactory.
-     */
     public function getResponseFactory(): ResponseFactoryInterface
     {
         return $this->getFactory('response');
     }
 
-    /**
-     * Set a custom StreamFactory.
-     */
-    public function setStreamFactory(StreamFactoryInterface $streamFactory)
-    {
-        $this->factories['stream'] = $streamFactory;
-    }
-
-    /**
-     * Get a StreamFactory.
-     */
-    public function getStreamFactory(): StreamFactoryInterface
-    {
-        return $this->getFactory('stream');
-    }
-
-    /**
-     * Set a custom UriFactory.
-     */
-    public function setUriFactory(UriFactoryInterface $uriFactory)
-    {
-        $this->factories['uri'] = $uriFactory;
-    }
-
-    /**
-     * Get a UriFactory.
-     */
-    public function getUriFactory(): UriFactoryInterface
-    {
-        return $this->getFactory('uri');
-    }
-
-    /**
-     * Set a custom ServerRequestFactory.
-     */
     public function setServerRequestFactory(ServerRequestFactoryInterface $serverRequestFactory)
     {
         $this->factories['serverRequest'] = $serverRequestFactory;
     }
 
-    /**
-     * Get a ServerRequestFactory.
-     */
     public function getServerRequestFactory(): ServerRequestFactoryInterface
     {
         return $this->getFactory('serverRequest');
     }
 
-    /**
-     * Creates a Response instance.
-     */
-    public function createResponse(int $code = 200, string $reasonPhrase = ''): ResponseInterface
+    public function setStreamFactory(StreamFactoryInterface $streamFactory)
     {
-        return $this->getResponseFactory()->createResponse($code, $reasonPhrase);
+        $this->factories['stream'] = $streamFactory;
     }
 
-    /**
-     * Creates a Stream instance.
-     */
-    public function createStream(string $content = ''): StreamInterface
+    public function getStreamFactory(): StreamFactoryInterface
     {
-        return $this->getStreamFactory()->createStream($content);
+        return $this->getFactory('stream');
     }
 
-    /**
-     * Creates a Stream instance from a file.
-     */
-    public function createStreamFromFile(string $filename, string $mode = 'r'): StreamInterface
+    public function setUriFactory(UriFactoryInterface $uriFactory)
     {
-        return $this->getStreamFactory()->createStreamFromFile($filename, $mode);
+        $this->factories['uri'] = $uriFactory;
     }
 
-    /**
-     * Creates a Stream instance from a resource.
-     * @param mixed $resource
-     */
-    public function createStreamFromResource($resource): StreamInterface
+    public function getUriFactory(): UriFactoryInterface
     {
-        return $this->getStreamFactory()->createStreamFromResource($resource);
-    }
-
-    /**
-     * Creates an Uri instance.
-     */
-    public function createUri(string $uri = ''): UriInterface
-    {
-        return $this->getUriFactory()->createUri($uri);
-    }
-
-    /**
-     * Creates a ServerRequest instance.
-     * @param mixed $uri
-     */
-    public function createServerRequest(string $method, $uri, array $serverParams = []): ServerRequestInterface
-    {
-        return $this->getServerRequestFactory()->createServerRequest($method, $uri, $serverParams);
+        return $this->getFactory('uri');
     }
 }
