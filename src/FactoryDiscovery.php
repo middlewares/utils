@@ -47,7 +47,7 @@ class FactoryDiscovery implements FactoryInterface
 
     private $factories = [];
 
-    public function __construct(array $strategies = null)
+    public function __construct(...$strategies)
     {
         if (!empty($strategies)) {
             $this->strategies = $strategies;
@@ -60,40 +60,6 @@ class FactoryDiscovery implements FactoryInterface
     public function getStrategies(): array
     {
         return $this->strategies;
-    }
-
-    /**
-     * Create the PSR-17 factories or throw an exception
-     */
-    private function getFactory(string $type)
-    {
-        if (!empty($this->factories[$type])) {
-            return $this->factories[$type];
-        }
-
-        if (!empty($this->factory)) {
-            return $this->factories[$type] = $this->factory;
-        }
-
-        foreach ($this->strategies as $className) {
-            if (is_array($className) && isset($className[$type])) {
-                $className = $className[$type];
-
-                if (class_exists($className)) {
-                    return $this->factories[$type] = new $className();
-                }
-
-                continue;
-            }
-
-            if (!class_exists($className)) {
-                continue;
-            }
-
-            return $this->factories[$type] = $this->factory = new $className();
-        }
-
-        throw new RuntimeException('No PSR-7 library detected');
     }
 
     public function setResponseFactory(ResponseFactoryInterface $responseFactory)
@@ -134,5 +100,39 @@ class FactoryDiscovery implements FactoryInterface
     public function getUriFactory(): UriFactoryInterface
     {
         return $this->getFactory('uri');
+    }
+
+    /**
+     * Create the PSR-17 factories or throw an exception
+     */
+    private function getFactory(string $type)
+    {
+        if (!empty($this->factories[$type])) {
+            return $this->factories[$type];
+        }
+
+        if (!empty($this->factory)) {
+            return $this->factories[$type] = $this->factory;
+        }
+
+        foreach ($this->strategies as $className) {
+            if (is_array($className) && isset($className[$type])) {
+                $className = $className[$type];
+
+                if (class_exists($className)) {
+                    return $this->factories[$type] = new $className();
+                }
+
+                continue;
+            }
+
+            if (!class_exists($className)) {
+                continue;
+            }
+
+            return $this->factories[$type] = $this->factory = new $className();
+        }
+
+        throw new RuntimeException('No PSR-7 library detected');
     }
 }

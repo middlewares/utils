@@ -37,12 +37,12 @@ $uri = Factory::createUri('http://example.com');
 // By default, use the FactoryDiscovery class that detects diactoros, guzzle, slim, nyholm and sunrise (in this order of priority),
 // but you can change it and add other classes
 
-Factory::setFactory(new FactoryDiscovery([
+Factory::setFactory(new FactoryDiscovery(
     'MyApp\Psr17Factory',
-    Factory::SLIM,
-    Factory::GUZZLE,
-    Factory::DIACTOROS,
-]));
+    FactoryDiscovery::SLIM,
+    FactoryDiscovery::GUZZLE,
+    FactoryDiscovery::DIACTOROS
+));
 
 //And also register directly an initialized factory
 Factory::getFactory()->setResponseFactory(new FooResponseFactory());

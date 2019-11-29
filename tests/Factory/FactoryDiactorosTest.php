@@ -20,7 +20,7 @@ class FactoryDiactorosTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        self::$factory = new FactoryDiscovery([FactoryDiscovery::DIACTOROS]);
+        self::$factory = new FactoryDiscovery(FactoryDiscovery::DIACTOROS);
     }
 
     public static function tearDownBeforeClass(): void

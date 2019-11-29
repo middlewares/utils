@@ -20,7 +20,7 @@ class FactorySunriseTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        self::$factory = new FactoryDiscovery([FactoryDiscovery::SUNRISE]);
+        self::$factory = new FactoryDiscovery(FactoryDiscovery::SUNRISE);
     }
 
     public static function tearDownBeforeClass(): void
