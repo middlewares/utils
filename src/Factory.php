@@ -3,6 +3,8 @@ declare(strict_types = 1);
 
 namespace Middlewares\Utils;
 
+use Psr\Http\Message\RequestFactoryInterface;
+use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestFactoryInterface;
@@ -33,6 +35,16 @@ abstract class Factory
     public static function setFactory(FactoryInterface $factory)
     {
         self::$factory = $factory;
+    }
+
+    public static function getRequestFactory(): RequestFactoryInterface
+    {
+        return self::getFactory()->getRequestFactory();
+    }
+
+    public static function createRequest(string $method, $uri): RequestInterface
+    {
+        return self::getRequestFactory()->createRequest($method, $uri);
     }
 
     public static function getResponseFactory(): ResponseFactoryInterface

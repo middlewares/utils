@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 namespace Middlewares\Utils;
 
+use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ServerRequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
@@ -16,24 +17,27 @@ use RuntimeException;
 class FactoryDiscovery implements FactoryInterface
 {
     const DIACTOROS = [
-        'serverRequest' => 'Zend\Diactoros\ServerRequestFactory',
+        'request' => 'Zend\Diactoros\RequestFactory',
         'response' => 'Zend\Diactoros\ResponseFactory',
+        'serverRequest' => 'Zend\Diactoros\ServerRequestFactory',
         'stream' => 'Zend\Diactoros\StreamFactory',
         'uploadedFile' => 'Zend\Diactoros\UploadedFileFactory',
         'uri' => 'Zend\Diactoros\UriFactory',
     ];
     const GUZZLE = 'GuzzleHttp\Psr7\HttpFactory';
     const SLIM = [
-        'serverRequest' => 'Slim\Psr7\Factory\ServerRequestFactory',
+        'request' => 'Slim\Psr7\Factory\RequestFactory',
         'response' => 'Slim\Psr7\Factory\ResponseFactory',
+        'serverRequest' => 'Slim\Psr7\Factory\ServerRequestFactory',
         'stream' => 'Slim\Psr7\Factory\StreamFactory',
         'uploadedFile' => 'Slim\Psr7\Factory\UploadedFileFactory',
         'uri' => 'Slim\Psr7\Factory\UriFactory',
     ];
     const NYHOLM = 'Nyholm\Psr7\Factory\Psr17Factory';
     const SUNRISE = [
-        'serverRequest' => 'Sunrise\Http\ServerRequest\ServerRequestFactory',
+        'request' => 'Sunrise\Http\Message\RequestFactory',
         'response' => 'Sunrise\Http\Message\ResponseFactory',
+        'serverRequest' => 'Sunrise\Http\ServerRequest\ServerRequestFactory',
         'stream' => 'Sunrise\Stream\StreamFactory',
         'uploadedFile' => 'Sunrise\Http\ServerRequest\UploadedFileFactory',
         'uri' => 'Sunrise\Uri\UriFactory',
@@ -64,6 +68,16 @@ class FactoryDiscovery implements FactoryInterface
     public function getStrategies(): array
     {
         return $this->strategies;
+    }
+
+    public function setRequestFactory(RequestFactoryInterface $requestFactory)
+    {
+        $this->factories['request'] = $requestFactory;
+    }
+
+    public function getRequestFactory(): RequestFactoryInterface
+    {
+        return $this->getFactory('request');
     }
 
     public function setResponseFactory(ResponseFactoryInterface $responseFactory)
@@ -147,6 +161,6 @@ class FactoryDiscovery implements FactoryInterface
             return $this->factories[$type] = $this->factory = new $className();
         }
 
-        throw new RuntimeException('No PSR-7 library detected');
+        throw new RuntimeException(sprintf('No PSR-17 factory detected to create a %s', $type));
     }
 }

@@ -5,11 +5,13 @@ namespace Middlewares\Tests\Factory;
 
 use Middlewares\Utils\FactoryDiscovery;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ServerRequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\UploadedFileFactoryInterface;
 use Psr\Http\Message\UriFactoryInterface;
+use Zend\Diactoros\RequestFactory;
 use Zend\Diactoros\ResponseFactory;
 use Zend\Diactoros\ServerRequestFactory;
 use Zend\Diactoros\StreamFactory;
@@ -28,6 +30,14 @@ class FactoryDiactorosTest extends TestCase
     public static function tearDownBeforeClass(): void
     {
         self::$factory = null;
+    }
+
+    public function testRequest()
+    {
+        $requestFactory = self::$factory->getRequestFactory();
+
+        $this->assertInstanceOf(RequestFactoryInterface::class, $requestFactory);
+        $this->assertInstanceOf(RequestFactory::class, $requestFactory);
     }
 
     public function testResponse()
