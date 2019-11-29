@@ -12,9 +12,6 @@ use UnexpectedValueException;
 
 class Dispatcher implements RequestHandlerInterface
 {
-    /**
-     * @var MiddlewareInterface[]
-     */
     private $stack;
 
     /**
@@ -29,9 +26,6 @@ class Dispatcher implements RequestHandlerInterface
         return (new static($stack))->dispatch($request);
     }
 
-    /**
-     * @param MiddlewareInterface[] $stack middleware stack (with at least one middleware component)
-     */
     public function __construct(array $stack)
     {
         $this->stack = $stack;
