@@ -96,12 +96,12 @@ General purpose exception used to represent HTTP errors.
 ```php
 use Middlewares\Utils\HttpErrorException;
 
-$exception = HttpErrorException::create(500, [
-    'problem' => 'Something bad happened',
-]);
-
-// Additional context can be get and set on the exception
-$context = $exception->getContext();
+try {
+    $context = ['problem' => 'Something bad happened'];
+    throw HttpErrorException::create(500, $context);
+} catch (HttpErrorException $exception) {
+    $context = $exception->getContext();
+}
 ```
 
 ---
