@@ -37,9 +37,6 @@ class Dispatcher implements RequestHandlerInterface
         $this->stack = $stack;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         return $this->dispatch($request);
@@ -55,11 +52,6 @@ class Dispatcher implements RequestHandlerInterface
         return $resolved->handle($request);
     }
 
-    /**
-     * @param int $index middleware stack index
-     *
-     * @return RequestHandlerInterface
-     */
     private function resolve(int $index): RequestHandlerInterface
     {
         return new RequestHandler(function (ServerRequestInterface $request) use ($index) {

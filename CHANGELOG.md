@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 - Support for PHP 7.0 and 7.1
 - `Factory::setStrategy`
+- `HttpErrorException::setContext` method, to make the exception class inmutable
 - Traits `HasResponseFactory` and `HasStreamFactory`
 
 ## [2.2.0] - 2019-03-05

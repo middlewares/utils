@@ -16,19 +16,13 @@ use ReflectionMethod;
  */
 class RequestHandlerContainer implements ContainerInterface
 {
-    protected $arguments;
+    protected $constructorArguments;
 
-    /**
-     * @param array $arguments Arguments passed to the request handler constructor
-     */
-    public function __construct(array $arguments = [])
+    public function __construct(array $constructorArguments = [])
     {
-        $this->arguments = $arguments;
+        $this->constructorArguments = $constructorArguments;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function has($id)
     {
         $id = $this->split($id);
@@ -41,8 +35,7 @@ class RequestHandlerContainer implements ContainerInterface
     }
 
     /**
-     * {@inheritdoc}
-     *
+     * @param  mixed                   $id
      * @return RequestHandlerInterface
      */
     public function get($id)
@@ -64,13 +57,6 @@ class RequestHandlerContainer implements ContainerInterface
         }
     }
 
-    /**
-     * Resolves a handler
-     *
-     * @param string $handler
-     *
-     * @return mixed
-     */
     protected function resolve(string $handler)
     {
         $handler = $this->split($handler);
@@ -90,10 +76,8 @@ class RequestHandlerContainer implements ContainerInterface
 
     /**
      * Returns the instance of a class.
-     *
-     * @return object
      */
-    protected function createClass(string $className)
+    protected function createClass(string $className): object
     {
         if (!class_exists($className)) {
             $message = sprintf('The class %s does not exists', $className);

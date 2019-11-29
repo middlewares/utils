@@ -12,7 +12,7 @@ use Psr\Http\Message\UriFactoryInterface;
 use RuntimeException;
 
 /**
- * Simple class to create instances of PSR-7 classes.
+ * Simple class to create instances of PSR-17 classes.
  */
 class FactoryDiscovery implements FactoryInterface
 {

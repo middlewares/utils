@@ -22,9 +22,6 @@ class RequestHandler implements RequestHandlerInterface
         $this->callback = $callback;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         return call_user_func($this->callback, $request);

@@ -29,10 +29,12 @@ Used to create psr-7 instances of `ServerRequestInterface`, `ResponseInterface`,
 use Middlewares\Utils\Factory;
 use Middlewares\Utils\FactoryDiscovery;
 
-$request = Factory::createServerRequest('GET', '/');
+$request = Factory::createRequest('GET', '/');
+$serverRequest = Factory::createServerRequest('GET', '/');
 $response = Factory::createResponse(200);
 $stream = Factory::createStream('Hello world');
 $uri = Factory::createUri('http://example.com');
+$uploadedFile = Factory::createUploadedFile($stream);
 
 // By default, use the FactoryDiscovery class that detects diactoros, guzzle, slim, nyholm and sunrise (in this order of priority),
 // but you can change it and add other classes
@@ -50,8 +52,7 @@ Factory::getFactory()->setResponseFactory(new FooResponseFactory());
 $fooResponse = Factory::createResponse();
 
 //Get the PSR-17 factory used
-$uriFactory = Factory::getUriFactory();
-$uri = $uriFactory->createUri('http://hello-world.com');
+$uri = Factory::getUriFactory()->createUri('http://hello-world.com');
 ```
 
 ## Dispatcher
