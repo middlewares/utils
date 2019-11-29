@@ -23,12 +23,14 @@ composer require middlewares/utils
 
 ## Factory
 
-Used to create psr-7 instances of `ServerRequestInterface`, `ResponseInterface`, `StreamInterface` and `UriInterface`. Detects automatically [Diactoros](https://github.com/zendframework/zend-diactoros), [Guzzle](https://github.com/guzzle/psr7), [Slim](https://github.com/slimphp/Slim), [Nyholm/psr7](https://github.com/Nyholm/psr7) and [Sunrise](https://github.com/sunrise-php) but you can register a different factory using the [psr/http-factory](https://github.com/php-fig/http-factory) interface.
+Used to create PSR-7 and PSR-17 instances.
+Detects automatically [Diactoros](https://github.com/zendframework/zend-diactoros), [Guzzle](https://github.com/guzzle/psr7), [Slim](https://github.com/slimphp/Slim), [Nyholm/psr7](https://github.com/Nyholm/psr7) and [Sunrise](https://github.com/sunrise-php) but you can register a different factory using the [psr/http-factory](https://github.com/php-fig/http-factory) interface.
 
 ```php
 use Middlewares\Utils\Factory;
 use Middlewares\Utils\FactoryDiscovery;
 
+// Create PSR-7 instances
 $request = Factory::createRequest('GET', '/');
 $serverRequest = Factory::createServerRequest('GET', '/');
 $response = Factory::createResponse(200);
@@ -36,8 +38,16 @@ $stream = Factory::createStream('Hello world');
 $uri = Factory::createUri('http://example.com');
 $uploadedFile = Factory::createUploadedFile($stream);
 
+// Get PSR-17 instances (factories)
+$requestFactory = Factory::getRequestFactory();
+$serverRequestFactory = Factory::getServerRequestFactory();
+$responseFactory = Factory::getResponseFactory();
+$streamFactory = Factory::getStreamFactory();
+$uriFactory = Factory::getUriFactory();
+$uploadedFileFactory = Factory::getUploadedFileFactory();
+
 // By default, use the FactoryDiscovery class that detects diactoros, guzzle, slim, nyholm and sunrise (in this order of priority),
-// but you can change it and add other classes
+// but you can change it and add other libraries
 
 Factory::setFactory(new FactoryDiscovery(
     'MyApp\Psr17Factory',
@@ -50,9 +60,6 @@ Factory::setFactory(new FactoryDiscovery(
 Factory::getFactory()->setResponseFactory(new FooResponseFactory());
 
 $fooResponse = Factory::createResponse();
-
-//Get the PSR-17 factory used
-$uri = Factory::getUriFactory()->createUri('http://hello-world.com');
 ```
 
 ## Dispatcher
