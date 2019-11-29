@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Added `Sunrise` to the list of factories detected automatically
 
 ### Removed
+- Support for PHP 7.0 and 7.1
 - `Factory::setStrategy`
 - Traits `HasResponseFactory` and `HasStreamFactory`
 

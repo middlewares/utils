@@ -20,7 +20,8 @@
         "psr/http-message": "^1.0",
         "psr/http-server-middleware": "^1.0",
         "psr/container": "^1.0",
-        "psr/http-factory": "^1.0"
+        "psr/http-factory": "^1.0",
+        "oscarotero/php-cs-fixer-config": "^1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.1",
@@ -50,7 +51,7 @@
             "phpunit --coverage-text",
             "phpcs"
         ],
-        "cs-fix": "php-cs-fixer fix .",
+        "cs-fix": "php-cs-fixer fix",
         "coverage": "phpunit --coverage-html=coverage"
     }
 }

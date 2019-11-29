@@ -3,24 +3,15 @@ declare(strict_types = 1);
 
 namespace Middlewares\Tests\Factory;
 
-use Middlewares\Utils\Factory;
 use Middlewares\Utils\FactoryDiscovery;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseFactoryInterface;
-use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestFactoryInterface;
-use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\StreamFactoryInterface;
-use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UriFactoryInterface;
-use Psr\Http\Message\UriInterface;
-use Zend\Diactoros\Response;
 use Zend\Diactoros\ResponseFactory;
-use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\ServerRequestFactory;
-use Zend\Diactoros\Stream;
 use Zend\Diactoros\StreamFactory;
-use Zend\Diactoros\Uri;
 use Zend\Diactoros\UriFactory;
 
 class FactoryDiactorosTest extends TestCase
