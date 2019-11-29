@@ -26,7 +26,7 @@ class FactoryGuzzleTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        self::$factory = new FactoryDiscovery([Factory::GUZZLE]);
+        self::$factory = new FactoryDiscovery([FactoryDiscovery::GUZZLE]);
     }
 
     public static function tearDownBeforeClass(): void
@@ -36,49 +36,33 @@ class FactoryGuzzleTest extends TestCase
 
     public function testResponse()
     {
-        $response = self::$factory->createResponse();
         $responseFactory = self::$factory->getResponseFactory();
 
         $this->assertInstanceOf(ResponseFactoryInterface::class, $responseFactory);
         $this->assertInstanceOf(HttpFactory::class, $responseFactory);
-
-        $this->assertInstanceOf(ResponseInterface::class, $response);
-        $this->assertInstanceOf(Response::class, $response);
     }
 
     public function testServerRequest()
     {
-        $serverRequest = self::$factory->createServerRequest('GET', '/', []);
         $serverRequestFactory = self::$factory->getServerRequestFactory();
 
         $this->assertInstanceOf(ServerRequestFactoryInterface::class, $serverRequestFactory);
         $this->assertInstanceOf(HttpFactory::class, $serverRequestFactory);
-
-        $this->assertInstanceOf(ServerRequestInterface::class, $serverRequest);
-        $this->assertInstanceOf(ServerRequest::class, $serverRequest);
     }
 
     public function testStream()
     {
-        $stream = self::$factory->createStream();
         $streamFactory = self::$factory->getStreamFactory();
 
         $this->assertInstanceOf(StreamFactoryInterface::class, $streamFactory);
         $this->assertInstanceOf(HttpFactory::class, $streamFactory);
-
-        $this->assertInstanceOf(StreamInterface::class, $stream);
-        $this->assertInstanceOf(Stream::class, $stream);
     }
 
     public function testUri()
     {
-        $uri = self::$factory->createUri();
         $uriFactory = self::$factory->getUriFactory();
 
         $this->assertInstanceOf(UriFactoryInterface::class, $uriFactory);
         $this->assertInstanceOf(HttpFactory::class, $uriFactory);
-
-        $this->assertInstanceOf(UriInterface::class, $uri);
-        $this->assertInstanceOf(Uri::class, $uri);
     }
 }

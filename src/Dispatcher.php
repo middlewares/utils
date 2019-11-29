@@ -10,7 +10,7 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use UnexpectedValueException;
 
-class Dispatcher
+class Dispatcher implements RequestHandlerInterface
 {
     /**
      * @var MiddlewareInterface[]
@@ -35,6 +35,14 @@ class Dispatcher
     public function __construct(array $stack)
     {
         $this->stack = $stack;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function handle(ServerRequestInterface $request): ResponseInterface
+    {
+        return $this->dispatch($request);
     }
 
     /**
