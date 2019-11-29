@@ -17,7 +17,7 @@ class FactoryGuzzleTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        self::$factory = new FactoryDiscovery([FactoryDiscovery::GUZZLE]);
+        self::$factory = new FactoryDiscovery(FactoryDiscovery::GUZZLE);
     }
 
     public static function tearDownBeforeClass(): void

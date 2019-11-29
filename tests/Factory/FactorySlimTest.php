@@ -20,7 +20,7 @@ class FactorySlimTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        self::$factory = new FactoryDiscovery([FactoryDiscovery::SLIM]);
+        self::$factory = new FactoryDiscovery(FactoryDiscovery::SLIM);
     }
 
     public static function tearDownBeforeClass(): void

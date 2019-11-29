@@ -17,7 +17,7 @@ class FactoryNyholmTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        self::$factory = new FactoryDiscovery([FactoryDiscovery::NYHOLM]);
+        self::$factory = new FactoryDiscovery(FactoryDiscovery::NYHOLM);
     }
 
     public static function tearDownBeforeClass(): void
