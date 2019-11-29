@@ -8,10 +8,12 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ServerRequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
+use Psr\Http\Message\UploadedFileFactoryInterface;
 use Psr\Http\Message\UriFactoryInterface;
 use Slim\Psr7\Factory\ResponseFactory;
 use Slim\Psr7\Factory\ServerRequestFactory;
 use Slim\Psr7\Factory\StreamFactory;
+use Slim\Psr7\Factory\UploadedFileFactory;
 use Slim\Psr7\Factory\UriFactory;
 
 class FactorySlimTest extends TestCase
@@ -58,5 +60,13 @@ class FactorySlimTest extends TestCase
 
         $this->assertInstanceOf(UriFactoryInterface::class, $uriFactory);
         $this->assertInstanceOf(UriFactory::class, $uriFactory);
+    }
+
+    public function testUploadedFile()
+    {
+        $uploadedFileFactory = self::$factory->getUploadedFileFactory();
+
+        $this->assertInstanceOf(UploadedFileFactoryInterface::class, $uploadedFileFactory);
+        $this->assertInstanceOf(UploadedFileFactory::class, $uploadedFileFactory);
     }
 }

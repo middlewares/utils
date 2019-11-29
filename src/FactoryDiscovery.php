@@ -6,6 +6,7 @@ namespace Middlewares\Utils;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ServerRequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
+use Psr\Http\Message\UploadedFileFactoryInterface;
 use Psr\Http\Message\UriFactoryInterface;
 use RuntimeException;
 
@@ -18,6 +19,7 @@ class FactoryDiscovery implements FactoryInterface
         'serverRequest' => 'Zend\Diactoros\ServerRequestFactory',
         'response' => 'Zend\Diactoros\ResponseFactory',
         'stream' => 'Zend\Diactoros\StreamFactory',
+        'uploadedFile' => 'Zend\Diactoros\UploadedFileFactory',
         'uri' => 'Zend\Diactoros\UriFactory',
     ];
     const GUZZLE = 'GuzzleHttp\Psr7\HttpFactory';
@@ -25,6 +27,7 @@ class FactoryDiscovery implements FactoryInterface
         'serverRequest' => 'Slim\Psr7\Factory\ServerRequestFactory',
         'response' => 'Slim\Psr7\Factory\ResponseFactory',
         'stream' => 'Slim\Psr7\Factory\StreamFactory',
+        'uploadedFile' => 'Slim\Psr7\Factory\UploadedFileFactory',
         'uri' => 'Slim\Psr7\Factory\UriFactory',
     ];
     const NYHOLM = 'Nyholm\Psr7\Factory\Psr17Factory';
@@ -32,6 +35,7 @@ class FactoryDiscovery implements FactoryInterface
         'serverRequest' => 'Sunrise\Http\ServerRequest\ServerRequestFactory',
         'response' => 'Sunrise\Http\Message\ResponseFactory',
         'stream' => 'Sunrise\Stream\StreamFactory',
+        'uploadedFile' => 'Sunrise\Http\ServerRequest\UploadedFileFactory',
         'uri' => 'Sunrise\Uri\UriFactory',
     ];
 
@@ -90,6 +94,16 @@ class FactoryDiscovery implements FactoryInterface
     public function getStreamFactory(): StreamFactoryInterface
     {
         return $this->getFactory('stream');
+    }
+
+    public function setUploadedFileFactory(UploadedFileFactoryInterface $uploadedFileFactory)
+    {
+        $this->factories['uploadedFile'] = $uploadedFileFactory;
+    }
+
+    public function getUploadedFileFactory(): UploadedFileFactoryInterface
+    {
+        return $this->getFactory('uploadedFile');
     }
 
     public function setUriFactory(UriFactoryInterface $uriFactory)

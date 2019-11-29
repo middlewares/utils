@@ -8,9 +8,11 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ServerRequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
+use Psr\Http\Message\UploadedFileFactoryInterface;
 use Psr\Http\Message\UriFactoryInterface;
 use Sunrise\Http\Message\ResponseFactory;
 use Sunrise\Http\ServerRequest\ServerRequestFactory;
+use Sunrise\Http\ServerRequest\UploadedFileFactory;
 use Sunrise\Stream\StreamFactory;
 use Sunrise\Uri\UriFactory;
 
@@ -58,5 +60,13 @@ class FactorySunriseTest extends TestCase
 
         $this->assertInstanceOf(UriFactoryInterface::class, $uriFactory);
         $this->assertInstanceOf(UriFactory::class, $uriFactory);
+    }
+
+    public function testUploadedFile()
+    {
+        $uploadedFileFactory = self::$factory->getUploadedFileFactory();
+
+        $this->assertInstanceOf(UploadedFileFactoryInterface::class, $uploadedFileFactory);
+        $this->assertInstanceOf(UploadedFileFactory::class, $uploadedFileFactory);
     }
 }

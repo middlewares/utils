@@ -8,10 +8,12 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ServerRequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
+use Psr\Http\Message\UploadedFileFactoryInterface;
 use Psr\Http\Message\UriFactoryInterface;
 use Zend\Diactoros\ResponseFactory;
 use Zend\Diactoros\ServerRequestFactory;
 use Zend\Diactoros\StreamFactory;
+use Zend\Diactoros\UploadedFileFactory;
 use Zend\Diactoros\UriFactory;
 
 class FactoryDiactorosTest extends TestCase
@@ -58,5 +60,13 @@ class FactoryDiactorosTest extends TestCase
 
         $this->assertInstanceOf(UriFactoryInterface::class, $uriFactory);
         $this->assertInstanceOf(UriFactory::class, $uriFactory);
+    }
+
+    public function testUploadedFile()
+    {
+        $uploadedFileFactory = self::$factory->getUploadedFileFactory();
+
+        $this->assertInstanceOf(UploadedFileFactoryInterface::class, $uploadedFileFactory);
+        $this->assertInstanceOf(UploadedFileFactory::class, $uploadedFileFactory);
     }
 }

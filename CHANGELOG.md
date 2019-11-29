@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Added `Factory::getServerRequestFactory()`
 - Added `Factory::getStreamFactory()`
 - Added `Factory::getUriFactory()`
+- Added `Factory::getUploadedFileFactory()`
 - Added `Sunrise` to the list of factories detected automatically
 
 ### Removed

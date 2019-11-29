@@ -9,6 +9,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ServerRequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
+use Psr\Http\Message\UploadedFileFactoryInterface;
 use Psr\Http\Message\UriFactoryInterface;
 
 class FactoryNyholmTest extends TestCase
@@ -55,5 +56,13 @@ class FactoryNyholmTest extends TestCase
 
         $this->assertInstanceOf(UriFactoryInterface::class, $uriFactory);
         $this->assertInstanceOf(Psr17Factory::class, $uriFactory);
+    }
+
+    public function testUploadedFile()
+    {
+        $uploadedFileFactory = self::$factory->getUploadedFileFactory();
+
+        $this->assertInstanceOf(UploadedFileFactoryInterface::class, $uploadedFileFactory);
+        $this->assertInstanceOf(Psr17Factory::class, $uploadedFileFactory);
     }
 }
