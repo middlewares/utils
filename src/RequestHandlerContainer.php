@@ -88,7 +88,7 @@ class RequestHandlerContainer implements ContainerInterface
         $reflection = new ReflectionClass($className);
 
         if ($reflection->hasMethod('__construct')) {
-            return $reflection->newInstanceArgs($this->arguments);
+            return $reflection->newInstanceArgs($this->constructorArguments);
         }
 
         return $reflection->newInstance();
