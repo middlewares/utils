@@ -17,12 +17,12 @@ use RuntimeException;
 class FactoryDiscovery implements FactoryInterface
 {
     const DIACTOROS = [
-        'request' => 'Zend\Diactoros\RequestFactory',
-        'response' => 'Zend\Diactoros\ResponseFactory',
-        'serverRequest' => 'Zend\Diactoros\ServerRequestFactory',
-        'stream' => 'Zend\Diactoros\StreamFactory',
-        'uploadedFile' => 'Zend\Diactoros\UploadedFileFactory',
-        'uri' => 'Zend\Diactoros\UriFactory',
+        'request' => 'Laminas\Diactoros\RequestFactory',
+        'response' => 'Laminas\Diactoros\ResponseFactory',
+        'serverRequest' => 'Laminas\Diactoros\ServerRequestFactory',
+        'stream' => 'Laminas\Diactoros\StreamFactory',
+        'uploadedFile' => 'Laminas\Diactoros\UploadedFileFactory',
+        'uri' => 'Laminas\Diactoros\UriFactory',
     ];
     const GUZZLE = 'GuzzleHttp\Psr7\HttpFactory';
     const SLIM = [
