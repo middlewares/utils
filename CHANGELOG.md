@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.1.0] - 2020-01-19
+### Changed
+- Zend Diactoros is deprecated, switched to Laminas Diactoros [#20], [#21].
+  THIS IS A BREAKING CHANGE, so, if you want to keep using Zend Diactoros, you should configure the `Factory` as follows:
+  ```php
+  Factory::setFactory(
+    new FactoryDiscovery([
+        'request' => 'Zend\Diactoros\RequestFactory',
+        'response' => 'Zend\Diactoros\ResponseFactory',
+        'serverRequest' => 'Zend\Diactoros\ServerRequestFactory',
+        'stream' => 'Zend\Diactoros\StreamFactory',
+        'uploadedFile' => 'Zend\Diactoros\UploadedFileFactory',
+        'uri' => 'Zend\Diactoros\UriFactory',
+    ])
+  );
+  ```
+
 ## [3.0.1] - 2019-11-29
 ### Fixed
 - Moved a dependency to dev
@@ -179,7 +196,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 [#16]: https://github.com/middlewares/utils/issues/16
 [#17]: https://github.com/middlewares/utils/issues/17
+[#20]: https://github.com/middlewares/utils/issues/20
+[#21]: https://github.com/middlewares/utils/issues/21
 
+[3.1.0]: https://github.com/middlewares/utils/compare/v3.0.1...v3.1.0
 [3.0.1]: https://github.com/middlewares/utils/compare/v3.0.0...v3.0.1
 [3.0.0]: https://github.com/middlewares/utils/compare/v2.2.0...v3.0.0
 [2.2.0]: https://github.com/middlewares/utils/compare/v2.1.1...v2.2.0

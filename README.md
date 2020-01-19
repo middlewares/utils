@@ -24,7 +24,7 @@ composer require middlewares/utils
 ## Factory
 
 Used to create PSR-7 and PSR-17 instances.
-Detects automatically [Diactoros](https://github.com/zendframework/zend-diactoros), [Guzzle](https://github.com/guzzle/psr7), [Slim](https://github.com/slimphp/Slim), [Nyholm/psr7](https://github.com/Nyholm/psr7) and [Sunrise](https://github.com/sunrise-php) but you can register a different factory using the [psr/http-factory](https://github.com/php-fig/http-factory) interface.
+Detects automatically [Diactoros](https://github.com/laminas/laminas-diactoros), [Guzzle](https://github.com/guzzle/psr7), [Slim](https://github.com/slimphp/Slim), [Nyholm/psr7](https://github.com/Nyholm/psr7) and [Sunrise](https://github.com/sunrise-php) but you can register a different factory using the [psr/http-factory](https://github.com/php-fig/http-factory) interface.
 
 ```php
 use Middlewares\Utils\Factory;
