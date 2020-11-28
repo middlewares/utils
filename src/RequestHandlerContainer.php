@@ -16,6 +16,7 @@ use ReflectionMethod;
  */
 class RequestHandlerContainer implements ContainerInterface
 {
+    /** @var array */
     protected $constructorArguments;
 
     public function __construct(array $constructorArguments = [])
@@ -23,7 +24,7 @@ class RequestHandlerContainer implements ContainerInterface
         $this->constructorArguments = $constructorArguments;
     }
 
-    public function has($id)
+    public function has($id): bool
     {
         $id = $this->split($id);
 

@@ -12,6 +12,7 @@ use UnexpectedValueException;
 
 class Dispatcher implements RequestHandlerInterface
 {
+    /** @var array */
     private $stack;
 
     /**
