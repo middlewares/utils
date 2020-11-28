@@ -20,6 +20,7 @@ use Laminas\Diactoros\UriFactory;
 
 class FactoryDiactorosTest extends TestCase
 {
+    /** @var FactoryDiscovery */
     private static $factory;
 
     public static function setUpBeforeClass(): void
@@ -27,56 +28,51 @@ class FactoryDiactorosTest extends TestCase
         self::$factory = new FactoryDiscovery(FactoryDiscovery::DIACTOROS);
     }
 
-    public static function tearDownBeforeClass(): void
-    {
-        self::$factory = null;
-    }
-
-    public function testRequest()
+    public function testRequest(): void
     {
         $requestFactory = self::$factory->getRequestFactory();
 
-        $this->assertInstanceOf(RequestFactoryInterface::class, $requestFactory);
-        $this->assertInstanceOf(RequestFactory::class, $requestFactory);
+        self::assertInstanceOf(RequestFactoryInterface::class, $requestFactory);
+        self::assertInstanceOf(RequestFactory::class, $requestFactory);
     }
 
-    public function testResponse()
+    public function testResponse(): void
     {
         $responseFactory = self::$factory->getResponseFactory();
 
-        $this->assertInstanceOf(ResponseFactoryInterface::class, $responseFactory);
-        $this->assertInstanceOf(ResponseFactory::class, $responseFactory);
+        self::assertInstanceOf(ResponseFactoryInterface::class, $responseFactory);
+        self::assertInstanceOf(ResponseFactory::class, $responseFactory);
     }
 
-    public function testServerRequest()
+    public function testServerRequest(): void
     {
         $serverRequestFactory = self::$factory->getServerRequestFactory();
 
-        $this->assertInstanceOf(ServerRequestFactoryInterface::class, $serverRequestFactory);
-        $this->assertInstanceOf(ServerRequestFactory::class, $serverRequestFactory);
+        self::assertInstanceOf(ServerRequestFactoryInterface::class, $serverRequestFactory);
+        self::assertInstanceOf(ServerRequestFactory::class, $serverRequestFactory);
     }
 
-    public function testStream()
+    public function testStream(): void
     {
         $streamFactory = self::$factory->getStreamFactory();
 
-        $this->assertInstanceOf(StreamFactoryInterface::class, $streamFactory);
-        $this->assertInstanceOf(StreamFactory::class, $streamFactory);
+        self::assertInstanceOf(StreamFactoryInterface::class, $streamFactory);
+        self::assertInstanceOf(StreamFactory::class, $streamFactory);
     }
 
-    public function testUri()
+    public function testUri(): void
     {
         $uriFactory = self::$factory->getUriFactory();
 
-        $this->assertInstanceOf(UriFactoryInterface::class, $uriFactory);
-        $this->assertInstanceOf(UriFactory::class, $uriFactory);
+        self::assertInstanceOf(UriFactoryInterface::class, $uriFactory);
+        self::assertInstanceOf(UriFactory::class, $uriFactory);
     }
 
-    public function testUploadedFile()
+    public function testUploadedFile(): void
     {
         $uploadedFileFactory = self::$factory->getUploadedFileFactory();
 
-        $this->assertInstanceOf(UploadedFileFactoryInterface::class, $uploadedFileFactory);
-        $this->assertInstanceOf(UploadedFileFactory::class, $uploadedFileFactory);
+        self::assertInstanceOf(UploadedFileFactoryInterface::class, $uploadedFileFactory);
+        self::assertInstanceOf(UploadedFileFactory::class, $uploadedFileFactory);
     }
 }
