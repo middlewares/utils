@@ -76,8 +76,8 @@ jobs:
             - name: "Coding Standard"
               run: "composer cs"
 
-            - name: "PHPStan"
-              run: "composer phpstan"
+            # - name: "PHPStan"
+            #  run: "composer phpstan"
 
     tests:
         name: "Tests"
