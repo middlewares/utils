@@ -31,8 +31,8 @@
         "squizlabs/php_codesniffer": "^3.5",
         "slim/psr7": "~0.3",
         "guzzlehttp/psr7": "dev-master",
-        "sunrise/stream": "^1.0",
-        "sunrise/uri": "^1.0",
+        "sunrise/stream": "^1.0.15",
+        "sunrise/uri": "^1.0.15",
         "sunrise/http-message": "^1.0",
         "sunrise/http-server-request": "^1.0",
         "nyholm/psr7": "^1.0"
