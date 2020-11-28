@@ -8,17 +8,17 @@ use RuntimeException;
 
 class HttpErrorExceptionTest extends TestCase
 {
-    public function testContext()
+    public function testContext(): void
     {
         // Execute
         $exception = HttpErrorException::create(500, ['context' => 'problem']);
 
         // Verify
-        $this->assertSame(500, $exception->getCode());
-        $this->assertSame(['context' => 'problem'], $exception->getContext());
+        self::assertSame(500, $exception->getCode());
+        self::assertSame(['context' => 'problem'], $exception->getContext());
     }
 
-    public function testInvalid()
+    public function testInvalid(): void
     {
         // Expect
         $this->expectException(RuntimeException::class);

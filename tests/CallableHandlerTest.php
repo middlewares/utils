@@ -10,16 +10,16 @@ use Psr\Http\Message\ResponseInterface;
 
 class CallableHandlerTest extends TestCase
 {
-    public function testExecute()
+    public function testExecute(): void
     {
         $callable = new CallableHandler('sprintf');
         $response = $callable('Hello %s', 'World');
 
-        $this->assertInstanceOf(ResponseInterface::class, $response);
-        $this->assertEquals('Hello World', (string) $response->getBody());
+        self::assertInstanceOf(ResponseInterface::class, $response);
+        self::assertEquals('Hello World', (string) $response->getBody());
     }
 
-    public function testExecuteHandler()
+    public function testExecuteHandler(): void
     {
         $callable = new CallableHandler(function ($request) {
             echo $request->getHeaderLine('Foo');
@@ -28,11 +28,11 @@ class CallableHandlerTest extends TestCase
         $request = Factory::createServerRequest('GET', '/')->withHeader('Foo', 'Bar');
         $response = $callable->handle($request);
 
-        $this->assertInstanceOf(ResponseInterface::class, $response);
-        $this->assertEquals('Bar', (string) $response->getBody());
+        self::assertInstanceOf(ResponseInterface::class, $response);
+        self::assertEquals('Bar', (string) $response->getBody());
     }
 
-    public function testOb()
+    public function testOb(): void
     {
         $callable = new CallableHandler(function () {
             echo 'Hello';
@@ -42,8 +42,8 @@ class CallableHandlerTest extends TestCase
 
         $response = $callable();
 
-        $this->assertInstanceOf(ResponseInterface::class, $response);
-        $this->assertEquals('Hello World', (string) $response->getBody());
+        self::assertInstanceOf(ResponseInterface::class, $response);
+        self::assertEquals('Hello World', (string) $response->getBody());
 
         $callable = new CallableHandler(function () {
             echo 'Hello';
@@ -64,30 +64,30 @@ class CallableHandlerTest extends TestCase
         } catch (\Exception $e) {
         }
 
-        $this->assertSame($level, ob_get_level());
-        $this->assertSame('', ob_get_clean());
+        self::assertSame($level, ob_get_level());
+        self::assertSame('', ob_get_clean());
     }
 
-    public function testReturnNull()
+    public function testReturnNull(): void
     {
         $response = (new CallableHandler(function () {
         }))();
 
-        $this->assertInstanceOf(ResponseInterface::class, $response);
-        $this->assertEquals('', (string) $response->getBody());
+        self::assertInstanceOf(ResponseInterface::class, $response);
+        self::assertEquals('', (string) $response->getBody());
     }
 
-    public function testReturnObjectToString()
+    public function testReturnObjectToString(): void
     {
         $response = (new CallableHandler(function () {
             return Factory::createUri('http://example.com');
         }))();
 
-        $this->assertInstanceOf(ResponseInterface::class, $response);
-        $this->assertEquals('http://example.com', (string) $response->getBody());
+        self::assertInstanceOf(ResponseInterface::class, $response);
+        self::assertEquals('http://example.com', (string) $response->getBody());
     }
 
-    public function testException()
+    public function testException(): void
     {
         $this->expectException('UnexpectedValueException');
 
