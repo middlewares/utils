@@ -5,15 +5,15 @@ namespace Middlewares\Tests\Assets;
 
 final class Controller
 {
-    public static function staticAction()
+    public static function staticAction(): void
     {
     }
 
-    public function action()
+    public function action(): void
     {
     }
 
-    public function __invoke()
+    public function __invoke(): void
     {
     }
 }

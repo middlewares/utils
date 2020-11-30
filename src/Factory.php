@@ -21,6 +21,7 @@ use Psr\Http\Message\UriInterface;
  */
 abstract class Factory
 {
+    /** @var FactoryInterface */
     private static $factory;
 
     public static function getFactory(): FactoryInterface
@@ -32,7 +33,7 @@ abstract class Factory
         return self::$factory;
     }
 
-    public static function setFactory(FactoryInterface $factory)
+    public static function setFactory(FactoryInterface $factory): void
     {
         self::$factory = $factory;
     }

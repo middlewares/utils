@@ -16,7 +16,10 @@ use UnexpectedValueException;
  */
 class CallableHandler implements MiddlewareInterface, RequestHandlerInterface
 {
+    /** @var callable */
     private $callable;
+
+    /** @var ResponseFactoryInterface */
     private $responseFactory;
 
     public function __construct(callable $callable, ResponseFactoryInterface $responseFactory = null)

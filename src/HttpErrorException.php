@@ -9,6 +9,7 @@ use Throwable;
 
 class HttpErrorException extends Exception
 {
+    /** @var array<int, string>  */
     private static $phrases = [
         // CLIENT ERROR
         400 => 'Bad Request',
@@ -57,6 +58,7 @@ class HttpErrorException extends Exception
         599 => 'Network Connect Timeout Error',
     ];
 
+    /** @var array */
     private $context = [];
 
     /**

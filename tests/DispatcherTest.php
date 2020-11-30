@@ -12,14 +12,14 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 class DispatcherTest extends TestCase
 {
-    public function testDispatcherIsInstanceOfRequestHandlerInterface()
+    public function testDispatcherIsInstanceOfRequestHandlerInterface(): void
     {
         $dispatcher = new Dispatcher([]);
 
-        $this->assertInstanceOf(RequestHandlerInterface::class, $dispatcher);
+        self::assertInstanceOf(RequestHandlerInterface::class, $dispatcher);
     }
 
-    public function testDispatcher()
+    public function testDispatcher(): void
     {
         $response = Dispatcher::run($stack = [
             function ($request, $handler) {
@@ -41,16 +41,16 @@ class DispatcherTest extends TestCase
             }),
         ]);
 
-        $this->assertInstanceOf(ResponseInterface::class, $response);
-        $this->assertEquals('123', (string) $response->getBody());
+        self::assertInstanceOf(ResponseInterface::class, $response);
+        self::assertEquals('123', (string) $response->getBody());
 
         $response = (new Dispatcher($stack))->handle(Factory::createServerRequest('GET', '/'));
 
-        $this->assertInstanceOf(ResponseInterface::class, $response);
-        $this->assertEquals('123', (string) $response->getBody());
+        self::assertInstanceOf(ResponseInterface::class, $response);
+        self::assertEquals('123', (string) $response->getBody());
     }
 
-    public function testMiddlewareException()
+    public function testMiddlewareException(): void
     {
         $this->expectException('UnexpectedValueException');
 

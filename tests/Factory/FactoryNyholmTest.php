@@ -15,6 +15,7 @@ use Psr\Http\Message\UriFactoryInterface;
 
 class FactoryNyholmTest extends TestCase
 {
+    /** @var FactoryDiscovery */
     private static $factory;
 
     public static function setUpBeforeClass(): void
@@ -22,56 +23,51 @@ class FactoryNyholmTest extends TestCase
         self::$factory = new FactoryDiscovery(FactoryDiscovery::NYHOLM);
     }
 
-    public static function tearDownBeforeClass(): void
-    {
-        self::$factory = null;
-    }
-
-    public function testRequest()
+    public function testRequest(): void
     {
         $requestFactory = self::$factory->getRequestFactory();
 
-        $this->assertInstanceOf(RequestFactoryInterface::class, $requestFactory);
-        $this->assertInstanceOf(Psr17Factory::class, $requestFactory);
+        self::assertInstanceOf(RequestFactoryInterface::class, $requestFactory);
+        self::assertInstanceOf(Psr17Factory::class, $requestFactory);
     }
 
-    public function testResponse()
+    public function testResponse(): void
     {
         $responseFactory = self::$factory->getResponseFactory();
 
-        $this->assertInstanceOf(ResponseFactoryInterface::class, $responseFactory);
-        $this->assertInstanceOf(Psr17Factory::class, $responseFactory);
+        self::assertInstanceOf(ResponseFactoryInterface::class, $responseFactory);
+        self::assertInstanceOf(Psr17Factory::class, $responseFactory);
     }
 
-    public function testServerRequest()
+    public function testServerRequest(): void
     {
         $serverRequestFactory = self::$factory->getServerRequestFactory();
 
-        $this->assertInstanceOf(ServerRequestFactoryInterface::class, $serverRequestFactory);
-        $this->assertInstanceOf(Psr17Factory::class, $serverRequestFactory);
+        self::assertInstanceOf(ServerRequestFactoryInterface::class, $serverRequestFactory);
+        self::assertInstanceOf(Psr17Factory::class, $serverRequestFactory);
     }
 
-    public function testStream()
+    public function testStream(): void
     {
         $streamFactory = self::$factory->getStreamFactory();
 
-        $this->assertInstanceOf(StreamFactoryInterface::class, $streamFactory);
-        $this->assertInstanceOf(Psr17Factory::class, $streamFactory);
+        self::assertInstanceOf(StreamFactoryInterface::class, $streamFactory);
+        self::assertInstanceOf(Psr17Factory::class, $streamFactory);
     }
 
-    public function testUri()
+    public function testUri(): void
     {
         $uriFactory = self::$factory->getUriFactory();
 
-        $this->assertInstanceOf(UriFactoryInterface::class, $uriFactory);
-        $this->assertInstanceOf(Psr17Factory::class, $uriFactory);
+        self::assertInstanceOf(UriFactoryInterface::class, $uriFactory);
+        self::assertInstanceOf(Psr17Factory::class, $uriFactory);
     }
 
-    public function testUploadedFile()
+    public function testUploadedFile(): void
     {
         $uploadedFileFactory = self::$factory->getUploadedFileFactory();
 
-        $this->assertInstanceOf(UploadedFileFactoryInterface::class, $uploadedFileFactory);
-        $this->assertInstanceOf(Psr17Factory::class, $uploadedFileFactory);
+        self::assertInstanceOf(UploadedFileFactoryInterface::class, $uploadedFileFactory);
+        self::assertInstanceOf(Psr17Factory::class, $uploadedFileFactory);
     }
 }
