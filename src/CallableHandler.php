@@ -19,7 +19,7 @@ class CallableHandler implements MiddlewareInterface, RequestHandlerInterface
     /** @var callable */
     private $callable;
 
-    /** @var ResponseFactoryInterface */
+    /** @var ResponseFactoryInterface|null */
     private $responseFactory;
 
     public function __construct(callable $callable, ResponseFactoryInterface $responseFactory = null)
@@ -86,6 +86,7 @@ class CallableHandler implements MiddlewareInterface, RequestHandlerInterface
                 $return = ob_get_clean().$return;
             }
 
+            $return = (string) $return;
             $body = $response->getBody();
 
             if ($return !== '' && $body->isWritable()) {
