@@ -16,33 +16,43 @@ use RuntimeException;
  */
 class FactoryDiscovery implements FactoryInterface
 {
-    const DIACTOROS = [
-        'request' => 'Laminas\Diactoros\RequestFactory',
-        'response' => 'Laminas\Diactoros\ResponseFactory',
-        'serverRequest' => 'Laminas\Diactoros\ServerRequestFactory',
-        'stream' => 'Laminas\Diactoros\StreamFactory',
-        'uploadedFile' => 'Laminas\Diactoros\UploadedFileFactory',
-        'uri' => 'Laminas\Diactoros\UriFactory',
-    ];
-    const GUZZLE = 'GuzzleHttp\Psr7\HttpFactory';
-    const SLIM = [
-        'request' => 'Slim\Psr7\Factory\RequestFactory',
-        'response' => 'Slim\Psr7\Factory\ResponseFactory',
-        'serverRequest' => 'Slim\Psr7\Factory\ServerRequestFactory',
-        'stream' => 'Slim\Psr7\Factory\StreamFactory',
-        'uploadedFile' => 'Slim\Psr7\Factory\UploadedFileFactory',
-        'uri' => 'Slim\Psr7\Factory\UriFactory',
-    ];
-    const NYHOLM = 'Nyholm\Psr7\Factory\Psr17Factory';
-    const SUNRISE = [
-        'request' => 'Sunrise\Http\Message\RequestFactory',
-        'response' => 'Sunrise\Http\Message\ResponseFactory',
-        'serverRequest' => 'Sunrise\Http\ServerRequest\ServerRequestFactory',
-        'stream' => 'Sunrise\Stream\StreamFactory',
-        'uploadedFile' => 'Sunrise\Http\ServerRequest\UploadedFileFactory',
-        'uri' => 'Sunrise\Uri\UriFactory',
+    /** @var array<string, class-string> */
+    public const DIACTOROS = [
+        'request' => '\Laminas\Diactoros\RequestFactory',
+        'response' => '\Laminas\Diactoros\ResponseFactory',
+        'serverRequest' => '\Laminas\Diactoros\ServerRequestFactory',
+        'stream' => '\Laminas\Diactoros\StreamFactory',
+        'uploadedFile' => '\Laminas\Diactoros\UploadedFileFactory',
+        'uri' => '\Laminas\Diactoros\UriFactory',
     ];
 
+    /** @var array<string, class-string> */
+    public const GUZZLE = '\GuzzleHttp\Psr7\HttpFactory';
+
+    /** @var array<string, class-string> */
+    public const SLIM = [
+        'request' => '\Slim\Psr7\Factory\RequestFactory',
+        'response' => '\Slim\Psr7\Factory\ResponseFactory',
+        'serverRequest' => '\Slim\Psr7\Factory\ServerRequestFactory',
+        'stream' => '\Slim\Psr7\Factory\StreamFactory',
+        'uploadedFile' => '\Slim\Psr7\Factory\UploadedFileFactory',
+        'uri' => '\Slim\Psr7\Factory\UriFactory',
+    ];
+
+    /** @var array<string, class-string> */
+    public const NYHOLM = '\Nyholm\Psr7\Factory\Psr17Factory';
+
+    /** @var array<string, class-string> */
+    public const SUNRISE = [
+        'request' => '\Sunrise\Http\Message\RequestFactory',
+        'response' => '\Sunrise\Http\Message\ResponseFactory',
+        'serverRequest' => '\Sunrise\Http\ServerRequest\ServerRequestFactory',
+        'stream' => '\Sunrise\Stream\StreamFactory',
+        'uploadedFile' => '\Sunrise\Http\ServerRequest\UploadedFileFactory',
+        'uri' => '\Sunrise\Uri\UriFactory',
+    ];
+
+    /** @var array<array<string, class-string>> */
     private $strategies = [
         self::DIACTOROS,
         self::GUZZLE,
@@ -53,8 +63,12 @@ class FactoryDiscovery implements FactoryInterface
 
     private $factory;
 
+    /** @var array */
     private $factories = [];
 
+    /**
+     * @param array $strategies
+     */
     public function __construct(...$strategies)
     {
         if (!empty($strategies)) {
@@ -70,7 +84,7 @@ class FactoryDiscovery implements FactoryInterface
         return $this->strategies;
     }
 
-    public function setRequestFactory(RequestFactoryInterface $requestFactory)
+    public function setRequestFactory(RequestFactoryInterface $requestFactory): void
     {
         $this->factories['request'] = $requestFactory;
     }
@@ -80,7 +94,7 @@ class FactoryDiscovery implements FactoryInterface
         return $this->getFactory('request');
     }
 
-    public function setResponseFactory(ResponseFactoryInterface $responseFactory)
+    public function setResponseFactory(ResponseFactoryInterface $responseFactory): void
     {
         $this->factories['response'] = $responseFactory;
     }
@@ -90,7 +104,7 @@ class FactoryDiscovery implements FactoryInterface
         return $this->getFactory('response');
     }
 
-    public function setServerRequestFactory(ServerRequestFactoryInterface $serverRequestFactory)
+    public function setServerRequestFactory(ServerRequestFactoryInterface $serverRequestFactory): void
     {
         $this->factories['serverRequest'] = $serverRequestFactory;
     }
@@ -100,7 +114,7 @@ class FactoryDiscovery implements FactoryInterface
         return $this->getFactory('serverRequest');
     }
 
-    public function setStreamFactory(StreamFactoryInterface $streamFactory)
+    public function setStreamFactory(StreamFactoryInterface $streamFactory): void
     {
         $this->factories['stream'] = $streamFactory;
     }
@@ -110,7 +124,7 @@ class FactoryDiscovery implements FactoryInterface
         return $this->getFactory('stream');
     }
 
-    public function setUploadedFileFactory(UploadedFileFactoryInterface $uploadedFileFactory)
+    public function setUploadedFileFactory(UploadedFileFactoryInterface $uploadedFileFactory): void
     {
         $this->factories['uploadedFile'] = $uploadedFileFactory;
     }
@@ -120,7 +134,7 @@ class FactoryDiscovery implements FactoryInterface
         return $this->getFactory('uploadedFile');
     }
 
-    public function setUriFactory(UriFactoryInterface $uriFactory)
+    public function setUriFactory(UriFactoryInterface $uriFactory): void
     {
         $this->factories['uri'] = $uriFactory;
     }
