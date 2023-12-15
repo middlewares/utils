@@ -36,7 +36,7 @@ class RequestHandlerContainer implements ContainerInterface
     }
 
     /**
-     * @param  mixed                   $id
+     * @param  string                  $id
      * @return RequestHandlerInterface
      */
     public function get($id)

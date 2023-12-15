@@ -13,10 +13,10 @@ use Psr\Http\Message\UploadedFileFactoryInterface;
 use Psr\Http\Message\UriFactoryInterface;
 use Sunrise\Http\Message\RequestFactory;
 use Sunrise\Http\Message\ResponseFactory;
-use Sunrise\Http\ServerRequest\ServerRequestFactory;
-use Sunrise\Http\ServerRequest\UploadedFileFactory;
-use Sunrise\Stream\StreamFactory;
-use Sunrise\Uri\UriFactory;
+use Sunrise\Http\Message\ServerRequestFactory;
+use Sunrise\Http\Message\StreamFactory;
+use Sunrise\Http\Message\UploadedFileFactory;
+use Sunrise\Http\Message\UriFactory;
 
 class FactorySunriseTest extends TestCase
 {
