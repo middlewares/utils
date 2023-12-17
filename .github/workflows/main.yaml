@@ -13,14 +13,14 @@ jobs:
 
         steps:
             - name: Checkout
-              uses: actions/checkout@v2
+              uses: actions/checkout@v4
 
             - name: Validate composer.json and composer.lock
               run: composer validate
 
             - name: Cache Composer packages
               id: composer-cache
-              uses: actions/cache@v2
+              uses: actions/cache@v3
               with:
                 path: vendor
                 key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
@@ -41,18 +41,15 @@ jobs:
         strategy:
             matrix:
               php:
-                - 7.2
-                - 7.3
-                - 7.4
+                - 8.1
+                - 8.2
+                - 8.3
               composer-args: [ "" ]
-              include:
-                - php: 8.0
-                  composer-args: --ignore-platform-reqs
             fail-fast: false
 
         steps:
             - name: Checkout
-              uses: actions/checkout@v2
+              uses: actions/checkout@v4
 
             - name: Install PHP
               uses: shivammathur/setup-php@v2
@@ -60,7 +57,7 @@ jobs:
                   php-version: ${{ matrix.php }}
 
             - name: Cache PHP dependencies
-              uses: actions/cache@v2
+              uses: actions/cache@v3
               with:
                   path: vendor
                   key: ${{ runner.os }}-php-${{ matrix.php }}-composer-${{ hashFiles('**/composer.json') }}

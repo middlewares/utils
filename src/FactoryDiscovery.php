@@ -26,7 +26,7 @@ class FactoryDiscovery implements FactoryInterface
         'uri' => '\Laminas\Diactoros\UriFactory',
     ];
 
-    /** @var array<string, class-string> */
+    /** @var string */
     public const GUZZLE = '\GuzzleHttp\Psr7\HttpFactory';
 
     /** @var array<string, class-string> */
@@ -39,20 +39,20 @@ class FactoryDiscovery implements FactoryInterface
         'uri' => '\Slim\Psr7\Factory\UriFactory',
     ];
 
-    /** @var array<string, class-string> */
+    /** @var string */
     public const NYHOLM = '\Nyholm\Psr7\Factory\Psr17Factory';
 
     /** @var array<string, class-string> */
     public const SUNRISE = [
         'request' => '\Sunrise\Http\Message\RequestFactory',
         'response' => '\Sunrise\Http\Message\ResponseFactory',
-        'serverRequest' => '\Sunrise\Http\ServerRequest\ServerRequestFactory',
-        'stream' => '\Sunrise\Stream\StreamFactory',
-        'uploadedFile' => '\Sunrise\Http\ServerRequest\UploadedFileFactory',
-        'uri' => '\Sunrise\Uri\UriFactory',
+        'serverRequest' => '\Sunrise\Http\Message\ServerRequestFactory',
+        'stream' => '\Sunrise\Http\Message\StreamFactory',
+        'uploadedFile' => '\Sunrise\Http\Message\UploadedFileFactory',
+        'uri' => '\Sunrise\Http\Message\UriFactory',
     ];
 
-    /** @var array<array<string, class-string>> */
+    /** @var array<array<string, class-string>|string> */
     private $strategies = [
         self::DIACTOROS,
         self::GUZZLE,
