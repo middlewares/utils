@@ -43,6 +43,9 @@ abstract class Factory
         return self::getFactory()->getRequestFactory();
     }
 
+    /**
+     * @param UriInterface|string $uri
+     */
     public static function createRequest(string $method, $uri): RequestInterface
     {
         return self::getRequestFactory()->createRequest($method, $uri);
@@ -63,6 +66,9 @@ abstract class Factory
         return self::getFactory()->getServerRequestFactory();
     }
 
+    /**
+     * @param UriInterface|string $uri
+     */
     public static function createServerRequest(string $method, $uri, array $serverParams = []): ServerRequestInterface
     {
         return self::getServerRequestFactory()->createServerRequest($method, $uri, $serverParams);

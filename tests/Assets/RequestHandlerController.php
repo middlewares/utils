@@ -11,5 +11,10 @@ final class RequestHandlerController implements RequestHandlerInterface
 {
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        $testcase = new TestCase('controller');
+        /** @var ResponseInterface $stub */
+        $stub = $testcase->makeStub(ResponseInterface::class);
+
+        return $stub;
     }
 }

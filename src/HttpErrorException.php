@@ -9,7 +9,7 @@ use Throwable;
 
 class HttpErrorException extends Exception
 {
-    /** @var array<int, string>  */
+    /** @var array<int, string> */
     private static $phrases = [
         // CLIENT ERROR
         400 => 'Bad Request',
