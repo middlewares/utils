@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Updated dependencies and tests
 
 ### Removed
-- Support for PHP prior to 8.2.
+- Support for PHP prior to 8.1.
 
 ## [3.3.0] - 2021-07-04
 ### Added
