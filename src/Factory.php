@@ -91,10 +91,10 @@ abstract class Factory
 
     public static function createUploadedFile(
         StreamInterface $stream,
-        int $size = null,
+        ?int $size = null,
         int $error = \UPLOAD_ERR_OK,
-        string $filename = null,
-        string $mediaType = null
+        ?string $filename = null,
+        ?string $mediaType = null
     ): UploadedFileInterface {
         return self::getUploadedFileFactory()->createUploadedFile($stream, $size, $error, $filename, $mediaType);
     }
