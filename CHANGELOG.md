@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [4.0.1] - 2024-11-21
+### Fixed
+- Support for Php 8.4 [#29].
+
 ## [4.0.0] - 2023-12-17
 ### Added
 - Support for psr/http-message 2.x (if you don't use slim/psr7 or sunrise/http-message as factory)
@@ -218,7 +222,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 [#22]: https://github.com/middlewares/utils/issues/22
 [#23]: https://github.com/middlewares/utils/issues/23
 [#26]: https://github.com/middlewares/utils/issues/26
+[#29]: https://github.com/middlewares/utils/issues/29
 
+[4.0.1]: https://github.com/middlewares/utils/compare/v4.0.0...v4.0.1
 [4.0.0]: https://github.com/middlewares/utils/compare/v3.3.0...v4.0.0
 [3.3.0]: https://github.com/middlewares/utils/compare/v3.2.0...v3.3.0
 [3.2.0]: https://github.com/middlewares/utils/compare/v3.1.0...v3.2.0
