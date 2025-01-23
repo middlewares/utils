@@ -18,7 +18,7 @@ class Dispatcher implements RequestHandlerInterface
     /**
      * Static helper to create and dispatch a request.
      */
-    public static function run(array $stack, ServerRequestInterface $request = null): ResponseInterface
+    public static function run(array $stack, ?ServerRequestInterface $request = null): ResponseInterface
     {
         if ($request === null) {
             $request = Factory::createServerRequest('GET', '/');
