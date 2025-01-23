@@ -66,7 +66,7 @@ class HttpErrorException extends Exception
      *
      * @param int $code A valid http error code
      */
-    public static function create(int $code = 500, array $context = [], Throwable $previous = null): self
+    public static function create(int $code = 500, array $context = [], ?Throwable $previous = null): self
     {
         if (!isset(self::$phrases[$code])) {
             throw new RuntimeException("Http error not valid ({$code})");
