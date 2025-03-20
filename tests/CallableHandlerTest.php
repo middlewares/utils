@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 namespace Middlewares\Tests;
 
+use Exception;
 use Middlewares\Utils\CallableHandler;
 use Middlewares\Utils\Factory;
 use PHPUnit\Framework\TestCase;
@@ -53,7 +54,7 @@ class CallableHandlerTest extends TestCase
             echo 'Hello';
             ob_start();
             echo 'Hello';
-            throw new \Exception('Error Processing Request');
+            throw new Exception('Error Processing Request');
         });
 
         ob_start();
@@ -61,7 +62,7 @@ class CallableHandlerTest extends TestCase
 
         try {
             $callable();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
         }
 
         self::assertSame($level, ob_get_level());
