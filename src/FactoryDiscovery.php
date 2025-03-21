@@ -151,7 +151,6 @@ class FactoryDiscovery implements FactoryInterface
      */
     private function getFactory(string $type)
     {
-        var_dump($this->factories);
         if (!empty($this->factories[$type])) {
             return $this->factories[$type];
         }
