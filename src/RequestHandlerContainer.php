@@ -16,9 +16,12 @@ use ReflectionMethod;
  */
 class RequestHandlerContainer implements ContainerInterface
 {
-    /** @var array */
+    /** @var mixed[] */
     protected $constructorArguments;
 
+    /**
+     * @param mixed[] $constructorArguments
+     */
     public function __construct(array $constructorArguments = [])
     {
         $this->constructorArguments = $constructorArguments;
@@ -36,7 +39,7 @@ class RequestHandlerContainer implements ContainerInterface
     }
 
     /**
-     * @param  string                  $id
+     * @param  class-string|string     $id
      * @return RequestHandlerInterface
      */
     public function get($id)
@@ -58,6 +61,10 @@ class RequestHandlerContainer implements ContainerInterface
         }
     }
 
+    /**
+     * @param  class-string|string $handler
+     * @return mixed
+     */
     protected function resolve(string $handler)
     {
         $handler = $this->split($handler);

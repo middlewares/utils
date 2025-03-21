@@ -58,6 +58,8 @@ class CallableHandler implements MiddlewareInterface, RequestHandlerInterface
 
     /**
      * Execute the callable.
+     *
+     * @param array<int,ServerRequestInterface|RequestHandlerInterface> $arguments
      */
     private function execute(array $arguments = []): ResponseInterface
     {

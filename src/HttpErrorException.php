@@ -58,13 +58,14 @@ class HttpErrorException extends Exception
         599 => 'Network Connect Timeout Error',
     ];
 
-    /** @var array */
+    /** @var array<string, mixed> */
     private $context = [];
 
     /**
      * Create and returns a new instance
      *
-     * @param int $code A valid http error code
+     * @param int                 $code    A valid http error code
+     * @param array<string,mixed> $context
      */
     public static function create(int $code = 500, array $context = [], ?Throwable $previous = null): self
     {
@@ -78,6 +79,9 @@ class HttpErrorException extends Exception
         return $exception;
     }
 
+    /**
+     * @return array<string,mixed>
+     */
     public function getContext(): array
     {
         return $this->context;

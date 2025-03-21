@@ -1,10 +1,7 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Unsafe usage of new static\\(\\)\\.$#"
-			count: 1
-			path: src/Dispatcher.php
-
+		    identifier: "new.static"
 		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1

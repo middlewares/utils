@@ -54,6 +54,7 @@ class DispatcherTest extends TestCase
     {
         $this->expectException('UnexpectedValueException');
 
+        /** @phpstan-ignore-next-line */
         $response = Dispatcher::run(['']);
     }
 }
