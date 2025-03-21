@@ -67,7 +67,8 @@ abstract class Factory
     }
 
     /**
-     * @param UriInterface|string $uri
+     * @param UriInterface|string   $uri
+     * @param array<string, string> $serverParams
      */
     public static function createServerRequest(string $method, $uri, array $serverParams = []): ServerRequestInterface
     {
