@@ -52,7 +52,7 @@ class FactoryDiscovery implements FactoryInterface
         'uri' => '\Sunrise\Http\Message\UriFactory',
     ];
 
-    /** @var array<array<string, class-string>|string> */
+    /** @var array<mixed> */
     private $strategies = [
         self::DIACTOROS,
         self::GUZZLE,
@@ -63,11 +63,11 @@ class FactoryDiscovery implements FactoryInterface
 
     private $factory;
 
-    /** @var array */
+    /** @var array<string, mixed> */
     private $factories = [];
 
     /**
-     * @param array $strategies
+     * @param array<mixed> $strategies
      */
     public function __construct(...$strategies)
     {
@@ -78,6 +78,8 @@ class FactoryDiscovery implements FactoryInterface
 
     /**
      * Get the strategies
+     *
+     * @return array<mixed>
      */
     public function getStrategies(): array
     {
@@ -160,7 +162,6 @@ class FactoryDiscovery implements FactoryInterface
         foreach ($this->strategies as $className) {
             if (is_array($className) && isset($className[$type])) {
                 $className = $className[$type];
-
                 if (class_exists($className)) {
                     return $this->factories[$type] = new $className();
                 }
@@ -168,6 +169,7 @@ class FactoryDiscovery implements FactoryInterface
                 continue;
             }
 
+            /* @phpstan-ignore-next-line */
             if (!class_exists($className)) {
                 continue;
             }
